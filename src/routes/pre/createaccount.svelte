@@ -1,4 +1,6 @@
 <script>
+    import {jwt} from "/src/stores/jwt.js";
+
     let fname;
     let lname;
     let email;
@@ -19,13 +21,14 @@
                 }),
             }); 
             const data = await submit.json();
-            console.log(data);
+            jwt.set(data);
         } catch (err){
             console.log(err)
         } 
     };
 
 </script>
+
 <h1 class = "intro" >Let's Get Started</h1>
 <body>
 <form on:submit|preventDefault = {submitForm}>
@@ -148,7 +151,9 @@ background-color: black;
   display: table;
 }
 
-/* .signintbtn {
+</style> 
+
+<!-- /* .signintbtn {
 position: absolute;
 width: 456px;
 height: 73.55px;
@@ -161,8 +166,8 @@ background-color: black;
   .cancelbtn, .signupbtn {
      width: 100%;
   }
-} */
+} */  -->
 
 
-</style>
+
 
