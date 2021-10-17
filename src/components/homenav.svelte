@@ -1,4 +1,4 @@
-<!-- <script lang="js">
+<script lang="ts">
   import {
     Collapse,
     Navbar,
@@ -24,10 +24,10 @@
     rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
   />
-</svelte:head> -->
+</svelte:head> 
 
-<!-- svelte-ignore missing-declaration -->
-<!-- <Navbar color="white" light expand="md">
+
+<Navbar color="white" light expand="md">
   <NavbarBrand href="/">StrengthN</NavbarBrand>
   <NavbarToggler on:click={() => (isOpen = !isOpen)} />
   <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
@@ -36,7 +36,7 @@
         <NavLink href="#Administrator/">Administrator</NavLink>
       </NavItem>
       <NavItem>
-        <Button class="login" >Log in</Button>
+        <Button class="login" href="pre/signin" >Log in</Button>
       </NavItem>
       <Dropdown nav inNavbar>
         <DropdownToggle nav caret>Options</DropdownToggle>
@@ -49,4 +49,4 @@
       </Dropdown>
     </Nav>
   </Collapse>
-</Navbar> -->
+</Navbar>
