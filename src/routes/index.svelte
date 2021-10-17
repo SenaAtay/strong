@@ -4,13 +4,13 @@
 
 
 <script> 
-    import Nav from "/Users/walikhan/Desktop/Code.nosync/strong/src/components/homenav.svelte"
+    import Nav from "/src/components/homenav.svelte"
     let title = "Strength N Number";
     let src = "/connections.jpg";
     </script>
     
     
-   <Nav/> 
+    <Nav/>
     
     <h1 class="title">{title}</h1>
     

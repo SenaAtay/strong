@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="js">
   import {
     Collapse,
     Navbar,
@@ -26,7 +26,7 @@
   />
 </svelte:head> 
 
-
+<!-- svelte-ignore missing-declaration -->
 <Navbar color="white" light expand="md">
   <NavbarBrand href="/">StrengthN</NavbarBrand>
   <NavbarToggler on:click={() => (isOpen = !isOpen)} />

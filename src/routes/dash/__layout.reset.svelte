@@ -1,4 +1,5 @@
 <script>
-    import Nav from "/Users/walikhan/Desktop/Code.nosync/strong/src/components"
+    import Nav from "/src/components"
 </script>
 <Nav/>
+<slot></slot>
