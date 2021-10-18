@@ -37,7 +37,9 @@
     };
 
 </script>
-
+<a href="/">
+<h2 class="logo" href="/"> StregthN </h2>
+</a>
 <h1 class = "intro" >Let's Get Started</h1>
 <body>
 <form on:submit|preventDefault = {submitForm}>
@@ -50,8 +52,9 @@
 <div class="clearfix">
     <button type="submit" class="createaccountbtn">Create Account</button>
 </div>
+<h3>or</h3>
 <a href="/pre/signin">  
-    <button>Sign In</button>
+    <button class = "signin">Sign In</button>
 </a>
 </div>
 </form>
@@ -66,7 +69,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 position: absolute;
 width: 266px;
 height: 160px;
-left: 732px;
+left: 532px;
 top: 152px;
 font-family: Roboto;
 font-style: normal;
@@ -81,7 +84,7 @@ input[type=fname]{
 position: absolute;
 width: 456px;
 height: 73px;
-left: 732px;
+left: 532px;
 top: 328px;
 border: 2px solid #D2D6DB;
 box-sizing: border-box;
@@ -91,7 +94,7 @@ input[type=lname]{
 position: absolute;
 width: 456px;
 height: 73px;
-left: 732px;
+left: 532px;
 top: 416px;
 border: 2px solid #D2D6DB;
 box-sizing: border-box;
@@ -102,7 +105,7 @@ input[type=text]{
 position: absolute;
 width: 456px;
 height: 74px;
-left: 732px;
+left: 532px;
 top: 506px;
 border: 2px solid #DBD3D2;
 box-sizing: border-box;
@@ -113,7 +116,7 @@ input[type=password]{
 position: absolute;
 width: 456px;
 height: 74px;
-left: 732px;
+left: 532px;
 top: 592px;
 border: 2px solid #D2D6DB;
 box-sizing: border-box;
@@ -143,9 +146,11 @@ button:hover {
     position: absolute;
 width: 456px;
 height: 73.55px;
-left: 732px;
-top: 708px;
+left: 532px;
+top: 680px;
 background-color: black;
+box-sizing: border-box;
+border-radius: 9px;
 }
 
 .container {
@@ -158,6 +163,30 @@ background-color: black;
   display: table;
 }
 
+.signin{
+  position: absolute;
+width: 456px;
+height: 73.55px;
+left: 532px;
+top: 790px;
+
+
+ background-color: transparent;
+    color: #D2D6DB; 
+  border: 2px solid #D2D6DB;
+box-sizing: border-box;
+border-radius: 9px;
+}
+
+h3{
+  position: absolute;
+width: 456px;
+height: 73.55px;
+left: 745px;
+top: 760px;
+}
+
+a, a.logo { text-decoration: none; color:black; }
 </style> 
 
 <!-- /* .signintbtn {
