@@ -2,16 +2,16 @@
 import {writable}  from "svelte/store";
 import {jwt} from "./jwt";
 
-export const dash = writable({});
+export const messages = writable({});
 
-export const loadDash = async () =>{
+export const loadMessages = async () =>{
     try {
         let njwt;
         const unsubscribe = jwt.subscribe(value => {
             njwt = value;
         })
         console.log(njwt)
-        const submit = await fetch("https://strengthn.herokuapp.com/user/home", {
+        const submit = await fetch("https://strengthn.herokuapp.com/user/messages", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -20,9 +20,7 @@ export const loadDash = async () =>{
         }); 
 
         const data = await submit.json();
-        const parsedData= JSON.parse(data);
-        console.log(parsedData)
-        dash.set(parsedData);
+        messages.set(data);
 
     } catch (err){
         console.log(err)

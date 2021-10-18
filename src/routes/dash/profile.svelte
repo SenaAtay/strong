@@ -1,5 +1,5 @@
 <script>
-    import Signout from "/src/components/signout.svelte"
+    import Signout from "../../components/signout.svelte"
 </script>
 
 <svelte:head>
