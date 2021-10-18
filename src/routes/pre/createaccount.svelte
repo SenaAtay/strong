@@ -21,6 +21,7 @@
                 }),
             }); 
             const data = await submit.json();
+            console.log(data)
             jwt.set(data);
         } catch (err){
             console.log(err)
