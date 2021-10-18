@@ -41,7 +41,7 @@ const submitForm = async () =>{
         loadDash();
     })
     let userInfo;
-    const unsubscribe = dash.subscribe(value => {
+        const unsubscribe = dash.subscribe(value => {
         userInfo = value;
     })
     $: groups = userInfo.groups;
@@ -51,7 +51,7 @@ const submitForm = async () =>{
 
 </script>
 
-    <h1>{groups[0].loc}</h1>
+   
     <Signout/>
  
 
