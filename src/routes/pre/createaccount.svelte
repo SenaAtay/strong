@@ -22,11 +22,13 @@
                 }),
             }); 
             
+            const predata = await submit;
             const data = await submit.json();
             console.log("consoling dat", data);
             jwt.set(data);
-            if (data.ok){
-              goto('/dash/dashboard');
+            console.log(data.ok);
+            if (predata.ok){
+              goto('../dash/dashboard');
             }
           
         } catch (err){
