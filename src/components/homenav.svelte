@@ -38,7 +38,7 @@
       <NavItem>
         <Button class="login" href="pre/signin" >Log in</Button>
       </NavItem>
-      <Dropdown nav inNavbar>
+      <!-- <Dropdown nav inNavbar>
         <DropdownToggle nav caret>Options</DropdownToggle>
         <DropdownMenu right>
           <DropdownItem>Option 1</DropdownItem>
@@ -46,7 +46,7 @@
           <DropdownItem divider />
           <DropdownItem>Reset</DropdownItem>
         </DropdownMenu>
-      </Dropdown>
+      </Dropdown> -->
     </Nav>
   </Collapse>
 </Navbar>
