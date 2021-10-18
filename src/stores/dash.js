@@ -10,7 +10,7 @@ export const loadDash = async () =>{
         const unsubscribe = jwt.subscribe(value => {
             njwt = value;
         })
-        console.log(njwt)
+        // console.log(njwt)
         const submit = await fetch("https://strengthn.herokuapp.com/user/home", {
             method: "GET",
             headers: {

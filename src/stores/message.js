@@ -1,8 +1,7 @@
-
 import {writable}  from "svelte/store";
 import {jwt} from "./jwt";
 
-export const messages = writable({});
+export const messages = writable([]);
 
 export const loadMessages = async () =>{
     try {

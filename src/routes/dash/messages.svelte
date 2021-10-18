@@ -60,10 +60,14 @@ fetch("https://strengthn.herokuapp.com/user/messages/4", requestOptions)
 
 {:else}
 {#each userInfo as {created_at, groupid, message, userid}}
-<div href = "">
+
+<a href =  {`/dash/messages/${groupid}`}>
+ 
+<div>
 <h1>Group: {groupid}</h1>
 <p>Most Recent Message:{message}</p>
 </div>
+</a>
 
 {/each}
 
