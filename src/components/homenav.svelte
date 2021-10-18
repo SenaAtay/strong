@@ -27,6 +27,7 @@
 </svelte:head> 
 
 <!-- svelte-ignore missing-declaration -->
+
 <Navbar color="white" light expand="md">
   <NavbarBrand href="/">StrengthN</NavbarBrand>
   <NavbarToggler on:click={() => (isOpen = !isOpen)} />
@@ -36,7 +37,7 @@
         <NavLink href="#Administrator/">Administrator</NavLink>
       </NavItem>
       <NavItem>
-        <Button class="login" href="pre/signin" >Log in</Button>
+        <Button class="login" href="pre/signin" style= "background-color: black">Log in</Button>
       </NavItem>
       <!-- <Dropdown nav inNavbar>
         <DropdownToggle nav caret>Options</DropdownToggle>
