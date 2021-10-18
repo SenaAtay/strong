@@ -60,7 +60,11 @@
     };
 
 </script>
+<a href="/">
+<h2 class="logo" href="/"> StregthN </h2>
+</a>
 <h1 class= "welc">Welcome Back</h1>
+
 <body>
 <form on:submit|preventDefault = {submitForm}>
 <div class="container">
@@ -128,11 +132,13 @@ border-radius: 9px;
     height: 74.55px;
     left: 532px;
     top: 651px;
-    background-color: black;
-    color: white;
-    font-family: Roboto;
-font-style: normal;
+    background-color: transparent;
+    color: #D2D6DB; 
+  border: 2px solid #D2D6DB;
+box-sizing: border-box;
 border-radius: 9px;
+
+/* border: 2px solid #D2D6DB */
     }
 
     .welc{
@@ -148,8 +154,9 @@ font-weight: 500;
 font-size: 65px;
 line-height: 123%;
 /* or 80px */
-
-
 color: #000000;
-    }
+}
+
+a, a.logo { text-decoration: none; color:black; }
+    
 </style>
