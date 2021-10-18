@@ -28,16 +28,17 @@ const submitForm = async () =>{
 
 // console.log("after", parsedData)
 
-</script> -->
+</script> 
+ -->
 
 <script>
     import {dash} from "../../stores/dash";
-    console.log($dash)
+    import Signout from "../../components/signout.svelte"
+    
+
+    console.log("sss" , $dash)
 </script>
 
-<!-- <form on:submit|preventDefault = {submitForm}>
-    <button type="submit" >dash</button>
     <Signout/>
  
 
-</form> -->

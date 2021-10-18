@@ -47,7 +47,7 @@
             
             const predata = await submit;
             const data = await submit.json();
-            // console.log("consoling data", data);
+            //console.log("consoling data", data);
             jwt.set(data);
 
             if (predata.ok){

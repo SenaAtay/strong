@@ -5,32 +5,29 @@ import {jwt} from "./jwt";
 
 // console.log($jwt);
 
-export const dash = writable([]);
+export const dash = writable({});
 
 const loadDash = async () =>{
     try {
-        console.log("sss", jwt);
+        let njwt;
+        const unsubscribe = jwt.subscribe(value => {
+            njwt = value;
+        })
+        console.log(njwt)
         const submit = await fetch("https://strengthn.herokuapp.com/user/home", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                "token": JSON.stringify(jwt)
+                "token": JSON.stringify(njwt)
             },
         }); 
         
-        try{
-         const data = await submit.json();
-        console.log("consoling data", data)
+     
+        const data = await submit.json();
         const parsedData= JSON.parse(data);
-        console.log("consoloing", parsedData)
-
-        } catch (err){
-            console.log(err)
-        }
+        console.log(parsedData)
+        dash.set(parsedData);
         
-      
-
-        dash.set(parsedData.groups);
 
 
         
