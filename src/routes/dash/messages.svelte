@@ -1,10 +1,6 @@
-
 <svelte:head>
     <title>Messages</title>
 </svelte:head>
-
-
-
 <!-- <script>
 
 import Signout from "/src/components/signout.svelte"
@@ -39,38 +35,39 @@ fetch("https://strengthn.herokuapp.com/user/messages/4", requestOptions)
   import Signout from "../../components/signout.svelte";
   import { loadMessages } from "../../stores/message";
   import { onMount } from "svelte";
-  // import Messages from "./messages.svelte";
-  import { start_hydrating } from "svelte/internal";
   onMount(async() => {
       loadMessages();
   })
+
   let userInfo;
       const unsubscribe = messages.subscribe(value => {
       userInfo = value;
   })
 
+  // $: messages = userInfo;
   $: console.log(userInfo)
 
-  // $: console.log(groups)
+  // // $: console.log(groups)
   // $: groups = userInfo.groups;
   // $: messages = userInfo.messages;
   // $: org = userInfo.org;
   // $: user = userInfo.user;
 
 </script>
-<!-- {#if groups == undefined} 
-<h1>You have no meetings scheduled</h1>
+
+{#if userInfo == undefined} 
+<h1>You have no messages</h1>
 
 {:else}
-{#each groups as {starttime, endtime, groupname, loc, dati}}
-<div > 
-  <h1>{groupname}</h1>
-
-
+{#each userInfo as {created_at, groupid, message, userid}}
+<div href = "">
+<h1>Group: {groupid}</h1>
+<p>Most Recent Message:{message}</p>
 </div>
+
 {/each}
 
-{/if} -->
+{/if}
 <h1>Messages</h1>
   
  
