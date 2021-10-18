@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import {jwt} from "/src/stores/jwt.js";
     import Signout from "/src/components/signout.svelte"
 
@@ -28,10 +28,16 @@ const submitForm = async () =>{
 
 // console.log("after", parsedData)
 
+</script> -->
+
+<script>
+    import {dash} from "../../stores/dash";
+    console.log($dash)
 </script>
-<form on:submit|preventDefault = {submitForm}>
+
+<!-- <form on:submit|preventDefault = {submitForm}>
     <button type="submit" >dash</button>
     <Signout/>
  
 
-</form>
+</form> -->
