@@ -1,3 +1,6 @@
+<!-- <script>
+    import Signout from "/src/components/signout.svelte"
+</script> -->
 <svelte:head>
     <title>Messages</title>
 </svelte:head>
@@ -7,6 +10,8 @@
 
 
 <script>
+
+import Signout from "/src/components/signout.svelte"
 
 var myHeaders = new Headers();
 myHeaders.append("token", "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMDIxYzdhMjktNjMxMi00YThlLTk4OTQtZGEyZTc3NThiYWZmIn0sImlhdCI6MTYzNDUyMzc2OSwiZXhwIjoxNjM0NTI3MzY5fQ.C94-82dKLmICGrN1fOj5-y5Vlg_iVPFkuu1avAfj_yw\"");

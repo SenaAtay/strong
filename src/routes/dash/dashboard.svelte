@@ -1,5 +1,37 @@
-<!-- <script>
+<script>
     import {jwt} from "/src/stores/jwt.js";
-</script>
+    import Signout from "/src/components/signout.svelte"
 
-<h1>{$jwt}</h1> -->
+// console.log("i'm consoling", JSON.stringify($jwt));
+
+
+const submitForm = async () =>{
+    try {
+        const submit = await fetch("https://strengthn.herokuapp.com/user/home", {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                "token": JSON.stringify($jwt)
+            },
+        }); 
+
+        const data = await submit.json();
+        console.log(data)
+        const storedData= JSON.parse(data);
+        console.log(storedData)
+
+        
+    } catch (err){
+        console.log(err)
+    } 
+};
+
+// console.log("after", parsedData)
+
+</script>
+<form on:submit|preventDefault = {submitForm}>
+    <button type="submit" >dash</button>
+    <Signout/>
+ 
+
+</form>

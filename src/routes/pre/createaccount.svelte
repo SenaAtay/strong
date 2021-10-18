@@ -1,5 +1,6 @@
 <script>
     import {jwt} from "/src/stores/jwt.js";
+    import { goto } from '$app/navigation';
 
     let fname;
     let lname;
@@ -21,11 +22,13 @@
                 }),
             }); 
             
-            
             const data = await submit.json();
-            console.log(data)
-
+            console.log("consoling dat", data);
             jwt.set(data);
+            if (data.ok){
+              goto('/dash/dashboard');
+            }
+          
         } catch (err){
             console.log(err)
         } 
@@ -46,8 +49,6 @@
     <button type="submit" class="createaccountbtn">Create Account</button>
 </div>
 <a href="/pre/signin">  
-    <!-- <input type="submit" value = "Sign In"/>   -->
-    <!-- <input type="button" value = "Sign In" on:click = {"/login"}> -->
     <button>Sign In</button>
 </a>
 </div>
