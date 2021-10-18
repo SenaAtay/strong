@@ -37,6 +37,7 @@ const submitForm = async () =>{
     import { loadDash } from "../../stores/dash"
     import { onMount } from "svelte";
     import Messages from "./messages.svelte";
+import { start_hydrating } from "svelte/internal";
     onMount(async() => {
         loadDash();
     })
@@ -44,13 +45,27 @@ const submitForm = async () =>{
         const unsubscribe = dash.subscribe(value => {
         userInfo = value;
     })
+    $: console.log(groups)
     $: groups = userInfo.groups;
     $: messages = userInfo.messages;
     $: org = userInfo.org;
     $: user = userInfo.user;
 
 </script>
+{#if groups == undefined} 
+<h1>You have no meetings scheduled</h1>
 
+{:else}
+{#each groups as {starttime, endtime, groupname, loc, dati}}
+<div > 
+    <h1>{groupname}</h1>
+
+
+</div>
+{/each}
+
+{/if}
+    
    
     <Signout/>
  
