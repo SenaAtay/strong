@@ -51,7 +51,7 @@
             jwt.set(data);
 
             if (predata.ok){
-              goto('/dash/dashboard');
+              goto('../dash/dashboard');
             }
           
         } catch (err){
