@@ -36,8 +36,7 @@ const submitForm = async () =>{
     import Signout from "../../components/signout.svelte"
     import { loadDash } from "../../stores/dash"
     import { onMount } from "svelte";
-    import Messages from "./messages.svelte";
-    import { start_hydrating } from "svelte/internal";
+
     onMount(async() => {
         loadDash();
     })
