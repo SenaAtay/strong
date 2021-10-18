@@ -34,11 +34,24 @@ const submitForm = async () =>{
 <script>
     import {dash} from "../../stores/dash";
     import Signout from "../../components/signout.svelte"
-    
+    import { loadDash } from "../../stores/dash"
+    import { onMount } from "svelte";
+    import Messages from "./messages.svelte";
+    onMount(async() => {
+        loadDash();
+    })
+    let userInfo;
+    const unsubscribe = dash.subscribe(value => {
+        userInfo = value;
+    })
+    $: groups = userInfo.groups;
+    $: messages = userInfo.messages;
+    $: org = userInfo.org;
+    $: user = userInfo.user;
 
-    console.log("sss" , $dash)
 </script>
 
+    <h1>{groups[0].loc}</h1>
     <Signout/>
  
 

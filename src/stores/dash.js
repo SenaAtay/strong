@@ -7,7 +7,7 @@ import {jwt} from "./jwt";
 
 export const dash = writable({});
 
-const loadDash = async () =>{
+export const loadDash = async () =>{
     try {
         let njwt;
         const unsubscribe = jwt.subscribe(value => {
@@ -21,16 +21,12 @@ const loadDash = async () =>{
                 "token": JSON.stringify(njwt)
             },
         }); 
-        
-     
+
         const data = await submit.json();
         const parsedData= JSON.parse(data);
         console.log(parsedData)
         dash.set(parsedData);
-        
 
-
-        
     } catch (err){
         console.log(err)
     } 
@@ -38,5 +34,5 @@ const loadDash = async () =>{
     
 };
 
-loadDash();
+
 
