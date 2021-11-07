@@ -37,6 +37,10 @@ const submitForm = async () =>{
     import { loadDash } from "../../stores/dash"
     import { onMount } from "svelte";
 
+    import { Button, Offcanvas } from 'sveltestrap';
+  let open = false;
+  const toggle = () => (open = !open);
+
     onMount(async() => {
         loadDash();
     })
@@ -49,6 +53,13 @@ const submitForm = async () =>{
     $: messages = userInfo.messages;
     $: org = userInfo.org;
     $: user = userInfo.user;
+
+
+
+
+
+
+    
 
 </script>
 
@@ -65,6 +76,13 @@ const submitForm = async () =>{
 {:else}
 <h2>Meetings</h2>
 {#each groups as {starttime, endtime, groupname, loc, dati}}
+
+<div class = "rectangle"></div>
+
+
+
+
+
 <div class="cards"> 
     <h3>{groupname}</h3>
     <div class="time">
@@ -82,6 +100,8 @@ const submitForm = async () =>{
 
     <p>where: {loc}</p>
 </div>
+
+
 {/each}
 
 {/if}
@@ -106,6 +126,19 @@ const submitForm = async () =>{
         padding: 20px;
         background-color: rgb(213, 225, 247);
         
+    }
+    .rectangle{
+        position: absolute;
+        width: 339px;
+        height: 1080px;
+        left: -8px;
+        top: 0px;
+
+        background: #47597E;
+        border: 1px solid #000000;
+        box-sizing: border-box;
+        border-radius: 5px;
+        z-index: -1;
     }
 </style>
 

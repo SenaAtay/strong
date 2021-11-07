@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import {jwt} from "../../../stores/jwt";
+   // import {jwt} from "../../../stores/jwt";
     import {page} from '$app/stores'
     $: meh = '';
     let message;
