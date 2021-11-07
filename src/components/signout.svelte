@@ -10,3 +10,25 @@
 </script>
 
 <button on:click|preventDefault = {signOut}>Sign Out</button>
+
+
+<style>
+ button{   
+
+font-family: Roboto;
+position: absolute;
+top: 380px;
+color:transparent;
+
+background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    color:white;
+
+
+
+ }
+</style>

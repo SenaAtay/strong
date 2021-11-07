@@ -30,117 +30,138 @@ const submitForm = async () =>{
 
 </script> 
  -->
-
 <script>
-    import {dash} from "../../stores/dash";
-    
-    import { loadDash } from "../../stores/dash"
-    import { onMount } from "svelte";
+	import { dash } from '../../stores/dash';
 
-    import { Button, Offcanvas } from 'sveltestrap';
-  let open = false;
-  const toggle = () => (open = !open);
+	import { loadDash } from '../../stores/dash';
+	import { onMount } from 'svelte';
 
-    onMount(async() => {
-        loadDash();
-    })
-    let userInfo;
-        const unsubscribe = dash.subscribe(value => {
-        userInfo = value;
-    })
-    $: console.log(groups)
-    $: groups = userInfo.groups;
-    $: messages = userInfo.messages;
-    $: org = userInfo.org;
-    $: user = userInfo.user;
-
-
-
-
-
-
-    
-
+	onMount(async () => {
+		loadDash();
+	});
+	let userInfo;
+	const unsubscribe = dash.subscribe((value) => {
+		userInfo = value;
+	});
+	$: console.log(groups);
+	$: groups = userInfo.groups;
+	$: messages = userInfo.messages;
+	$: org = userInfo.org;
+	$: user = userInfo.user;
 </script>
 
-{#if user == undefined} 
-<p>loading</p>
+{#if user == undefined}
+	<p>loading</p>
 {:else}
-<h3>Hi, {user[0].fname} {user[0].lname}</h3>
-
+	<h3 class="intro">Hi, {user[0].fname} {user[0].lname}</h3>
 {/if}
 
-{#if groups == undefined} 
-<h1>You have no meetings scheduled</h1>
-
+{#if groups == undefined}
+	<h1>You have no meetings scheduled</h1>
 {:else}
-<h2>Meetings</h2>
-{#each groups as {starttime, endtime, groupname, loc, dati}}
+	<h2 style="color:white">Meetings</h2>
+	{#each groups as { starttime, endtime, groupname, loc, dati }}
+		<div class="rectangle" />
 
-<div class = "rectangle"></div>
+		<div class="cardHead">
+			<div class="cardBody">
+				<h3 class="meet">Upcoming Meetings</h3>
 
+				<div class="box">
+					<h3>{groupname}</h3>
+					<div class="time">
+						<div>
+							<p>Start Time</p>
+							<div>{starttime}</div>
+						</div>
 
+						<div>
+							<p>End Time</p>
+							<div>{endtime}</div>
+						</div>
+					</div>
 
-
-
-<div class="cards"> 
-    <h3>{groupname}</h3>
-    <div class="time">
-        <div>
-            <p>Start Time</p>
-            <div>{starttime}</div>
-        </div>
-        
-        <div>
-            <p>End Time</p>
-            <div>{endtime}</div>
-        </div>
-
-    </div>
-
-    <p>where: {loc}</p>
-</div>
-
-
-{/each}
-
+					<p>where: {loc}</p>
+				</div>
+			</div>
+		</div>
+	{/each}
 {/if}
-    
-   
- 
 
 <style>
-    *{
-        margin: 0;
-      
-    }
-    .time {
-        display: flex;
-        flex-direction: row;
-        align-content: space-between;
-        gap: 30px;
-    }
-    .cards {
-        max-width: 500px;
-        margin: 10px;
-        padding: 20px;
-        background-color: rgb(213, 225, 247);
-        
-    }
-    .rectangle{
-        position: absolute;
-        width: 339px;
-        height: 1080px;
-        left: -8px;
-        top: 0px;
+	* {
+		margin: 0;
+	}
+	.meet {
+		position: absolute;
+		width: 206px;
+		height: 98px;
+		left: 68px;
+		top: 160px;
 
-        background: #47597E;
-        border: 1px solid #000000;
-        box-sizing: border-box;
-        border-radius: 5px;
-        z-index: -1;
-    }
+		font-family: Raleway;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 40px;
+		line-height: 123%;
+		/* or 49px */
+
+		color: #293b5f;
+	}
+	.time {
+		display: flex;
+		flex-direction: row;
+		align-content: space-between;
+		gap: 30px;
+	}
+	.cardHead {
+		margin: 10px;
+		padding: 20px;
+		position: absolute;
+		width: 1037px;
+		height: 426px;
+		left: 384px;
+		top: 300px;
+
+		background: #dbe6fd;
+		border-radius: 20px;
+	}
+
+	.box {
+		position: absolute;
+		width: 335px;
+		height: 335px;
+		left: 280px;
+		top: 47px;
+		text-align: center;
+
+		background: #ffffff;
+		border: 1px solid #dbe6fd;
+
+		border-radius: 20px;
+	}
+
+	.cardBody {
+		color: black;
+		display: inline;
+		left: 5000px;
+	}
+
+	.rectangle {
+		position: absolute;
+		width: 339px;
+		height: 1080px;
+		left: -8px;
+		top: 0px;
+
+		background: #47597e;
+		border: 1px solid #000000;
+		box-sizing: border-box;
+		border-radius: 5px;
+		z-index: -1;
+	}
+
+	.intro {
+		color: white;
+	}
 </style>
-
- 
-
