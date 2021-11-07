@@ -33,7 +33,7 @@ const submitForm = async () =>{
 
 <script>
     import {dash} from "../../stores/dash";
-    import Signout from "../../components/signout.svelte"
+    
     import { loadDash } from "../../stores/dash"
     import { onMount } from "svelte";
 
@@ -87,7 +87,7 @@ const submitForm = async () =>{
 {/if}
     
    
-    <Signout/>
+ 
 
 <style>
     *{

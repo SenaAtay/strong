@@ -32,7 +32,6 @@ fetch("https://strengthn.herokuapp.com/user/messages/4", requestOptions)
 
 <script>
   import {messages} from "../../stores/message";
-  import Signout from "../../components/signout.svelte";
   import { loadMessages } from "../../stores/message";
   import { onMount } from "svelte";
   onMount(async() => {
@@ -75,4 +74,3 @@ fetch("https://strengthn.herokuapp.com/user/messages/4", requestOptions)
 <h1>Messages</h1>
   
  
-  <Signout/>
