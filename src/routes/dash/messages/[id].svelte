@@ -7,6 +7,7 @@
 
     onMount(async () => {
 		const id = $page.params.id;
+        
         let njwt;
         const unsubscribe = jwt.subscribe(value => {
             njwt = value;
@@ -82,6 +83,7 @@
 <form on:submit|preventDefault={submit}>
     <input placeholder="Write a message" bind:value={message}>
 </form>
+
 
 
 

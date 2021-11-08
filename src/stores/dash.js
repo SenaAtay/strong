@@ -1,6 +1,7 @@
 
 import {writable}  from "svelte/store";
 import {jwt} from "./jwt";
+import{userID} from "./userid"
 
 export const dash = writable({});
 
@@ -23,6 +24,7 @@ export const loadDash = async () =>{
         const parsedData= JSON.parse(data);
         console.log(parsedData)
         dash.set(parsedData);
+        userID.set(parsedData.user[0].userid);
 
     } catch (err){
         console.log(err)
