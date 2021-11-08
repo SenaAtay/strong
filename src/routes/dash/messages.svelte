@@ -3,8 +3,8 @@
 </svelte:head>
 
 <script>
-  import {messages} from "../../stores/message";
-  import { loadMessages } from "../../stores/message";
+  import {messages, loadMessages} from "../../stores/message";
+//   import { loadMessages } from "../../stores/message";
   import {userID} from "../../stores/userid";
   import { onMount } from "svelte";
   import Messagenav from "../../components/messagesnav.svelte";
@@ -12,34 +12,13 @@
   let message;
   import {jwt} from "../../stores/jwt";
   
-  
-
-//   onMount(async() => {
-//       loadMessages();
-//   })
-
-//   let userInfo;
-//       const unsubscribe = messages.subscribe(value => {
-//       userInfo = value;
-//   })
-    // let userInfo;
-    //   const unsubscribe = messages.subscribe(value => {
-    //     userInfo = value;
-    // })
-
-    
-
-
-
     
     onMount(async() => {
 
+        await loadMessages();
+
         console.log("here")
         console.log("messages", $messages[0].groupid)
-
-        // console.log("messages", $messages[0].groupid)
-
-        loadMessages();
 
             const res = await fetch (`https://strengthn.herokuapp.com/user/messages/${$messages[0].groupid}`, {
             method: "GET",
@@ -66,6 +45,9 @@
         const unsubscribe = jwt.subscribe(value => {
             njwt = value;
         })
+
+        await loadMessages();
+
             const res = await fetch (`https://strengthn.herokuapp.com/user/messages/${$messages[0].groupid}`, {
             method: "GET",
             headers:{
