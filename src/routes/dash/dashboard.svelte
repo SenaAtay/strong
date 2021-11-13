@@ -99,7 +99,6 @@ const submitForm = async () =>{
 		left: 68px;
 		top: 160px;
 
-		font-family: Raleway;
 		font-style: normal;
 		font-weight: 500;
 		font-size: 40px;
