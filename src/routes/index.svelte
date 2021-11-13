@@ -77,6 +77,10 @@
 		font-weight: normal;
 	}
 
+	button:hover {
+		border-color: #000000;
+	}
+
 	.img {
 		position: absolute;
 		width: 551px;

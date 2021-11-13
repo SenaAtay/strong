@@ -61,25 +61,14 @@
 	</form>
 </body>
 
-<!-- /* .signintbtn {
-position: absolute;
-width: 456px;
-height: 73.55px;
-left: 732px;
-top: 708px;
-background-color: black;
-} */
-
-/* @media screen and (max-width: 300px) {
-  .cancelbtn, .signupbtn {
-     width: 100%;
-  }
-} */  -->
 <style>
 	body {
 		font-family: Arial, Helvetica, sans-serif;
+		min-height: 100vh;
 	}
 	* {
+		margin: 0;
+		padding: 0;
 		box-sizing: border-box;
 	}
 
@@ -88,7 +77,7 @@ background-color: black;
 		width: 266px;
 		height: 160px;
 		left: 532px;
-		top: 152px;
+		top: 100px;
 		font-family: Roboto;
 		font-style: normal;
 		font-weight: 500;
@@ -102,7 +91,7 @@ background-color: black;
 		width: 456px;
 		height: 73px;
 		left: 532px;
-		top: 328px;
+		top: 280px;
 		border: 2px solid #d2d6db;
 		box-sizing: border-box;
 		border-radius: 9px;
@@ -112,7 +101,7 @@ background-color: black;
 		width: 456px;
 		height: 73px;
 		left: 532px;
-		top: 416px;
+		top: 360px;
 		border: 2px solid #d2d6db;
 		box-sizing: border-box;
 		border-radius: 9px;
@@ -123,7 +112,7 @@ background-color: black;
 		width: 456px;
 		height: 74px;
 		left: 532px;
-		top: 506px;
+		top: 440px;
 		border: 2px solid #dbd3d2;
 		box-sizing: border-box;
 		border-radius: 9px;
@@ -134,7 +123,7 @@ background-color: black;
 		width: 456px;
 		height: 74px;
 		left: 532px;
-		top: 592px;
+		top: 520px;
 		border: 2px solid #d2d6db;
 		box-sizing: border-box;
 		border-radius: 9px;
@@ -146,29 +135,21 @@ background-color: black;
 		outline: none;
 	}
 
-	button {
-		background-color: #04aa6d;
-		color: white;
-		padding: 14px 20px;
-		margin: 8px 0;
-		border: none;
-		cursor: pointer;
-		width: 10%;
-		opacity: 0.9;
-	}
-	button:hover {
-		opacity: 1;
-	}
-
 	.createaccountbtn {
 		position: absolute;
 		width: 456px;
 		height: 73.55px;
 		left: 532px;
-		top: 680px;
+		top: 610px;
+		border: 2px solid #555555;
 		background-color: black;
+		color: white;
 		box-sizing: border-box;
 		border-radius: 9px;
+	}
+
+	.createaccountbtn:hover {
+		border-color: lightgrey;
 	}
 
 	.container {
@@ -186,13 +167,17 @@ background-color: black;
 		width: 456px;
 		height: 73.55px;
 		left: 532px;
-		top: 790px;
+		top: 730px;
 
 		background-color: transparent;
-		color: #d2d6db;
-		border: 2px solid #d2d6db;
+		border: 2px solid #555555;
+		background-color: white;
 		box-sizing: border-box;
 		border-radius: 9px;
+	}
+
+	.signin:hover {
+		border-color: lightgrey;
 	}
 
 	h3 {
@@ -200,7 +185,7 @@ background-color: black;
 		width: 456px;
 		height: 73.55px;
 		left: 745px;
-		top: 760px;
+		top: 690px;
 	}
 
 	a,
