@@ -1,162 +1,162 @@
 <script>
-    import { goto } from '$app/navigation';
-    import {jwt} from "/src/stores/jwt.js";
-    let email;
-    let password;
+	import { goto } from '$app/navigation';
+	import { jwt } from '/src/stores/jwt.js';
+	import { fade, slide, scale, fly } from 'svelte/transition';
+	let email;
+	let password;
 
-  //   const submitForm = async () =>{
-  //       var myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/json");
+	//   const submitForm = async () =>{
+	//       var myHeaders = new Headers();
+	//   myHeaders.append("Content-Type", "application/json");
 
-  //   var raw = JSON.stringify({
-  //     "email": email,
-  //     "password": password
-  //   });
+	//   var raw = JSON.stringify({
+	//     "email": email,
+	//     "password": password
+	//   });
 
-  //   var requestOptions = {
-  //     method: 'POST',
-  //     headers: myHeaders,
-  //     body: raw,
-  //     redirect: 'follow'
-  //   };
+	//   var requestOptions = {
+	//     method: 'POST',
+	//     headers: myHeaders,
+	//     body: raw,
+	//     redirect: 'follow'
+	//   };
 
-  //   fetch("https://strengthn.herokuapp.com/auth/login/", requestOptions)
-  //     .then(response => response.text())
-  //     .then(result => console.log(result))
-  //     .catch(error => console.log('error', error));
-      
-  //     // if (result.ok){
-  //     //   goto('/dash/dashboard');
-  //     // }
+	//   fetch("https://strengthn.herokuapp.com/auth/login/", requestOptions)
+	//     .then(response => response.text())
+	//     .then(result => console.log(result))
+	//     .catch(error => console.log('error', error));
 
-  //     // console.log("consoling", result)
-  // };
+	//     // if (result.ok){
+	//     //   goto('/dash/dashboard');
+	//     // }
 
-  const submitForm = async () =>{
-        try {
-            const submit = await fetch("https://strengthn.herokuapp.com/auth/login/", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email,
-                    password
-                }),
-            }); 
-            
-            const predata = await submit;
-            const data = await submit.json();
-            //console.log("consoling data", data);
-            jwt.set(data);
+	//     // console.log("consoling", result)
+	// };
 
-            if (predata.ok){
-              goto('../dash/dashboard');
-            }
-          
-        } catch (err){
-            console.log(err)
-        } 
-    };
+	const submitForm = async () => {
+		try {
+			const submit = await fetch('https://strengthn.herokuapp.com/auth/login/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					email,
+					password
+				})
+			});
 
+			const predata = await submit;
+			const data = await submit.json();
+			//console.log("consoling data", data);
+			jwt.set(data);
+
+			if (predata.ok) {
+				goto('../dash/dashboard');
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
 </script>
-<a href="/">
-<h2 class="logo" href="/"> StregthN </h2>
-</a>
-<h1 class= "welc">Welcome Back</h1>
 
-<body>
-<form on:submit|preventDefault = {submitForm}>
-<div class="container">
-<!-- <form on:submit|preventDefault = {submitForm}> -->
-<input type = "email" name = "email" placeholder = "Email" bind:value={email}>
-<input type = "password" name = "password" placeholder = "Password" bind:value={password}>
-<input type="submit" value = "Sign In" class = "signin">
-<a href="/pre/createaccount">  
-    <input type="submit" value = "Create Account" class = "create"/>  
-</a>
+<body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
+	<a href="/">
+		<h2 class="logo" href="/">StregthN</h2>
+	</a>
+	<h1 class="welc">Welcome Back</h1>
 
-</div>
-</form>
+	<form on:submit|preventDefault={submitForm}>
+		<div class="container">
+			<!-- <form on:submit|preventDefault = {submitForm}> -->
+			<input type="email" name="email" placeholder="Email" bind:value={email} />
+			<input type="password" name="password" placeholder="Password" bind:value={password} />
+			<input type="submit" value="Sign In" class="signin" />
+			<a href="/pre/createaccount">
+				<input type="submit" value="Create Account" class="create" />
+			</a>
+		</div>
+	</form>
 </body>
+
 <!-- </form> -->
-
 <style>
-    input{
-        display: block;
-        margin-bottom: 20px;
-    } 
+	input {
+		display: block;
+		margin-bottom: 20px;
+	}
 
-    input[type=email]{
-    position: absolute;
-    width: 456px;
-    height: 74.55px;
-    left: 532px;
-    top: 317px;
+	input[type='email'] {
+		position: absolute;
+		width: 456px;
+		height: 74.55px;
+		left: 532px;
+		top: 317px;
 
-    border: 2px solid #DBD3D2;
-    box-sizing: border-box;
-    border-radius: 9px;
-    }
+		border: 2px solid #dbd3d2;
+		box-sizing: border-box;
+		border-radius: 9px;
+	}
 
+	input[type='password'] {
+		position: absolute;
+		width: 456px;
+		height: 74.55px;
+		left: 532px;
+		top: 434px;
 
-    input[type=password]{
-    position: absolute;
-    width: 456px;
-    height: 74.55px;
-    left: 532px;
-    top: 434px;
+		border: 2px solid #d2d6db;
+		box-sizing: border-box;
+		border-radius: 9px;
+	}
 
-    border: 2px solid #D2D6DB;
-    box-sizing: border-box;
-    border-radius: 9px;
-    }
+	.signin {
+		position: absolute;
+		width: 456px;
+		height: 74.55px;
+		left: 532px;
+		top: 551px;
+		background-color: black;
+		color: white;
+		font-family: Roboto;
+		font-style: normal;
+		border-radius: 9px;
+	}
 
-    .signin{
-    position: absolute;
-    width: 456px;
-    height: 74.55px;
-    left: 532px;
-    top: 551px;
-    background-color: black;
-    color: white;
-    font-family: Roboto;
-font-style: normal;
-border-radius: 9px;
+	.create {
+		position: absolute;
+		width: 456px;
+		height: 74.55px;
+		left: 532px;
+		top: 651px;
+		background-color: transparent;
+		color: #d2d6db;
+		border: 2px solid #d2d6db;
+		box-sizing: border-box;
+		border-radius: 9px;
 
-    }
-    
-    .create{
-        position: absolute;
-    width: 456px;
-    height: 74.55px;
-    left: 532px;
-    top: 651px;
-    background-color: transparent;
-    color: #D2D6DB; 
-  border: 2px solid #D2D6DB;
-box-sizing: border-box;
-border-radius: 9px;
+		/* border: 2px solid #D2D6DB */
+	}
 
-/* border: 2px solid #D2D6DB */
-    }
+	.welc {
+		position: absolute;
+		width: 287px;
+		height: 160px;
+		left: 532px;
+		top: 107px;
 
-    .welc{
-        position: absolute;
-width: 287px;
-height: 160px;
-left: 532px;
-top: 107px;
+		font-family: Roboto;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 65px;
+		line-height: 123%;
+		/* or 80px */
+		color: #000000;
+	}
 
-font-family: Roboto;
-font-style: normal;
-font-weight: 500;
-font-size: 65px;
-line-height: 123%;
-/* or 80px */
-color: #000000;
-}
-
-a, a.logo { text-decoration: none; color:black; }
-    
+	a,
+	a.logo {
+		text-decoration: none;
+		color: black;
+	}
 </style>
