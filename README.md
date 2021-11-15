@@ -64,8 +64,19 @@ In order to deploy out project, we are
 
 ## Contributing
 
+In order to contribute to the project, you have to request access to the repository or do pull requests with specific features. In order to learn more about styling conventions and other details, please see our site page to learn more. 
+
+https://tarheels.live/strengthn/
+
 ## Authors
+
+Leon Lash
+Sena Atay
+Wali Khan
 
 ## License
 
+MIT License
+
 ## Acknowledgements
+We want to acknoledge out mentor Thomas for his continuous guidance!
