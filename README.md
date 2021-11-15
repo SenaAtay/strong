@@ -74,6 +74,8 @@ Yes, everytime you push to main Heroku restarts build
 - Svelte
 - Postgres
 
+ADRs are in root of repo
+
 ## Contributing
 
 In order to contribute to the project, you have to request access to the repository or do pull requests with specific features. In order to learn more about styling conventions and other details, please see our site page to learn more.
