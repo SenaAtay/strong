@@ -62,7 +62,7 @@
 
 <body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
 	<a href="/">
-		<h2 class="logo" href="/">StregthN</h2>
+		<h2 class="logo" href="/">StrengthN</h2>
 	</a>
 	<h1 class="welc">Welcome Back</h1>
 
@@ -129,13 +129,16 @@
 		height: 74.55px;
 		left: 532px;
 		top: 651px;
-		background-color: transparent;
-		color: #d2d6db;
-		border: 2px solid #d2d6db;
+		border: 2px solid #555555;
+		background-color: white;
 		box-sizing: border-box;
 		border-radius: 9px;
 
 		/* border: 2px solid #D2D6DB */
+	}
+
+	.create:hover {
+		border-color: lightgrey;
 	}
 
 	.welc {

@@ -30,7 +30,7 @@
 
 <!-- svelte-ignore missing-declaration -->
 
-<Navbar color="white" light expand="md">
+<Navbar color="light" light expand="md">
 	<NavbarBrand href="/">StrengthN</NavbarBrand>
 	<NavbarToggler on:click={() => (isOpen = !isOpen)} />
 	<Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>

@@ -61,7 +61,7 @@ const submitForm = async () =>{
 {:else}
 	<h2 style="color:white">Meetings</h2>
 	{#each groups as { starttime, endtime, groupname, loc, dati }}
-		<div class="rectangle" />
+		<!-- <div class="rectangle" /> -->
 
 		<div class="cardHead">
 			<div class="cardBody">

@@ -39,7 +39,7 @@
 
 <body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
 	<a href="/">
-		<h2 class="logo" href="/">StregthN</h2>
+		<h2 class="logo" href="/">StrengthN</h2>
 	</a>
 	<h1 class="intro">Let's Get Started</h1>
 
@@ -137,6 +137,7 @@
 
 	.createaccountbtn {
 		position: absolute;
+		font-family: Roboto;
 		width: 456px;
 		height: 73.55px;
 		left: 532px;
@@ -186,6 +187,7 @@
 		height: 73.55px;
 		left: 745px;
 		top: 690px;
+		font-family: Roboto;
 	}
 
 	a,

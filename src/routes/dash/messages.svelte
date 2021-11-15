@@ -1,237 +1,129 @@
-<svelte:head>
-    <title>Messages</title>
-</svelte:head>
-
 <script>
-  import {messages, loadMessages} from "../../stores/message";
-//   import { loadMessages } from "../../stores/message";
-  import {userID} from "../../stores/userid";
-  import { onMount } from "svelte";
-  import Messagenav from "../../components/messagesnav.svelte";
-  $: meh = '';
-  let message;
-  import {jwt} from "../../stores/jwt";
-  
-    
-    onMount(async() => {
+	import { messages, loadMessages } from '../../stores/message';
+	//   import { loadMessages } from "../../stores/message";
+	import { userID } from '../../stores/userid';
+	import { onMount } from 'svelte';
+	import Messagenav from '../../components/messagesnav.svelte';
+	$: meh = '';
+	let message;
+	import { jwt } from '../../stores/jwt';
 
-        await loadMessages();
+	onMount(async () => {
+		await loadMessages();
 
-        console.log("here")
-        console.log("messages", $messages[0].groupid)
+		console.log('here');
+		console.log('messages', $messages[0].groupid);
 
-            const res = await fetch (`https://strengthn.herokuapp.com/user/messages/${$messages[0].groupid}`, {
-            method: "GET",
-            headers:{
-                'Content-Type': 'application/json',
-                "token": JSON.stringify($jwt),
-            },
-        });
-        const groupmessages = await res.json();
-        meh = groupmessages;
-        console.log("meh1", meh);
+		const res = await fetch(
+			`https://strengthn.herokuapp.com/user/messages/${$messages[0].groupid}`,
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					token: JSON.stringify($jwt)
+				}
+			}
+		);
+		const groupmessages = await res.json();
+		meh = groupmessages;
+		console.log('meh1', meh);
+	});
 
-        
-    })
+	console.log('userfid', $userID);
+	console.log('meh', { meh });
+	console.log('typeof', typeof $userID);
 
-    
-    console.log("userfid", $userID)
-    console.log("meh", {meh});
-    console.log("typeof", typeof $userID)
-    
-    const tryfunc = async () =>{
-        // const id = $page.params.id;
-        let njwt;
-        const unsubscribe = jwt.subscribe(value => {
-            njwt = value;
-        })
+	const tryfunc = async () => {
+		// const id = $page.params.id;
+		let njwt;
+		const unsubscribe = jwt.subscribe((value) => {
+			njwt = value;
+		});
 
-        await loadMessages();
+		await loadMessages();
 
-            const res = await fetch (`https://strengthn.herokuapp.com/user/messages/${$messages[0].groupid}`, {
-            method: "GET",
-            headers:{
-                'Content-Type': 'application/json',
-                "token": JSON.stringify(njwt),
-            },
-        });
-        const groupmessagesA = await res.json();
-        // console.log(groupmessagesA.reverse())
-        meh = groupmessagesA
-        return;
-        // return {props: {groupmessagesA}};
-    
-        
-    };
+		const res = await fetch(
+			`https://strengthn.herokuapp.com/user/messages/${$messages[0].groupid}`,
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					token: JSON.stringify(njwt)
+				}
+			}
+		);
+		const groupmessagesA = await res.json();
+		// console.log(groupmessagesA.reverse())
+		meh = groupmessagesA;
+		return;
+		// return {props: {groupmessagesA}};
+	};
 
-    const submit = async () =>{
-        // const id = $page.params.id;
-        let njwt;
-        const unsubscribe = jwt.subscribe(value => {
-            njwt = value;
-        })
-        try {
-            const submit = await fetch(`https://strengthn.herokuapp.com/user/messages/${$messages[0].groupid}`, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    "token": JSON.stringify(njwt),
-                },
-                body: JSON.stringify({
-                    message
-                }),
-            });           
-            const predata = await submit;
-            const data = await submit.json();
-          
-        } catch (err){
-            console.log(err)
-        } 
+	const submit = async () => {
+		// const id = $page.params.id;
+		let njwt;
+		const unsubscribe = jwt.subscribe((value) => {
+			njwt = value;
+		});
+		try {
+			const submit = await fetch(
+				`https://strengthn.herokuapp.com/user/messages/${$messages[0].groupid}`,
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						token: JSON.stringify(njwt)
+					},
+					body: JSON.stringify({
+						message
+					})
+				}
+			);
+			const predata = await submit;
+			const data = await submit.json();
+		} catch (err) {
+			console.log(err);
+		}
 
-        message="";
-        
+		message = '';
+	};
 
+	// function clearText(){
+	//     document.getElementById('form').value = "";
+	//     console.lod("CLEARING");
+	// }
 
-        
-    };
-
-    // function clearText(){
-    //     document.getElementById('form').value = "";
-    //     console.lod("CLEARING");
-    // }
-
-    setInterval(tryfunc, 100);
-        
-
+	setInterval(tryfunc, 100);
 </script>
 
+<svelte:head>
+	<title>Messages</title>
+</svelte:head>
+
 <Messagenav />
-<div class = "chatbox">
-
-
-
-{#each meh as {created_at, groupid, message, userid}}
-
-    {#if userid == $userID}
-    <div class="outterMine">
-        <div class = "mine">
-            <p>{message}</p> 
-        </div>
-    </div>  
-    {:else}
-    <div class="outterTheirs">
-        <div class = "theirs">
-            <p>{message}</p> 
-        </div>
-    </div> 
-    {/if}
-{/each} 
-
-
+<div class="chatbox">
+	{#each meh as { created_at, groupid, message, userid }}
+		{#if userid == $userID}
+			<div class="outterMine">
+				<div class="mine">
+					<p>{message}</p>
+				</div>
+			</div>
+		{:else}
+			<div class="outterTheirs">
+				<div class="theirs">
+					<p>{message}</p>
+				</div>
+			</div>
+		{/if}
+	{/each}
 </div>
 
 <!-- <div class = "form" on:submit|preventDefault={submit}> -->
-    <form on:submit|preventDefault={submit}>
-        <input placeholder="Write a message" bind:value={message}>
-        <button on:click|preventDefault={submit}>Send</button>
-    </form>
-    <!-- <input type="text" placeholder="Write a message" bind:value={message}>
-    <button>Send</button>
-</div> -->
-
-
-
-<style>
-.chatbox{
-    background-color: #DBE6FD;
-    overflow-x: hidden;
-    overflow-y: auto;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column-reverse;
-    padding: 10px;
-    height: 645px;
-    width: 98%;
-    /* height: calc(100%-90px); */
-    margin: 10px 10px 10px 10px;
-    /* margin-bottom: 10px; */
-    /* margin: 30px; */
-    /* display: flex;
-    flex-direction: column-reverse;
-    align-items: flex-start;
-    margin-bottom: 10px; */
-    
-
-}
-.outterMine{
-    display: flex;
-    justify-content: flex-end;
-    margin: 10px 0px;
-}
-
-.outterTheirs{
-    display: flex;
-    justify-content: flex-start;
-    margin: 10px 0px;
-}
-.mine{
-    color: #FFFFFF;
-    background: #47597E;
-    display: flex;
-    align-items: flex-start;
-    flex-basis: row wrap;
-    border-radius: 10px;
-    margin: 10px 10px 0;
-    font-size: 12px;
-    padding: 15px;
-    width: 250px;
-    
-}
-
-.theirs{
-    background-color:#FFFFFF;
-    color: #000000;
-    display: flex;
-    align-items: flex-start;
-    flex-basis: row wrap;
-    border-radius: 10px;
-    margin: 10px 10px 0;
-    font-size: 12px;
-    padding: 15px;
-    width: 250px;
-    
-    
-}
-
-form{
-    display: flex;
-    width: 98%;
-    height: 40px;
-    border-top: 1px;  
-    margin: 10px 10px 10px 10px;
-}
-
-form input{
-    flex: 1;
-    margin: 0 5px 0;
-    border-color: #DCDCDC;
-    background-color:#FFFFFF;
-    outline: none;
-    font-size: 12px;
-}
-
-form button{
-    border-radius: 5px;
-    padding: 2px 35px;
-    border:none;
-    color: #FFFFFF;
-    background-color: fade(#47597E, 48%);
-}
-
-</style>
-
-
-
+<form on:submit|preventDefault={submit} size="50">
+	<input class="message" placeholder="Write a message" bind:value={message} />
+	<button on:click|preventDefault={submit}>Send</button>
+</form>
 
 <!-- {#if userInfo == undefined} 
 <h1>You have no messages</h1>
@@ -250,51 +142,6 @@ form button{
 {/each}
 
 {/if} -->
-
-
-
-  
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- <script>
 
@@ -322,3 +169,94 @@ form button{
       
     
 // </script> -->
+
+<!-- <input type="text" placeholder="Write a message" bind:value={message}>
+    <button>Send</button>
+</div> -->
+<style>
+	.chatbox {
+		background-color: #dbe6fd;
+		overflow-x: hidden;
+		overflow-y: auto;
+		border-radius: 5px;
+		display: flex;
+		flex-direction: column-reverse;
+		padding: 10px;
+		height: 645px;
+		width: 50%;
+		left: 500px;
+		position: relative;
+		/* height: calc(100%-90px); */
+		margin: 10px 10px 10px 10px;
+		/* margin-bottom: 10px; */
+		/* margin: 30px; */
+		/* display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    margin-bottom: 10px; */
+	}
+	.message {
+		width: 50%;
+	}
+	.outterMine {
+		display: flex;
+		justify-content: flex-end;
+		margin: 10px 0px;
+	}
+
+	.outterTheirs {
+		display: flex;
+		justify-content: flex-start;
+		margin: 10px 0px;
+	}
+	.mine {
+		color: #ffffff;
+		background: #47597e;
+		display: flex;
+		align-items: flex-start;
+		flex-basis: row wrap;
+		border-radius: 10px;
+		margin: 10px 10px 0;
+		font-size: 12px;
+		padding: 15px;
+		width: 250px;
+	}
+
+	.theirs {
+		background-color: #ffffff;
+		color: #000000;
+		display: flex;
+		align-items: flex-start;
+		flex-basis: row wrap;
+		border-radius: 10px;
+		margin: 10px 10px 0;
+		font-size: 12px;
+		padding: 15px;
+		width: 250px;
+	}
+
+	form {
+		display: flex;
+		width: 98%;
+		height: 40px;
+		border-top: 1px;
+		margin: 10px 10px 10px 10px;
+	}
+
+	form input {
+		flex: 1;
+		margin: 0 5px 0;
+		border-color: #dcdcdc;
+		background-color: #ffffff;
+		outline: none;
+		font-size: 12px;
+	}
+
+	form button {
+		border-radius: 5px;
+		padding: 2px 35px;
+		border: none;
+		color: #ffffff;
+		background-color: fade(#47597e, 48%);
+	}
+</style>
