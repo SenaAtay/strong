@@ -43,7 +43,7 @@ const submitForm = async () =>{
 	const unsubscribe = dash.subscribe((value) => {
 		userInfo = value;
 	});
-	$: console.log(groups);
+	// $: console.log(groups);
 	$: groups = userInfo.groups;
 	$: messages = userInfo.messages;
 	$: org = userInfo.org;

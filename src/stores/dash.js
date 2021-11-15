@@ -11,7 +11,7 @@ export const loadDash = async () =>{
         const unsubscribe = jwt.subscribe(value => {
             njwt = value;
         })
-        // console.log(njwt)
+        
         const submit = await fetch("https://strengthn.herokuapp.com/user/home", {
             method: "GET",
             headers: {
@@ -22,7 +22,7 @@ export const loadDash = async () =>{
 
         const data = await submit.json();
         const parsedData= JSON.parse(data);
-        console.log(parsedData)
+        
         dash.set(parsedData);
         userID.set(parsedData.user[0].userid);
 
