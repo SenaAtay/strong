@@ -105,7 +105,7 @@
 }
 
   .open{
-    width: 17%;
+    width: 15%;
   }
 
   /* .pushMainToRight{

@@ -17,7 +17,8 @@
 <style>
 	.rectangle {
 		position: absolute;
-		width: 339px;
+		/* width: 339px; */
+		width: 250px;
 		height: 100vh;
 		left: -8px;
 		top: 0px;
@@ -58,30 +59,7 @@
 		font-weight: bold;
 	}
 
-	ul {
-		text-decoration: none !important;
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
 
-		position: absolute;
-		width: 132px;
-		height: 25px;
-		left: 94px;
-		top: 370px;
 
-		font-family: Roboto;
-		font-weight: bold;
-		font-size: 25px;
-		line-height: 29px;
 
-		color: #ffffff;
-	}
-
-	li a {
-		text-decoration: none !important;
-		margin-bottom: 10px;
-		line-height: 1.7em;
-		color: white;
-	}
 </style>

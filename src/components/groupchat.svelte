@@ -16,7 +16,7 @@
 
 <!-- <div on:click= {() => goto(`/dash/messages/${groupidI}`)} class="groupChat"> -->
 <div on:click= {dispatchGroupchat} class="groupChat">
-    <h4>Group {groupidI}</h4>
+    <h5>Group {groupidI}</h5>
     <h6>{messageI}</h6>
   </div>
 
