@@ -19,9 +19,8 @@
 ul {
 text-decoration: none!important;
 list-style-type: none;
-  margin: 0;
-  padding: 0;
-
+margin: 0;
+padding: 0;
 
 position: absolute;
 width: 132px;
