@@ -82,8 +82,8 @@ https://tarheels.live/strengthn/
 
 ## Authors
 
-Leon Lash
-Sena Atay
+Leon Lash,
+Sena Atay,
 Wali Khan
 
 ## License
