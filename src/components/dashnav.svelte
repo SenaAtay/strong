@@ -27,7 +27,7 @@
 		border: 1px solid #000000;
 		box-sizing: border-box;
 		border-radius: 5px;
-		z-index: -1;
+		z-index: 100;
 	}
 
 	ul {
@@ -58,8 +58,4 @@
 	li a:hover {
 		font-weight: bold;
 	}
-
-
-
-
 </style>
