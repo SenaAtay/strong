@@ -146,7 +146,7 @@ const submitForm = async () =>{
 		left: 5000px;
 	}
 
-	.rectangle {
+	/* .rectangle {
 		position: absolute;
 		width: 339px;
 		height: 1080px;
@@ -158,7 +158,7 @@ const submitForm = async () =>{
 		box-sizing: border-box;
 		border-radius: 5px;
 		z-index: -1;
-	}
+	} */
 
 	.intro {
 		color: white;

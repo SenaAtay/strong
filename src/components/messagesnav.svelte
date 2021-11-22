@@ -92,9 +92,9 @@
 		.sidenav {
 			padding-top: 15px;
 		}
-		.sidenav a {
+		/* .sidenav a {
 			font-size: 18px;
-		}
+		} */
 	}
 
 	.open {

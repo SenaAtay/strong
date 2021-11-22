@@ -124,11 +124,7 @@
 	<Messagenav on:hamburger={squish} on:groupchat={replace} />
 
 	{#if $groupidS == undefined || $groupidS == '0'}
-		<h1 class="title" />
-		<h1 class="title" />
-		<h1 class="title" />
-		<p />
-		<p />
+		<p></p>
 	{:else}
 		<h1 class="title">Group {$groupidS}</h1>
 	{/if}

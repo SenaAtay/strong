@@ -201,9 +201,9 @@
 		font-family: Roboto;
 	}
 
-	a,
+	/* a,
 	a.logo {
 		text-decoration: none;
 		color: black;
-	}
+	} */
 </style>

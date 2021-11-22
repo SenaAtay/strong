@@ -29,7 +29,7 @@
 
 <div class="top">
 	<a href="/">
-		<img src="/blacklogo.png" />
+		<img alt ="black sn logo" src="/blacklogo.png" />
 	</a>
 	<a href="/">
 		<button class="home">Go Home</button>
