@@ -1,0 +1,139 @@
+<script>
+	let groups;
+    let password;
+    let orgname;
+
+	const createGroups = async () => {
+		try {
+			const submit = await fetch(`https://strengthn.herokuapp.com/admin/group`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+                    organization,
+                    password,
+					groups
+				})
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+</script>
+
+<svelte:head>
+	<title>Admin</title>
+</svelte:head>
+
+<div class="top">
+	<a href="/">
+		<img src="/blacklogo.png" />
+	</a>
+	<a href="/">
+		<button class="home">Go Home</button>
+	</a>
+</div>
+
+<form>
+	<div class="formelem">
+		<h1 class="adminText">Administrator</h1>
+		<h1 class="otherText">Create new groups</h1>
+        <div class= "inputDiv">
+		    <input class="inputText" type="text" placeholder="Oranization Name" bind:value={orgname}/>
+        </div>
+        <div class= "inputDiv">
+		    <input class="inputText" type="password" placeholder="Password" bind:value={password} />
+        </div>
+        <div class= "inputDiv">
+            <textarea class="inputText last" placeholder="" bind:value={groups}></textarea>
+		    <!-- <input class="inputText last" placeholder="" bind:value={groups} /> -->
+        </div>
+		<!-- <button on:click|preventDefault={check}>Send</button> -->
+		<button class = "createGroups" on:click|preventDefault={createGroups}>Create Groups</button>
+	</div>
+</form>
+
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+	* {
+		font-family: 'Raleway';
+	}
+
+	.top {
+        
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	img {
+		width: 40px;
+		margin: 30px 0px 0px 50px;
+        cursor: pointer;
+	}
+    .home {
+		padding: 5px;
+		background-color: black;
+		color: #fff;
+		border-radius: 10px;
+		border: none;
+		padding: 10px 20px;
+        margin: 30px 50px 0px 0px;
+        font-size: 14px;
+	}
+
+    .createGroups{
+		
+		background-color: black;
+		color: #fff;
+		border-radius: 10px;
+		border: none;
+		padding: 10px 65px;
+        font-size: 14px;
+        
+    }
+    form{
+        margin-top: 50px;
+    }
+    .formelem {
+        
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: space-evenly;
+        margin-top: 1%;
+		margin-left: 9%;
+	}
+	.adminText {
+		color: #909498;
+		font-size: 36px;
+		font-weight: 500;
+        margin-bottom: 1%;
+	}
+	.otherText {
+		font-size: 48px;
+		font-weight: 500;
+        margin-bottom: 2%;
+	}
+    .inputDiv{
+        margin-bottom: 1%;
+        padding-bottom: 1%;
+          
+    }
+	.inputText {
+		font-size: 14px;
+		font-weight: 400;
+        padding: 5px 10px;
+        border-radius: 8px;
+        width: 400px;
+        border-width: thin;
+	}
+
+    .last{
+        width:900px;
+        height:250px;
+    }
+
+    
+</style>

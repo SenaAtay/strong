@@ -5,33 +5,25 @@
 	let email;
 	let password;
 
-	//   const submitForm = async () =>{
-	//       var myHeaders = new Headers();
-	//   myHeaders.append("Content-Type", "application/json");
+	let hiddenTF = false;
 
-	//   var raw = JSON.stringify({
-	//     "email": email,
-	//     "password": password
-	//   });
-
-	//   var requestOptions = {
-	//     method: 'POST',
-	//     headers: myHeaders,
-	//     body: raw,
-	//     redirect: 'follow'
-	//   };
-
-	//   fetch("https://strengthn.herokuapp.com/auth/login/", requestOptions)
-	//     .then(response => response.text())
-	//     .then(result => console.log(result))
-	//     .catch(error => console.log('error', error));
-
-	//     // if (result.ok){
-	//     //   goto('/dash/dashboard');
-	//     // }
-
-	//     // console.log("consoling", result)
-	// };
+	function check(){
+		let errorOne = document.getElementById("one").innerHTML
+		console.log("errpr one", errorOne )
+		let errorTwo = document.getElementById("two").value
+		console.log(document.getElementById("emailCheck").value)
+		let emailCheck = document.getElementById("emailCheck").value.trim()
+		let passwordCheck = document.getElementById("passwordCheck").value.trim()
+		if (emailCheck.length == 0){
+			console.log("email check")
+			errorOne = "Email is required"
+			hiddenTF = true;
+		} else if (passwordCheck.length == 0){
+			errorTwo = "Password is required"
+		} else {
+			submitForm()
+		}
+	}
 
 	const submitForm = async () => {
 		try {
@@ -45,32 +37,43 @@
 					password
 				})
 			});
-
+			
+			
 			const predata = await submit;
+			console.log("predata", predata);
 			const data = await submit.json();
-			//console.log("consoling data", data);
+			console.log("data", data);
 			jwt.set(data);
 
-			if (predata.ok) {
+			if (predata.ok && jwt != null) {
 				goto('../dash/dashboard');
 			}
+
+			console.log("i'm here")
 		} catch (err) {
-			console.log(err);
+			
+			console.log("hi", err);
 		}
 	};
 </script>
 
 <body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
 	<a href="/">
-		<h2 class="logo" href="/">StrengthN</h2>
+		<img alt="logo" src="/blacklogo.png" />
 	</a>
 	<h1 class="welc">Welcome Back</h1>
 
-	<form on:submit|preventDefault={submitForm}>
+	<form on:submit|preventDefault={check}>
 		<div class="container">
 			<!-- <form on:submit|preventDefault = {submitForm}> -->
-			<input type="email" name="email" placeholder="Email" bind:value={email} />
-			<input type="password" name="password" placeholder="Password" bind:value={password} />
+			<div >
+				<input type="email" name="email" placeholder="Email" id = "emailCheck" bind:value={email} />
+				<small class = "one" id = "one" class:hidden={hiddenTF}>bidk</small>
+			</div>
+			<div>
+				<input type="password" name="password" placeholder="Password" id = "passwordCheck" bind:value={password} />
+				<small class = "two" id = "two">Error</small>
+			</div>
 			<input type="submit" value="Sign In" class="signin" />
 			<a href="/pre/createaccount">
 				<input type="submit" value="Create Account" class="create" />
@@ -79,13 +82,31 @@
 	</form>
 </body>
 
-<!-- </form> -->
 <style>
+	img {
+		width: 40px;
+		margin: 20px 0px 0px 30px;
+		cursor: pointer;
+	}
+	.welc {
+		position: absolute;
+		width: 287px;
+		height: 160px;
+		left: 532px;
+		top: 107px;
+
+		font-family: Roboto;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 65px;
+		line-height: 123%;
+		/* or 80px */
+		color: #000000;
+	}
 	input {
 		display: block;
 		margin-bottom: 20px;
 	}
-
 	input[type='email'] {
 		position: absolute;
 		width: 456px;
@@ -97,19 +118,16 @@
 		box-sizing: border-box;
 		border-radius: 9px;
 	}
-
 	input[type='password'] {
 		position: absolute;
 		width: 456px;
 		height: 74.55px;
 		left: 532px;
 		top: 434px;
-
 		border: 2px solid #d2d6db;
 		box-sizing: border-box;
 		border-radius: 9px;
 	}
-
 	.signin {
 		position: absolute;
 		width: 456px;
@@ -121,6 +139,10 @@
 		font-family: Roboto;
 		font-style: normal;
 		border-radius: 9px;
+	}
+
+	small.one.hidden{
+		visibility: visible;
 	}
 
 	.create {
@@ -141,25 +163,31 @@
 		border-color: lightgrey;
 	}
 
-	.welc {
-		position: absolute;
-		width: 287px;
-		height: 160px;
-		left: 532px;
-		top: 107px;
-
-		font-family: Roboto;
-		font-style: normal;
-		font-weight: 500;
-		font-size: 65px;
-		line-height: 123%;
-		/* or 80px */
-		color: #000000;
+	.signin:hover{
+		border-color: lightgrey;
 	}
 
-	a,
+	small.one{
+		position: absolute;
+		display: block;
+		margin-bottom: 20px;
+		top: 398px;
+		left: 532px;
+		visibility: hidden;
+	}
+
+	small.two{
+		position: absolute;
+		display: block;
+		margin-bottom: 20px;
+		top: 512px;
+		left: 532px;
+		visibility: hidden;
+	}
+
+	/* a,
 	a.logo {
 		text-decoration: none;
 		color: black;
-	}
+	} */
 </style>

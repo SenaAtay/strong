@@ -1,8 +1,6 @@
 <script>
-    import Nav from "../../components/dashnav.svelte"
-    
+	import Nav from '../../components/dashnav.svelte';
 </script>
-<slot></slot>
-<Nav/>
 
-
+<slot />
+<Nav />

@@ -2,11 +2,13 @@
 	import { jwt } from '/src/stores/jwt.js';
 	import { goto } from '$app/navigation';
 	import { fade, slide, scale, fly } from 'svelte/transition';
-
+ 
 	let fname;
 	let lname;
 	let email;
 	let password;
+
+
 
 	const submitForm = async () => {
 		try {
@@ -39,7 +41,7 @@
 
 <body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
 	<a href="/">
-		<h2 class="logo" href="/">StrengthN</h2>
+		<img alt = "logo" src="/blacklogo.png" />
 	</a>
 	<h1 class="intro">Let's Get Started</h1>
 
@@ -71,6 +73,15 @@
 		padding: 0;
 		box-sizing: border-box;
 	}
+
+	img{
+		width: 40px;
+		margin: 20px 0px 0px 30px;
+	}
+	
+	img:hover{
+        cursor: pointer;
+    }
 
 	.intro {
 		position: absolute;

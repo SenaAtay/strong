@@ -1,65 +1,134 @@
 <script>
 	import Signout from '../components/signout.svelte';
+	import { dash } from '../stores/dash';
+	import { loadDash } from '../stores/dash';
+	import { onMount } from 'svelte';
+
+	onMount(async () => {
+		loadDash();
+	});
+
+	let userInfo;
+	const unsubscribe = dash.subscribe((value) => {
+		userInfo = value;
+		console.log('userInfo', userInfo.user);
+	});
+	// $: console.log(groups);
+	$: groups = userInfo.groups;
+	$: messages = userInfo.messages;
+	$: org = userInfo.org;
+	$: schedules = userInfo.schedules;
+	$: user = userInfo.user;
 </script>
 
 <nav>
 	<div class="rectangle">
+		<!-- /connections.jpg -->
+		
+		<a href="/dash/dashboard"><img class="logo" alt="logo" src="../static/whitelogo.png" /></a>
+		<!-- <img class = "profilepic" alt = "profilepic" src="../static/profilepic.jpg"> -->
+		<div class="profilepic" />
+		{#if user == undefined}
+			<p />
+		{:else}
+			<div class="nameNLogo">
+				<h1>{user[0].fname} {user[0].lname}</h1>
+				<a href="/dash/profile"><img class="gear" alt="profileGear" src="../static/gear.png" /></a>
+			</div>
+		{/if}
+
 		<ul>
 			<li><a class="dash" href="/dash/dashboard">Dashboard</a></li>
 			<li><a href="/dash/messages">Messages</a></li>
 			<li><a href="/dash/schedule">Schedule</a></li>
-			<li><a href="/dash/profile">Profile</a></li>
-			<Signout />
+			<!-- <li><a href="/dash/profile">Profile</a></li> -->
 		</ul>
+		<Signout />
 	</div>
 </nav>
 
 <style>
 	.rectangle {
 		position: absolute;
-		/* width: 339px; */
 		width: 250px;
 		height: 100vh;
 		left: -8px;
 		top: 0px;
-
 		background: #47597e;
-		border: 1px solid #000000;
 		box-sizing: border-box;
 		border-radius: 5px;
-		z-index: -1;
+		z-index: 100;
 	}
 
+	.logo {
+		width: 40px;
+		margin: 15px 0px 0px 30px;
+		cursor: pointer;
+	}
+
+	.profilepic {
+		width: 160px;
+		height: 160px;
+		background-image: url('../static/profilepic.jpg');
+		background-size: cover;
+		margin-left: 20%;
+		margin-bottom: 13%;
+		border-radius: 50%;
+	}
+
+	.nameNLogo {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	h1 {
+		color: #ffffff;
+		font-family: Roboto;
+		font-weight: 200;
+		font-size: 21px;
+		text-transform: capitalize;
+		margin-right: 3%;
+		margin-bottom:0%;
+		
+	}
+	.gear {
+		width: 20px;
+		height: 20px;	
+	}
+
+	.gear:hover{
+		width: 20.3px;
+	}
 	ul {
 		text-decoration: none !important;
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
-
 		position: absolute;
 		width: 132px;
+
 		height: 25px;
-		left: 94px;
-		top: 370px;
-
+		/* left: 94px; */
+		left: 30%;
+		top: 450px;
 		font-family: Roboto;
-		font-size: 25px;
+		font-weight: 200;
+		font-size: 21px;
 		line-height: 29px;
-
 		color: #ffffff;
 	}
 
-	li a {
+	li {
+		margin-bottom: 5%;
+	}
+	a {
 		text-decoration: none !important;
-		margin-bottom: 10px;
 		line-height: 1.7em;
 		color: white;
 	}
+
 	li a:hover {
-		font-weight: bold;
+		font-weight: 400;
 	}
-
-
-
-
 </style>

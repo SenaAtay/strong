@@ -1,7 +1,7 @@
 <script>
 	import { fade, slide, scale } from 'svelte/transition';
 	import Nav from '/src/components/homenav.svelte';
-	let title = 'Strength N Number';
+	let title = 'Strength^N';
 	let src = '/connections.jpg';
 </script>
 
@@ -15,7 +15,7 @@
 <h1 class="title">{title}</h1>
 
 <p1 class="para">
-	Copy Helping bring your organization together one connection at a time. We simplify the process of
+	Helping bring your organization together one connection at a time. We simplify the process of
 	meeting new friends to a few simple clicks. Sign up or log in to get started connected with your
 	peers!</p1
 >
@@ -34,7 +34,7 @@
 		width: 1032px;
 		height: 107px;
 		left: 98px;
-		top: 274px;
+		top: 270px;
 		font-family: Roboto;
 		font-style: normal;
 		font-weight: 900;
@@ -51,7 +51,7 @@
 		width: 605px;
 		height: 216px;
 		left: 98px;
-		top: 470px;
+		top: 370px;
 
 		font-family: Roboto;
 		font-style: normal;
@@ -67,7 +67,7 @@
 		width: 278px;
 		height: 60px;
 		left: 98px;
-		top: 610px;
+		top: 500px;
 		color: black;
 		background-color: white;
 		border-radius: 30px;

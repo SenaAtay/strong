@@ -30,13 +30,13 @@
 
 <!-- svelte-ignore missing-declaration -->
 
-<Navbar color="light" light expand="md">
-	<NavbarBrand href="/">StrengthN</NavbarBrand>
+<Navbar color="#FFFFFF" light expand="md">
+	<NavbarBrand href="/"><img alt = "logo" src="/blacklogo.png" /></NavbarBrand>
 	<NavbarToggler on:click={() => (isOpen = !isOpen)} />
 	<Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
 		<Nav class="ml-auto" navbar>
 			<NavItem>
-				<NavLink href="#Administrator/">Administrator</NavLink>
+				<NavLink href="/admin">Administrator</NavLink>
 			</NavItem>
 			<NavItem>
 				<Button class="login" href="pre/signin" style="background-color: black">Log in</Button>
@@ -53,3 +53,13 @@
 		</Nav>
 	</Collapse>
 </Navbar>
+
+<style>
+	img{
+		width: 40px;
+		margin: 20px 0px 0px 20px;
+		cursor: pointer;
+	}
+
+
+</style>

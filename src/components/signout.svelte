@@ -14,19 +14,22 @@
 	button {
 		font-family: Roboto;
 		position: absolute;
-		top: 380px;
+		top: 710px;
+		left: 28%;
 		color: transparent;
-
+		font-size: 21px;
 		background-color: Transparent;
 		background-repeat: no-repeat;
 		border: none;
 		cursor: pointer;
 		overflow: hidden;
+		font-weight: 200;
 		outline: none;
 		color: white;
+		
 	}
 
 	button:hover {
-		font-weight: bold;
+		font-weight: 400;
 	}
 </style>

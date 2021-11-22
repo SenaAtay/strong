@@ -1,10 +1,8 @@
 <script>
-    
 </script>
 
 <svelte:head>
-    <title>Schedule</title>
+	<title>Schedule</title>
 </svelte:head>
 
 <h1>Schedule</h1>
-

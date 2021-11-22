@@ -1,4 +1,5 @@
-import { writable } from 'svelte/store';
+import { browser } from "$app/env";
+import { writable } from "svelte/store";
 
-export const userID = writable(localStorage.getItem("userID") || null);
-userID.subscribe((val) => localStorage.setItem("userID", val));
+export const userID = writable(browser && localStorage.userID || null);
+userID.subscribe((val) => browser && (localStorage.userID = val));
