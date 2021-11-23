@@ -5,22 +5,31 @@
 	let email;
 	let password;
 
-	let hiddenTF = false;
+	let revealOne = false;
+	let revealTwo = false;
 
 	function check(){
-		let errorOne = document.getElementById("one").innerHTML
-		console.log("errpr one", errorOne )
-		let errorTwo = document.getElementById("two").value
-		console.log(document.getElementById("emailCheck").value)
+		revealOne = false;
+		revealTwo = false;
+		let errorOne = document.getElementById("one")
+		let errorTwo = document.getElementById("two")
 		let emailCheck = document.getElementById("emailCheck").value.trim()
 		let passwordCheck = document.getElementById("passwordCheck").value.trim()
-		if (emailCheck.length == 0){
+
+		if (emailCheck.length === 0 && passwordCheck.length === 0){
+			errorOne.innerHTML = "Email is required"
+			errorTwo.innerHTML = "Password is required"
+			revealOne = true;
+			revealTwo = true; 
+		}  else if (passwordCheck.length === 0){
+			console.log("password check")
+			errorTwo.innerHTML = "Password is required"
+			revealTwo = true; 
+		} else if (emailCheck.length === 0){
 			console.log("email check")
-			errorOne = "Email is required"
-			hiddenTF = true;
-		} else if (passwordCheck.length == 0){
-			errorTwo = "Password is required"
-		} else {
+			errorOne.innerHTML = "Email is required"
+			revealOne = true;
+		}else {
 			submitForm()
 		}
 	}
@@ -49,6 +58,22 @@
 				goto('../dash/dashboard');
 			}
 
+			revealOne = false;
+			if (predata.ok === false && data.msg == "Email does not exist"){
+				let errorOne = document.getElementById("one");
+				errorOne.innerHTML = data.msg;
+				revealOne = true;
+			}
+
+			revealTwo = false;
+			if (predata.ok === false && data.msg == "Password is not correct"){
+				let errorTwo = document.getElementById("two");
+				errorTwo.innerHTML = data.msg;
+				revealTwo = true;
+			}
+
+			
+
 			console.log("i'm here")
 		} catch (err) {
 			
@@ -68,11 +93,11 @@
 			<!-- <form on:submit|preventDefault = {submitForm}> -->
 			<div >
 				<input type="email" name="email" placeholder="Email" id = "emailCheck" bind:value={email} />
-				<small class = "one" id = "one" class:hidden={hiddenTF}>bidk</small>
+				<small class = "one" id = "one" class:visibility={revealOne}>bidk</small>
 			</div>
 			<div>
 				<input type="password" name="password" placeholder="Password" id = "passwordCheck" bind:value={password} />
-				<small class = "two" id = "two">Error</small>
+				<small class = "two" id = "two" class:visibility={revealTwo} >Error</small>
 			</div>
 			<input type="submit" value="Sign In" class="signin" />
 			<a href="/pre/createaccount">
@@ -141,7 +166,11 @@
 		border-radius: 9px;
 	}
 
-	small.one.hidden{
+	small.one.visibility{
+		visibility: visible;
+	}
+
+	small.two.visibility{
 		visibility: visible;
 	}
 
@@ -174,6 +203,7 @@
 		top: 398px;
 		left: 532px;
 		visibility: hidden;
+		color: #8B0000;
 	}
 
 	small.two{
@@ -183,6 +213,7 @@
 		top: 512px;
 		left: 532px;
 		visibility: hidden;
+		color: #8B0000;
 	}
 
 	/* a,

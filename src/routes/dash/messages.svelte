@@ -1,4 +1,4 @@
-<script>
+<script> 
 	import { messages, loadMessages } from '../../stores/message';
 	import Messagenav from '../../components/messagesnav.svelte';
 	import { userID } from '../../stores/userid';
@@ -8,6 +8,7 @@
 	$: meh = '';
 	let message; 
 	let dummy;
+	let groupname;
 	let navOpen = false;
 
 	function scrollFunc() {
@@ -21,7 +22,9 @@
 
 	function replace(event) {
 		groupidS.set(event.detail.groupidD.toString());
+		groupname = event.detail.groupnameD.toString();
 		console.log("event.detail", event.detail)
+		console.log("groupname", groupname)
 		
 	}
 
@@ -126,7 +129,7 @@
 	{#if $groupidS == undefined || $groupidS == '0'}
 		<p></p>
 	{:else}
-		<h1 class="title">Group {$groupidS}</h1>
+		<h1 class="title">Group {groupname}</h1>
 	{/if}
 	<!-- <h1 class="title">Group {$groupidS}</h1> -->
 	<div class="chatbox" id="chatbox" class:adjust={navOpen}>

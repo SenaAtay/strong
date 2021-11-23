@@ -54,7 +54,7 @@
 	{:else}
 		{#each $messages as { created_at, groupid, message, userid }, i}
 	
-			<Groupchat groupnameD={groups[i].groupname} messageI={message} on:groupchat />
+			<Groupchat groupidI = {groups[i].groupid} groupnameI={groups[i].groupname} messageI={message} on:groupchat />
 		
 		{/each}
 	{/if}

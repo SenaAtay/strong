@@ -1,20 +1,23 @@
 <script>
-	export let groupnameD;
+	export let groupnameI;
 	export let messageI;
+	export let groupidI
 	import { goto } from '$app/navigation';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 	function dispatchGroupchat() {
 		dispatch('groupchat', {
-			groupidD: groupidI
+			groupidD: groupidI,
+			groupnameD: groupnameI
+
 		});
 	}
 </script>
 
 <!-- <div on:click= {() => goto(`/dash/messages/${groupidI}`)} class="groupChat"> -->
 <div on:click={dispatchGroupchat} class="groupChat">
-	<h5>{groupnameD}</h5>
+	<h5>{groupnameI}</h5>
 	{#if messageI == null}
 	<p></p>
 	{:else}
