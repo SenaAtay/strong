@@ -62,8 +62,33 @@ const submitForm = async () =>{
 	<h2 style="color:white">Meetings</h2>
 	{#each groups as { starttime, endtime, groupname, loc, dati }}
 		<!-- <div class="rectangle" /> -->
+		{#if starttime == null}
+			<p>not scheduled</p>
+		{:else}
+			<div class="cardHead">
+				<div class="cardBody">
+					<h3 class="meet">Upcoming Meetings</h3>
 
-		<div class="cardHead">
+					<div class="box">
+						<h3>{groupname}</h3>
+						<div class="time">
+							<div>
+								<p>Start Time</p>
+								<div>{starttime}</div>
+							</div>
+
+							<div>
+								<p>End Time</p>
+								<div>{endtime}</div>
+							</div>
+						</div>
+
+						<p>where: {loc}</p>
+					</div>
+				</div>
+			</div>
+		{/if}
+		<!-- <div class="cardHead">
 			<div class="cardBody">
 				<h3 class="meet">Upcoming Meetings</h3>
 
@@ -84,7 +109,7 @@ const submitForm = async () =>{
 					<p>where: {loc}</p>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	{/each}
 {/if}
 

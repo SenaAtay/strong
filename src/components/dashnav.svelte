@@ -24,7 +24,7 @@
 <nav>
 	<div class="rectangle">
 		<!-- /connections.jpg -->
-		
+
 		<a href="/dash/dashboard"><img class="logo" alt="logo" src="../static/whitelogo.png" /></a>
 		<!-- <img class = "profilepic" alt = "profilepic" src="../static/profilepic.jpg"> -->
 		<div class="profilepic" />
@@ -89,15 +89,14 @@
 		font-size: 21px;
 		text-transform: capitalize;
 		margin-right: 3%;
-		margin-bottom:0%;
-		
+		margin-bottom: 0%;
 	}
 	.gear {
 		width: 20px;
-		height: 20px;	
+		height: 20px;
 	}
 
-	.gear:hover{
+	.gear:hover {
 		width: 20.3px;
 	}
 	ul {
