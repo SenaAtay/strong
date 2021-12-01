@@ -63,7 +63,7 @@ const submitForm = async () =>{
 	{#each groups as { starttime, endtime, groupname, loc, dati }}
 		<!-- <div class="rectangle" /> -->
 		{#if starttime == null}
-			<p>not scheduled</p>
+			<p>Not Scheduled</p>
 		{:else}
 			<div class="cardHead">
 				<div class="cardBody">
