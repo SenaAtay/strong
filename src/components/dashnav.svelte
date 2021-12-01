@@ -25,15 +25,15 @@
 	<div class="rectangle">
 		<!-- /connections.jpg -->
 
-		<a href="/dash/dashboard"><img class="logo" alt="logo" src="../static/whitelogo.png" /></a>
-		<!-- <img class = "profilepic" alt = "profilepic" src="../static/profilepic.jpg"> -->
+		<a href="/dash/dashboard"><img class="logo" alt="logo" src="/whitelogo.png" /></a>
+		<!-- <img class = "profilepic" alt = "profilepic" src="/profilepic.jpg"> -->
 		<div class="profilepic" />
 		{#if user == undefined}
 			<p />
 		{:else}
 			<div class="nameNLogo">
 				<h1>{user[0].fname} {user[0].lname}</h1>
-				<a href="/dash/profile"><img class="gear" alt="profileGear" src="../static/gear.png" /></a>
+				<a href="/dash/profile"><img class="gear" alt="profileGear" src="/gear.png" /></a>
 			</div>
 		{/if}
 
