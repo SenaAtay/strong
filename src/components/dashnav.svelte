@@ -26,7 +26,7 @@
 		<!-- /connections.jpg -->
 
 		<a href="/dash/dashboard"><img class="logo" alt="logo" src="/whitelogo.png" /></a>
-		<!-- <img class = "profilepic" alt = "profilepic" src="/profilepic.jpg"> -->
+		<!-- <img class="profilepic" alt="profilepic" src="/profilepic.jpg" /> -->
 		<div class="profilepic" />
 		{#if user == undefined}
 			<p />
@@ -69,7 +69,7 @@
 	.profilepic {
 		width: 160px;
 		height: 160px;
-		background-image: url('../static/profilepic.jpg');
+		background-image: url('/profilepic.jpg');
 		background-size: cover;
 		margin-left: 20%;
 		margin-bottom: 13%;
