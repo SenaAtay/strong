@@ -36,7 +36,7 @@
 };
  
 	const handleNav = () => {
-		navOpen = !navOpen;
+		navOpen = !navOpen; 
 		dispatchHamburger();
 	};
 

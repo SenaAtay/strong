@@ -126,15 +126,15 @@
 <div class="test">
 	<Messagenav on:hamburger={squish} on:groupchat={replace} />
 
-	{#if $groupidS == undefined || $groupidS == '0'}
+	{#if $groupidS == undefined || $groupidS == '0' || groupname == undefined}
 		<p></p>
 	{:else}
-		<h1 class="title">Group {groupname}</h1>
+		<h1 class="title">{groupname}</h1>
 	{/if}
 	<!-- <h1 class="title">Group {$groupidS}</h1> -->
 	<div class="chatbox" id="chatbox" class:adjust={navOpen}>
 		{#if meh[0] == 'User does not have access to this group'}
-			<p />
+			<p></p>
 		{:else}
 			{#each meh as { created_at, groupid, message, sentby, userid }}
 				{#if message == null}
