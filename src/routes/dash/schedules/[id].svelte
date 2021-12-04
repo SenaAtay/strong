@@ -6,6 +6,7 @@
 	let finished;
 	let indexMonth;
 	let weeks;
+	let voteColors = [];
 	let indexToMonth = {
 		0: 'January',
 		1: 'February',
@@ -21,6 +22,14 @@
 		11: 'December'
 	};
 	let weekStr;
+
+	const createColors = (numMembers) => {
+		let color = 'background-color: rgba(71, 89, 126, ';
+		for (let i = 0; i < numMembers; i++) {
+			const percentage = (i + 1) / numMembers;
+			voteColors.push(color + percentage + ');');
+		}
+	};
 
 	const weeksInMonth = (year, month) => {
 		let date = new Date(year, month);
@@ -47,6 +56,21 @@
 		}
 		return days;
 	};
+
+	const pickWeek = (index) => {
+		let week = document.querySelector(`[data-index='${index}']`);
+		let active = week.getAttribute('data-active');
+		if (active === 'false') {
+			weeks[index] += 1;
+			active = 'true';
+		} else {
+			weeks[index] -= 1;
+			active = 'false';
+		}
+
+		week.setAttribute('data-active', active);
+		console.log(weeks);
+	};
 	onMount(async () => {
 		let pathname = window.location.pathname;
 		let arr = pathname.split('/');
@@ -64,6 +88,8 @@
 		finished = schedule.finished;
 		indexMonth = schedule.indexmonth;
 		weeks = schedule.weeks;
+		createColors(schedule.nummembers);
+
 		weekStr = weeksInMonth(2021, indexMonth);
 
 		//console.log(weekStr);
@@ -97,14 +123,27 @@
 			<div class="week-picker">
 				<h3 class="month">{indexToMonth[indexMonth]}</h3>
 				<div class="weeks">
-					{#each weekStr as week}
-						<div class="week"><p>{week}</p></div>
+					{#each weekStr as week, i}
+						<div
+							class="week"
+							data-index={i}
+							data-active="false"
+							on:click={() => {
+								pickWeek(i);
+							}}
+						>
+							<p>{week}</p>
+						</div>
 					{/each}
 				</div>
 			</div>
 			<div class="week-voter">
 				<h3>Vote</h3>
-				<div class="vote-colors" />
+				<div class="vote-colors">
+					{#each voteColors as color, i}
+						<div style={voteColors[i]} class="tone" />
+					{/each}
+				</div>
 				<div class="week-choices">
 					{#each weeks as week, i}
 						{#if week != 0}
@@ -139,6 +178,9 @@
 		font-weight: 400;
 		margin-bottom: 20px;
 	}
+	.widget {
+		display: flex;
+	}
 	.week-picker {
 		display: flex;
 		flex-direction: column;
@@ -146,21 +188,44 @@
 	.weeks {
 		display: flex;
 		flex-direction: column;
-		gap: 10px;
+		gap: 3px;
 	}
 	.week {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		padding: 10px 200px;
-		border: 1px solid rgba(128, 128, 128, 0.678);
+		border: 1px solid #47597e;
 	}
 	.week-choices {
 		width: 500px;
 		background-color: #47597e63;
+		border-radius: 2%;
 		min-height: 600px;
 	}
 	.week-voter h3 {
 		text-align: center;
+	}
+	.tone {
+		width: 60px;
+		height: 5px;
+		border-radius: 30%;
+		padding: 10px;
+	}
+	.vote-colors {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		padding: 20px;
+	}
+
+	[data-active='false'] {
+		background-color: white;
+		color: #47597e;
+	}
+	[data-active='true'] {
+		background-color: #47597e;
+		color: white;
 	}
 </style>

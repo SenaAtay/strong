@@ -37,7 +37,7 @@
 		}
 		for (const schedule of schedules) {
 			const { finished } = schedule;
-			const action = true;
+			let action = true;
 			for (let i = 0; i < finished.length; i++) {
 				const id = finished[i];
 				if (id === $userID) {
