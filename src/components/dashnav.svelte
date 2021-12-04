@@ -40,7 +40,7 @@
 		<ul>
 			<li><a class="dash" href="/dash/dashboard">Dashboard</a></li>
 			<li><a href="/dash/messages">Messages</a></li>
-			<li><a href="/dash/schedule">Schedule</a></li>
+			<li><a href="/dash/schedules">Schedules</a></li>
 			<!-- <li><a href="/dash/profile">Profile</a></li> -->
 		</ul>
 		<Signout />

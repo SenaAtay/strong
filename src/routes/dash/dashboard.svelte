@@ -19,15 +19,15 @@
 
 	function editFunc(event) {
 		let element = document.getElementById(`${event.detail.eGroupIdV}`);
-		console.log("element", element)
-		
+		console.log('element', element);
+
 		savedHTML = element.innerHTML;
 		name = document.getElementById('groupName').innerHTML;
 		date = document.getElementById('date').innerHTML;
 		startTime = document.getElementById('startTime').innerHTML;
 		endTime = document.getElementById('endTime').innerHTML;
 		location = document.getElementById('location').innerHTML;
-		element.innerHTML = "";
+		element.innerHTML = '';
 		showInputs = true;
 		// console.log("savedHTML", savedHTML);
 		// console.log("name", name);
@@ -55,7 +55,6 @@
 		console.log(newName);
 
 		let element = document.getElementById('replace');
-		
 	}
 
 	onMount(async () => {
@@ -65,12 +64,11 @@
 	const unsubscribe = dash.subscribe((value) => {
 		userInfo = value;
 	});
-	// $: console.log(groups);
+	$: console.log(userInfo);
 	$: groups = userInfo.groups;
 	$: messages = userInfo.messages;
 	$: org = userInfo.org;
 	$: user = userInfo.user;
-
 
 	function upperCase(name) {
 		let casedName = name.charAt(0).toUpperCase() + name.slice(1);
@@ -106,9 +104,9 @@
 				{#if starttime != null}
 					<!-- <div class="outterCardBody"> -->
 
-					<div class="box"  >
-						<Edit eGroupId = {groupid} on:edit={editFunc} on:x={xFunc} on:c={cFunc} />
-						<div class="replace"  id = {groupid}>
+					<div class="box">
+						<Edit eGroupId={groupid} on:edit={editFunc} on:x={xFunc} on:c={cFunc} />
+						<div class="replace" id={groupid}>
 							<h3 class="groupName" id="groupName">{upperCase(groupname)}</h3>
 
 							<div class="date">
@@ -123,12 +121,37 @@
 								<p id="location">{loc}</p>
 							</div>
 						</div>
-						<div >
-							<input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={upperCase(groupname)}  bind:value={newName}>
-							<input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={date}  bind:value={newDate}>
-							<input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={starttime} bind:value={newStartTime}> 
-							<input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={endtime} bind:value={newEndTime}>
-							<input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={loc} bind:value={newLocation}>
+						<div>
+							<input
+								class:inputs={!showInputs}
+								class:changeVis={showInputs}
+								placeholder={upperCase(groupname)}
+								bind:value={newName}
+							/>
+							<input
+								class:inputs={!showInputs}
+								class:changeVis={showInputs}
+								placeholder={date}
+								bind:value={newDate}
+							/>
+							<input
+								class:inputs={!showInputs}
+								class:changeVis={showInputs}
+								placeholder={starttime}
+								bind:value={newStartTime}
+							/>
+							<input
+								class:inputs={!showInputs}
+								class:changeVis={showInputs}
+								placeholder={endtime}
+								bind:value={newEndTime}
+							/>
+							<input
+								class:inputs={!showInputs}
+								class:changeVis={showInputs}
+								placeholder={loc}
+								bind:value={newLocation}
+							/>
 						</div>
 					</div>
 
@@ -144,11 +167,11 @@
 		margin: 0;
 	}
 
-	.changeVis{
+	.changeVis {
 		visibility: visible;
 	}
 
-	.inputs{
+	.inputs {
 		visibility: hidden;
 	}
 
@@ -175,8 +198,6 @@
 		background: #dbe6fd;
 		border-radius: 20px;
 	}
-
-	
 
 	.meetGroupSection {
 		/* background-color: brown; */
