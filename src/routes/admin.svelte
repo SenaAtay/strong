@@ -22,6 +22,23 @@
 				})
 			});
 			const json = await submit.json();
+
+			console.log(json);
+			console.log(json.msg);
+			if (json.msg == 'Successfully made groups') {
+				reveal();
+			}
+
+			//alert(JSON.stringify(json));
+			//console.log(JSON.parse(json));
+			// console.log(
+			// 	JSON.stringify({
+			// 		organization,
+			// 		groups
+			// 	})
+			// );
+			return json;
+		} catch (err) {
 			console.log(err);
 		}
 	};
@@ -37,6 +54,7 @@
 		document.getElementById('myForm').reset();
 		let groups = [];
 		let lines = data.split('\n');
+		for (let i = 0; i < lines.length; i++) {
 			let currLine = lines[i];
 			if (currLine.includes('Group')) {
 				i++;
