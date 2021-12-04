@@ -48,7 +48,11 @@
 		div.style.color = 'Green';
 		div.innerHTML = 'Groups Successfully Made';
 
-		document.getElementById('main').appendChild(div);
+		var el = document.getElementById('main').appendChild(div);
+
+		setTimeout(function () {
+			el.remove();
+		}, 1500);
 	}
 	const GroupsFunc = (data) => {
 		document.getElementById('myForm').reset();
@@ -101,7 +105,7 @@
 				<input class="inputText" type="password" placeholder="Password" bind:value={password} />
 			</div>
 			<div class="inputDiv">
-				<input class="Year" type="text" placeholder="Year" bind:value={year} />
+				<input class="Year" type="number" placeholder="Year" bind:value={year} />
 				<!-- <input class="inputText last" placeholder="" bind:value={groups} /> -->
 			</div>
 
