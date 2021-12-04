@@ -5,6 +5,7 @@
 	let organization;
 	let indexMonth;
 	let year;
+	let result;
 
 	const createGroups = async (groups) => {
 		try {
@@ -21,24 +22,21 @@
 				})
 			});
 			const json = await submit.json();
-			// console.log(json);
-			// console.log(
-			// 	JSON.stringify({
-			// 		organization,
-			// 		groups
-			// 	})
-			// );
-			return json;
-		} catch (err) {
 			console.log(err);
 		}
 	};
+	function reveal() {
+		var div = document.createElement('div');
 
+		div.style.color = 'Green';
+		div.innerHTML = 'Groups Successfully Made';
+
+		document.getElementById('main').appendChild(div);
+	}
 	const GroupsFunc = (data) => {
 		document.getElementById('myForm').reset();
 		let groups = [];
 		let lines = data.split('\n');
-		for (let i = 0; i < lines.length; i++) {
 			let currLine = lines[i];
 			if (currLine.includes('Group')) {
 				i++;
@@ -112,11 +110,12 @@
 				<textarea class="inputText last" placeholder="" bind:value={groups} />
 				<!-- <input class="inputText last" placeholder="" bind:value={groups} /> -->
 			</div>
-
+			<div id="main" />
 			<!-- <button on:click|preventDefault={check}>Send</button> -->
 			<button class="createGroups" on:click|preventDefault={GroupsFunc(groups)}
 				>Create Groups</button
 			>
+
 			<!-- {createGroups} -->
 		</div>
 
