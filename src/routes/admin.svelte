@@ -1,9 +1,11 @@
 <script>
 	let groups;
-    let password;
-    let orgname;
+	let password;
+	let organization;
+	let indexMonth;
+	let year;
 
-	const createGroups = async () => {
+	const createGroups = async (groups) => {
 		try {
 			const submit = await fetch(`https://strengthn.herokuapp.com/admin/group`, {
 				method: 'POST',
@@ -11,16 +13,45 @@
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-                    organization,
-                    password,
-					groups
+					organization,
+					groups,
+					indexMonth,
+					year
 				})
 			});
+			const json = await submit.json();
+			console.log(json);
+			console.log(
+				JSON.stringify({
+					organization,
+					groups
+				})
+			);
+			return json;
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
+	const GroupsFunc = (data) => {
+		let groups = [];
+		let lines = data.split('\n');
+		for (let i = 0; i < lines.length; i++) {
+			let currLine = lines[i];
+			if (currLine.includes('Group')) {
+				i++;
+				let group = [];
+				while (i < lines.length && lines[i].trim() != 0) {
+					let currLine = lines[i];
+					let member = currLine.trim().substring(2);
+					group.push(member);
+					i++;
+				}
+				groups.push(group);
+			}
+		}
+		return createGroups(groups);
+	};
 </script>
 
 <svelte:head>
@@ -29,7 +60,7 @@
 
 <div class="top">
 	<a href="/">
-		<img alt ="black sn logo" src="/blacklogo.png" />
+		<img alt="black sn logo" src="/blacklogo.png" />
 	</a>
 	<a href="/">
 		<button class="home">Go Home</button>
@@ -40,19 +71,52 @@
 	<div class="formelem">
 		<h1 class="adminText">Administrator</h1>
 		<h1 class="otherText">Create new groups</h1>
-        <div class= "inputDiv">
-		    <input class="inputText" type="text" placeholder="Oranization Name" bind:value={orgname}/>
-        </div>
-        <div class= "inputDiv">
-		    <input class="inputText" type="password" placeholder="Password" bind:value={password} />
-        </div>
-        <div class= "inputDiv">
-            <textarea class="inputText last" placeholder="" bind:value={groups}></textarea>
-		    <!-- <input class="inputText last" placeholder="" bind:value={groups} /> -->
-        </div>
+		<div class="inputDiv">
+			<input
+				class="inputText"
+				type="text"
+				placeholder="Oranization Name"
+				bind:value={organization}
+			/>
+		</div>
+		<div class="inputDiv">
+			<input class="inputText" type="password" placeholder="Password" bind:value={password} />
+		</div>
+		<div class="inputDiv">
+			<input class="Year" type="text" placeholder="Year" bind:value={year} />
+			<!-- <input class="inputText last" placeholder="" bind:value={groups} /> -->
+		</div>
+
+		<label for="Month">Months</label>
+
+		<select name="Month" id="Month" bind:value={indexMonth}>
+			<option value="0">January</option>
+			<option value="1">Feburary </option>
+			<option value="2">March</option>
+			<option value="3">April</option>
+
+			<option value="4">May</option>
+			<option value="5">June</option>
+			<option value="6">July</option>
+			<option value="7">August</option>
+
+			<option value="8">September</option>
+			<option value="9">October </option>
+			<option value="10">November</option>
+			<option value="11">December</option>
+		</select>
+
+		<div class="inputDiv">
+			<textarea class="inputText last" placeholder="" bind:value={groups} />
+			<!-- <input class="inputText last" placeholder="" bind:value={groups} /> -->
+		</div>
+
 		<!-- <button on:click|preventDefault={check}>Send</button> -->
-		<button class = "createGroups" on:click|preventDefault={createGroups}>Create Groups</button>
+		<button class="createGroups" on:click|preventDefault={GroupsFunc(groups)}>Create Groups</button>
+		<!-- {createGroups} -->
 	</div>
+
+	<!-- //	{result} -->
 </form>
 
 <style>
@@ -62,7 +126,6 @@
 	}
 
 	.top {
-        
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -70,70 +133,73 @@
 	img {
 		width: 40px;
 		margin: 30px 0px 0px 50px;
-        cursor: pointer;
+		cursor: pointer;
 	}
-    .home {
+	.home {
 		padding: 5px;
 		background-color: black;
 		color: #fff;
 		border-radius: 10px;
 		border: none;
 		padding: 10px 20px;
-        margin: 30px 50px 0px 0px;
-        font-size: 14px;
+		margin: 30px 50px 0px 0px;
+		font-size: 14px;
 	}
 
-    .createGroups{
-		
+	.createGroups {
 		background-color: black;
 		color: #fff;
 		border-radius: 10px;
 		border: none;
 		padding: 10px 65px;
-        font-size: 14px;
-        
-    }
-    form{
-        margin-top: 50px;
-    }
-    .formelem {
-        
+		font-size: 14px;
+	}
+	form {
+		margin-top: 50px;
+	}
+	.formelem {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: space-evenly;
-        margin-top: 1%;
+		margin-top: 1%;
 		margin-left: 9%;
 	}
 	.adminText {
 		color: #909498;
 		font-size: 36px;
 		font-weight: 500;
-        margin-bottom: 1%;
+		margin-bottom: 1%;
 	}
 	.otherText {
 		font-size: 48px;
 		font-weight: 500;
-        margin-bottom: 2%;
+		margin-bottom: 2%;
 	}
-    .inputDiv{
-        margin-bottom: 1%;
-        padding-bottom: 1%;
-          
-    }
+	.inputDiv {
+		margin-bottom: 1%;
+		padding-bottom: 1%;
+	}
 	.inputText {
 		font-size: 14px;
 		font-weight: 400;
-        padding: 5px 10px;
-        border-radius: 8px;
-        width: 400px;
-        border-width: thin;
+		padding: 5px 10px;
+		border-radius: 8px;
+		width: 400px;
+		border-width: thin;
 	}
 
-    .last{
-        width:900px;
-        height:250px;
-    }
+	.Year {
+		font-size: 14px;
+		font-weight: 400;
+		padding: 5px 10px;
+		border-radius: 8px;
+		width: 200px;
+		border-width: thin;
+	}
 
-    
+	.last {
+		width: 900px;
+		height: 250px;
+	}
 </style>
