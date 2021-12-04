@@ -1,12 +1,13 @@
-<script> 
+<script>
+	import { fade, slide, scale, fly } from 'svelte/transition';
 	import { messages, loadMessages } from '../../stores/message';
 	import Messagenav from '../../components/messagesnav.svelte';
 	import { userID } from '../../stores/userid';
-	import { jwt } from '../../stores/jwt'
+	import { jwt } from '../../stores/jwt';
 	import { onMount } from 'svelte';
 	import { groupidS } from '../../stores/groupid';
 	$: meh = '';
-	let message; 
+	let message;
 	let dummy;
 	let groupname;
 	let navOpen = false;
@@ -23,9 +24,8 @@
 	function replace(event) {
 		groupidS.set(event.detail.groupidD.toString());
 		groupname = event.detail.groupnameD.toString();
-		console.log("event.detail", event.detail)
-		console.log("groupname", groupname)
-		
+		console.log('event.detail', event.detail);
+		console.log('groupname', groupname);
 	}
 
 	const realTime = async () => {
@@ -63,16 +63,16 @@
 		}
 
 		// element.scrollHeight - Math.abs(element.scrollTop) === element.clientHeight
-		
+
 		return;
 	};
 
 	function check() {
-		console.log(typeof message)
+		console.log(typeof message);
 		if (message.trim().length === 0) {
 			return;
 		} else {
-			console.log('camehere')
+			console.log('camehere');
 			submit();
 		}
 	}
@@ -123,56 +123,53 @@
 	setInterval(realTime, 100);
 </script>
 
-<div class="test">
-	<Messagenav on:hamburger={squish} on:groupchat={replace} />
+<body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
+	<div class="test">
+		<Messagenav on:hamburger={squish} on:groupchat={replace} />
 
-	{#if $groupidS == undefined || $groupidS == '0' || groupname == undefined}
-		<p></p>
-	{:else}
-		<h1 class="title">{groupname}</h1>
-	{/if}
-	<!-- <h1 class="title">Group {$groupidS}</h1> -->
-	<div class="chatbox" id="chatbox" class:adjust={navOpen}>
-		{#if meh[0] == 'User does not have access to this group'}
-			<p></p>
+		{#if $groupidS == undefined || $groupidS == '0' || groupname == undefined}
+			<p />
 		{:else}
-			{#each meh as { created_at, groupid, message, sentby, userid }}
-				{#if message == null}
-					<p />
-				{:else if userid == $userID}
-				<div class="flexRight">
-
-				
-					<div class="wrapMyMessage">
-						
-							
-							<p class="myMessage">{message}</p>
-						
-					</div>
-				</div>
-				{:else}
-				<div class="flexLeft">
-					<div class="wrapTheirMessage container">
-						<div>
-							<p class='name'>{sentby}</p>
-							<p class="theirMessage">{message}</p>
-						</div>
-					</div>
-				</div>
-				{/if}
-			{/each}
-
-			<div bind:this={dummy} class="sickofyou">
-				<!-- <p>tryagainandgain</p> -->
-			</div>
+			<h1 class="title">{groupname}</h1>
 		{/if}
-	</div>
+		<!-- <h1 class="title">Group {$groupidS}</h1> -->
+		<div class="chatbox" id="chatbox" class:adjust={navOpen}>
+			{#if meh[0] == 'User does not have access to this group'}
+				<p />
+			{:else}
+				{#each meh as { created_at, groupid, message, sentby, userid }}
+					{#if message == null}
+						<p />
+					{:else if userid == $userID}
+						<div class="flexRight">
+							<div class="wrapMyMessage">
+								<p class="myMessage">{message}</p>
+							</div>
+						</div>
+					{:else}
+						<div class="flexLeft">
+							<div class="wrapTheirMessage container">
+								<div>
+									<p class="name">{sentby}</p>
+									<p class="theirMessage">{message}</p>
+								</div>
+							</div>
+						</div>
+					{/if}
+				{/each}
 
-	<form on:submit|preventDefault={check} class:adjust={navOpen}>
-		<input placeholder="....." bind:value={message} />
-		<button on:click|preventDefault={check}>Send</button>
-	</form>
-</div>
+				<div bind:this={dummy} class="sickofyou">
+					<!-- <p>tryagainandgain</p> -->
+				</div>
+			{/if}
+		</div>
+
+		<form on:submit|preventDefault={check} class:adjust={navOpen}>
+			<input placeholder="....." bind:value={message} />
+			<button on:click|preventDefault={check}>Send</button>
+		</form>
+	</div>
+</body>
 
 <style>
 	* {
@@ -203,7 +200,7 @@
 		overflow-y: auto;
 	}
 
-	.flexRight{
+	.flexRight {
 		display: flex;
 		justify-content: flex-end;
 	}
@@ -222,23 +219,19 @@
 		border-radius: 10px;
 		padding: 11px;
 		/* margin: 11px; */
-		
-		
 	}
 
-	.flexLeft{
+	.flexLeft {
 		display: flex;
 		justify-content: flex-start;
-		
 	}
 
 	.wrapTheirMessage {
 		display: flex;
-		
+
 		justify-content: flex-start;
 		margin: 0px 11px 10px 11px;
-		width:48%;
-		
+		width: 48%;
 	}
 
 	.theirMessage {
@@ -252,8 +245,7 @@
 		display: flex;
 	}
 
-	.name{
-		
+	.name {
 		color: #909498;
 		font-size: 13px;
 		margin-bottom: 9px;
@@ -291,11 +283,3 @@
 		width: 64.5vw;
 	}
 </style>
-
-
-
-
-
-
-
-

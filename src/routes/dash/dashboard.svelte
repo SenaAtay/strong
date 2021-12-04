@@ -1,4 +1,5 @@
 <script>
+	import { fade, slide, scale, fly } from 'svelte/transition';
 	import { dash } from '../../stores/dash';
 	import { loadDash } from '../../stores/dash';
 	import { onMount } from 'svelte';
@@ -81,86 +82,87 @@
 {:else}
 	<h3 class="intro">Hi, {user[0].fname} {user[0].lname}</h3>
 {/if} -->
-
-{#if groups == undefined}
-	<h1 class="noMeet">You have no meetings scheduled</h1>
-{:else}
-	<!-- <h2 style="color:aqua">Meetings</h2> -->
-	<div class="topSection">
-		<div class="meetGroupSection">
-			<h3 class="topText">Meet your Group</h3>
+<body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
+	{#if groups == undefined}
+		<h1 class="noMeet">You have no meetings scheduled</h1>
+	{:else}
+		<!-- <h2 style="color:aqua">Meetings</h2> -->
+		<div class="topSection">
+			<div class="meetGroupSection">
+				<h3 class="topText">Meet your Group</h3>
+			</div>
+			<div class="yourStrengthSection">
+				<h3 class="topText">Your Strength</h3>
+				<div class="number"><p><span style="font-size: 42px">#</span> Connections</p></div>
+				<div class="percentage"><p><span style="font-size: 42px">#%</span> Group Met</p></div>
+			</div>
 		</div>
-		<div class="yourStrengthSection">
-			<h3 class="topText">Your Strength</h3>
-			<div class="number"><p><span style="font-size: 42px">#</span> Connections</p></div>
-			<div class="percentage"><p><span style="font-size: 42px">#%</span> Group Met</p></div>
-		</div>
-	</div>
-	<div class="cardHead">
-		<h3 class="upcoming">Upcoming Meetings</h3>
-		<div class="cardBody">
-			{#each groups as { starttime, endtime, groupname, loc, dati, groupid }}
-				<!-- <div class="rectangle" /> -->
-				{#if starttime != null}
-					<!-- <div class="outterCardBody"> -->
+		<div class="cardHead">
+			<h3 class="upcoming">Upcoming Meetings</h3>
+			<div class="cardBody">
+				{#each groups as { starttime, endtime, groupname, loc, dati, groupid }}
+					<!-- <div class="rectangle" /> -->
+					{#if starttime != null}
+						<!-- <div class="outterCardBody"> -->
 
-					<div class="box">
-						<Edit eGroupId={groupid} on:edit={editFunc} on:x={xFunc} on:c={cFunc} />
-						<div class="replace" id={groupid}>
-							<h3 class="groupName" id="groupName">{upperCase(groupname)}</h3>
+						<div class="box">
+							<Edit eGroupId={groupid} on:edit={editFunc} on:x={xFunc} on:c={cFunc} />
+							<div class="replace" id={groupid}>
+								<h3 class="groupName" id="groupName">{upperCase(groupname)}</h3>
 
-							<div class="date">
-								<p id="date">date</p>
+								<div class="date">
+									<p id="date">date</p>
+								</div>
+
+								<div class="time">
+									<p><span id="startTime">{starttime}</span>-<span id="endTime">{endtime}</span></p>
+								</div>
+
+								<div class="location">
+									<p id="location">{loc}</p>
+								</div>
 							</div>
-
-							<div class="time">
-								<p><span id="startTime">{starttime}</span>-<span id="endTime">{endtime}</span></p>
-							</div>
-
-							<div class="location">
-								<p id="location">{loc}</p>
+							<div>
+								<input
+									class:inputs={!showInputs}
+									class:changeVis={showInputs}
+									placeholder={upperCase(groupname)}
+									bind:value={newName}
+								/>
+								<input
+									class:inputs={!showInputs}
+									class:changeVis={showInputs}
+									placeholder={date}
+									bind:value={newDate}
+								/>
+								<input
+									class:inputs={!showInputs}
+									class:changeVis={showInputs}
+									placeholder={starttime}
+									bind:value={newStartTime}
+								/>
+								<input
+									class:inputs={!showInputs}
+									class:changeVis={showInputs}
+									placeholder={endtime}
+									bind:value={newEndTime}
+								/>
+								<input
+									class:inputs={!showInputs}
+									class:changeVis={showInputs}
+									placeholder={loc}
+									bind:value={newLocation}
+								/>
 							</div>
 						</div>
-						<div>
-							<input
-								class:inputs={!showInputs}
-								class:changeVis={showInputs}
-								placeholder={upperCase(groupname)}
-								bind:value={newName}
-							/>
-							<input
-								class:inputs={!showInputs}
-								class:changeVis={showInputs}
-								placeholder={date}
-								bind:value={newDate}
-							/>
-							<input
-								class:inputs={!showInputs}
-								class:changeVis={showInputs}
-								placeholder={starttime}
-								bind:value={newStartTime}
-							/>
-							<input
-								class:inputs={!showInputs}
-								class:changeVis={showInputs}
-								placeholder={endtime}
-								bind:value={newEndTime}
-							/>
-							<input
-								class:inputs={!showInputs}
-								class:changeVis={showInputs}
-								placeholder={loc}
-								bind:value={newLocation}
-							/>
-						</div>
-					</div>
 
-					<!-- </div> -->
-				{/if}
-			{/each}
+						<!-- </div> -->
+					{/if}
+				{/each}
+			</div>
 		</div>
-	</div>
-{/if}
+	{/if}
+</body>
 
 <style>
 	* {

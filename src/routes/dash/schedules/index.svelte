@@ -1,4 +1,5 @@
 <script>
+	import { fade, slide, scale, fly } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import { jwt } from '../../../stores/jwt';
 	import { userID } from '../../../stores/userid';
@@ -96,27 +97,28 @@
 <svelte:head>
 	<title>Schedule</title>
 </svelte:head>
-
-{#if schedules.length === 0}
-	<h2>You have no meetings to schedule</h2>
-{:else}
-	<section>
-		<div>
-			<h2>Start scheduling</h2>
-			<div class="schedules-container">
-				{#each schedules as { currentstep, groupid }, i}
-					<div class="schedule-box" on:click={alertFunc(`/dash/schedules/${groupid}`)}>
-						<div class={actionNeeded[i] ? 'yellow indicator' : 'green indicator'} />
-						<div class="schedule-info-text">
-							<h3>{stepToName[currentstep]}</h3>
-							<p class="schedule-members">{groupMem[i]}</p>
+<body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
+	{#if schedules.length === 0}
+		<h2>You have no meetings to schedule</h2>
+	{:else}
+		<section>
+			<div>
+				<h2>Start scheduling</h2>
+				<div class="schedules-container">
+					{#each schedules as { currentstep, groupid }, i}
+						<div class="schedule-box" on:click={alertFunc(`/dash/schedules/${groupid}`)}>
+							<div class={actionNeeded[i] ? 'yellow indicator' : 'green indicator'} />
+							<div class="schedule-info-text">
+								<h3>{stepToName[currentstep]}</h3>
+								<p class="schedule-members">{groupMem[i]}</p>
+							</div>
 						</div>
-					</div>
-				{/each}
+					{/each}
+				</div>
 			</div>
-		</div>
-	</section>
-{/if}
+		</section>
+	{/if}
+</body>
 
 <style>
 	* {
