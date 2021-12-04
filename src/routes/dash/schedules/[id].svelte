@@ -1,10 +1,12 @@
 <script>
 	import { onMount } from 'svelte';
 	import { jwt } from '../../../stores/jwt';
+	import { goto } from '$app/navigation';
 	let schedule;
 	let currentStep;
 	let finished;
 	let indexMonth;
+	let dates;
 	let weeks;
 	let voteColors = [];
 	let indexToMonth = {
@@ -22,6 +24,36 @@
 		11: 'December'
 	};
 	let weekStr;
+
+	const scheduleAction = async () => {
+		let pathname = window.location.pathname;
+		let arr = pathname.split('/');
+		let id = parseInt(arr[arr.length - 1]);
+		console.log(weeks, dates);
+		try {
+			if (!dates) {
+				dates = [[]];
+			}
+			const result = await fetch(`https://strengthn.herokuapp.com/user/schedules/${id}`, {
+				method: 'POST',
+				body: JSON.stringify({
+					weeks,
+					dates
+				}),
+				headers: {
+					'Content-Type': 'application/json',
+					token: JSON.stringify($jwt)
+				}
+			});
+			console.log(result);
+			const res = await result.json();
+			console.log(res);
+
+			goto('/dash/schedules');
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	const createColors = (numMembers) => {
 		let color = 'background-color: rgba(71, 89, 126, ';
@@ -63,13 +95,16 @@
 		if (active === 'false') {
 			weeks[index] += 1;
 			active = 'true';
+			week.style.color = 'white';
+			week.style.backgroundColor = '#47597e';
 		} else {
 			weeks[index] -= 1;
+			week.style.color = '#47597e';
+			week.style.backgroundColor = 'white';
 			active = 'false';
 		}
 
 		week.setAttribute('data-active', active);
-		console.log(weeks);
 	};
 	onMount(async () => {
 		let pathname = window.location.pathname;
@@ -88,19 +123,16 @@
 		finished = schedule.finished;
 		indexMonth = schedule.indexmonth;
 		weeks = schedule.weeks;
+		dates = schedule.dates;
 		createColors(schedule.nummembers);
 
 		weekStr = weeksInMonth(2021, indexMonth);
-
-		//console.log(weekStr);
 
 		for (let i = 0; i < weekStr.length; i++) {
 			let interval = weekStr[i];
 			const arr = interval.split('?');
 			const start = new Date(arr[0]);
 			const end = new Date(arr[1]);
-			console.log(start);
-			console.log(end);
 			const intervalStr =
 				start.getUTCMonth() +
 				1 +
@@ -112,8 +144,6 @@
 				end.getUTCDate();
 			weekStr[i] = intervalStr;
 		}
-
-		console.log(weekStr);
 	});
 </script>
 
@@ -136,6 +166,11 @@
 						</div>
 					{/each}
 				</div>
+				<button
+					on:click|preventDefault={() => {
+						scheduleAction();
+					}}>Lock</button
+				>
 			</div>
 			<div class="week-voter">
 				<h3>Vote</h3>
@@ -147,7 +182,7 @@
 				<div class="week-choices">
 					{#each weeks as week, i}
 						{#if week != 0}
-							<div class="vwWeek">
+							<div class="vwWeek" style={voteColors[week]}>
 								<p>
 									{weekStr[i]}
 								</p>
@@ -180,10 +215,12 @@
 	}
 	.widget {
 		display: flex;
+		gap: 20px;
 	}
 	.week-picker {
 		display: flex;
 		flex-direction: column;
+		width: 700px;
 	}
 	.weeks {
 		display: flex;
@@ -194,14 +231,20 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		padding: 10px 200px;
+		width: 100%;
+		padding: 40px 0;
 		border: 1px solid #47597e;
 	}
 	.week-choices {
-		width: 500px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		width: 400px;
 		background-color: #47597e63;
 		border-radius: 2%;
 		min-height: 600px;
+		gap: 5px;
 	}
 	.week-voter h3 {
 		text-align: center;
@@ -224,8 +267,17 @@
 		background-color: white;
 		color: #47597e;
 	}
-	[data-active='true'] {
+	[data-active='3'] {
 		background-color: #47597e;
 		color: white;
+	}
+	.vwWeek {
+		color: white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 2px;
+		height: 100px;
+		width: 90%;
 	}
 </style>
