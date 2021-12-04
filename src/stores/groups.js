@@ -5,7 +5,7 @@ import { jwt } from "./jwt";
 export const groupsStore = writable({});
 
 export const loadGroupsStore = async () => {
-    console.log("jwt", jwt)
+    // console.log("jwt", jwt)
 
     let njwt;
     const unsubscribe = jwt.subscribe(value => {

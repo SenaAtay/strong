@@ -6,7 +6,7 @@
 	let currentStep;
 	let finished;
 	let indexMonth;
-	let dates;
+	let dates = [[]];
 	let weeks;
 	let voteColors = [];
 	let indexToMonth = {
@@ -29,23 +29,18 @@
 		let pathname = window.location.pathname;
 		let arr = pathname.split('/');
 		let id = parseInt(arr[arr.length - 1]);
-		console.log(weeks, dates);
 		try {
-			if (!dates) {
-				dates = [[]];
-			}
 			const result = await fetch(`https://strengthn.herokuapp.com/user/schedules/${id}`, {
 				method: 'POST',
 				body: JSON.stringify({
 					weeks,
-					dates
+					dates: [[]]
 				}),
 				headers: {
 					'Content-Type': 'application/json',
 					token: JSON.stringify($jwt)
 				}
 			});
-			console.log(result);
 			const res = await result.json();
 			console.log(res);
 

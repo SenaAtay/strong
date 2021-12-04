@@ -109,7 +109,7 @@
 						<div class="schedule-box" on:click={alertFunc(`/dash/schedules/${groupid}`)}>
 							<div class={actionNeeded[i] ? 'yellow indicator' : 'green indicator'} />
 							<div class="schedule-info-text">
-								<h3>{stepToName[currentstep]}</h3>
+								<h3>{actionNeeded[i] ? stepToName[currentstep] : 'Waiting for other members'}</h3>
 								<p class="schedule-members">{groupMem[i]}</p>
 							</div>
 						</div>

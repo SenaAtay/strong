@@ -31,7 +31,7 @@
 <!-- svelte-ignore missing-declaration -->
 
 <Navbar color="#FFFFFF" light expand="md">
-	<NavbarBrand href="/"><img alt = "logo" src="/blacklogo.png" /></NavbarBrand>
+	<NavbarBrand href="/"><img alt="logo" src="/blacklogo.png" /></NavbarBrand>
 	<NavbarToggler on:click={() => (isOpen = !isOpen)} />
 	<Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
 		<Nav class="ml-auto" navbar>
@@ -55,11 +55,9 @@
 </Navbar>
 
 <style>
-	img{
+	img {
 		width: 40px;
 		margin: 20px 0px 0px 20px;
 		cursor: pointer;
 	}
-
-
 </style>
