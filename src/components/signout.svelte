@@ -26,7 +26,6 @@
 		font-weight: 200;
 		outline: none;
 		color: white;
-		
 	}
 
 	button:hover {

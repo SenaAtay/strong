@@ -20,6 +20,7 @@ export const loadMessages = async () => {
 
         const data = await submit.json();
         messages.set(data);
+        
 
 
     } catch (err) {

@@ -2,13 +2,11 @@
 	import { jwt } from '/src/stores/jwt.js';
 	import { goto } from '$app/navigation';
 	import { fade, slide, scale, fly } from 'svelte/transition';
- 
+
 	let fname;
 	let lname;
 	let email;
 	let password;
-
-
 
 	const submitForm = async () => {
 		try {
@@ -27,9 +25,9 @@
 
 			const predata = await submit;
 			const data = await submit.json();
-			console.log('consoling dat', data);
+			// console.log('consoling dat', data);
 			jwt.set(data);
-			console.log(data.ok);
+			// console.log(data.ok);
 			if (predata.ok) {
 				goto('../dash/dashboard');
 			}
@@ -41,7 +39,7 @@
 
 <body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
 	<a href="/">
-		<img alt = "logo" src="/blacklogo.png" />
+		<img alt="logo" src="/blacklogo.png" />
 	</a>
 	<h1 class="intro">Let's Get Started</h1>
 
@@ -74,14 +72,14 @@
 		box-sizing: border-box;
 	}
 
-	img{
+	img {
 		width: 40px;
 		margin: 20px 0px 0px 30px;
 	}
-	
-	img:hover{
-        cursor: pointer;
-    }
+
+	img:hover {
+		cursor: pointer;
+	}
 
 	.intro {
 		position: absolute;

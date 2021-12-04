@@ -16,36 +16,33 @@
 	let navOpen = false;
 
 	export const loadGroups = async () => {
-    try {
-        const groupsfetch = await fetch("https://strengthn.herokuapp.com/user/groups", {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-                "token": JSON.stringify($jwt)
-            },
-        });
+		try {
+			const groupsfetch = await fetch('https://strengthn.herokuapp.com/user/groups', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					token: JSON.stringify($jwt)
+				}
+			});
 
-        const groupsfetched = await groupsfetch.json();
-        groups = groupsfetched;
-		console.log("thegroups", groups)
+			const groupsfetched = await groupsfetch.json();
+			groups = groupsfetched;
+			// console.log("thegroups", groups)
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
-
-    } catch (err) {
-        console.log(err)
-    }
-};
- 
 	const handleNav = () => {
-		navOpen = !navOpen; 
+		navOpen = !navOpen;
 		dispatchHamburger();
 	};
 
 	onMount(async () => {
 		await loadMessages();
 		await loadGroups();
-		console.log("themessages", $messages)
+		// console.log("themessages", $messages)
 	});
-
 </script>
 
 <div id="mySidenav" class="sidenav" class:open={navOpen}>
@@ -53,9 +50,12 @@
 		<h1>You have no messages</h1>
 	{:else}
 		{#each $messages as { created_at, groupid, message, userid }, i}
-	
-			<Groupchat groupidI = {groups[i].groupid} groupnameI={groups[i].groupname} messageI={message} on:groupchat />
-		
+			<Groupchat
+				groupidI={groups[i].groupid}
+				groupnameI={groups[i].groupname}
+				messageI={message}
+				on:groupchat
+			/>
 		{/each}
 	{/if}
 </div>
@@ -65,7 +65,6 @@
 	<div class="bar2" />
 	<div class="bar3" />
 </div>
-
 
 <style>
 	/* The side navigation menu */
@@ -85,7 +84,6 @@
 		padding-top: 30px; /* Place content 60px from the top */
 		transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 	}
-
 
 	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 	@media screen and (max-height: 450px) {

@@ -84,9 +84,9 @@
 	.img {
 		position: absolute;
 		width: 500px;
-		height: 604px;
+		height: 630px;
 		left: 842px;
-		top: 170px;
+		top: 120px;
 
 		background: linear-gradient(180.03deg, rgba(255, 255, 255, 0.7) 20.39%, rgba(0, 0, 0, 0) 99.97%),
 			url(DSC08951.jpg);

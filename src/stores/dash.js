@@ -25,12 +25,6 @@ export const loadDash = async () => {
         dash.set(parsedData);
 
         userID.set(parsedData.user[0].userid);
-        // console.log("parsedData", parsedData)
-        // console.log("dashidash", dash.subscribe)
-        // console.log("dash", $dash)
-        // console.log("useID", $userID)
-        // console.log("parsedData.user[0]", parsedData.user[0])
-        // console.log("parsedData.user[0].userid", parsedData.user[0].userid)
 
     } catch (err) {
         console.log(err)

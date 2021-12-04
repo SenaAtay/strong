@@ -1,74 +1,244 @@
 <script>
-	import { dash } from '../../stores/dash';
-	import { loadDash } from '../../stores/dash';
+	import { dash, loadDash } from '../../stores/dash';
+	// import { loadDash } from '../../stores/dash';
+	import { groupsStore, loadGroupsStore } from '../../stores/groups';
 	import { onMount } from 'svelte';
 	import Edit from '../../components/editMeeting.svelte';
+	import { jwt } from '../../stores/jwt';
 
-	let showInputs = false;
-	let savedHTML;
+	// let showInputs = false;
+	let savedHTML = '';
 	let name;
+	let dateP;
+	let startTimeP;
+	let endTimeP;
+	let location;
+	let groupName;
 	let date;
 	let startTime;
 	let endTime;
-	let location;
-	let newName;
-	let newDate;
-	let newStartTime;
-	let newEndTime;
-	let newLocation;
+	let locationA;
+	let todayYear;
+	let todayMonth;
+	let foundGroupId;
+	let Reactive = true;
+	let EName;
+	let EDate;
+	let ESTime;
+	let EETime;
+	let ELocation;
 
-	function editFunc(event) {
-		let element = document.getElementById(`${event.detail.eGroupIdV}`);
-		console.log('element', element);
-
-		savedHTML = element.innerHTML;
-		name = document.getElementById('groupName').innerHTML;
-		date = document.getElementById('date').innerHTML;
-		startTime = document.getElementById('startTime').innerHTML;
-		endTime = document.getElementById('endTime').innerHTML;
-		location = document.getElementById('location').innerHTML;
-		element.innerHTML = '';
-		showInputs = true;
-		// console.log("savedHTML", savedHTML);
-		// console.log("name", name);
-		// console.log("startTime", startTime);
-		// console.log("endTime", endTime);
-		// console.log("location", location);
-
-		// 	element.innerHTML = `
-		// 	<input placeholder="Name" value=${name} bind:value={newName}>
-		// 	<input placeholder="Date" value=${date} bind:value={newDate}>
-		// <input placeholder="Start Time" value=${startTime} bind:value={newStartTime}>
-		// <input placeholder="End Time" value=${endTime} bind:value={newEndTime}>
-		// <input placeholder="Location" value=${location} bind:value={newLocation}>
-		// 	`;
-	}
-
-	function xFunc(event) {
-		let element = document.getElementById(`${event.detail.eGroupIdV}`);
-		element.innerHTML = savedHTML;
-		showInputs = false;
-	}
-
-	function cFunc(event) {
-		alert('cFunc');
-		console.log(newName);
-
-		let element = document.getElementById('replace');
-	}
+	// let calismiycak = document.getElementById(`${event.detail.eGroupIdV}inputs`)
+	// console.log(calismiycak);
 
 	onMount(async () => {
-		loadDash();
+		console.log('before', loadDash());
+		await loadDash();
+		console.log('after', loadDash());
+		await loadGroupsStore();
+		findGroupId(groupsInfo);
 	});
 	let userInfo;
-	const unsubscribe = dash.subscribe((value) => {
+
+	// const unsubscribe = dash.subscribe((value) => {
+	// 	userInfo = value;
+	// });
+
+	dash.subscribe((value) => {
 		userInfo = value;
 	});
-	$: console.log(userInfo);
+
+	let groupsInfo;
+	groupsStore.subscribe((value) => {
+		groupsInfo = value;
+	});
+
+	console.log('groupsInfooooo', groupsInfo);
+	console.log('userinfooooooo', userInfo);
+
 	$: groups = userInfo.groups;
 	$: messages = userInfo.messages;
 	$: org = userInfo.org;
 	$: user = userInfo.user;
+	console.log("groups", groups)
+
+	function findGroupId(groupsInfo) {
+		for (let i in groupsInfo) {
+			if (groupsInfo[i].dati != null) {
+				let iterDate = groupsInfo[i].dati.replace('T', '-').split('-');
+				let iterYear = iterDate[0];
+				let iterMonth = iterDate[1];
+				let todayDate = new Date().toISOString().slice(0, 10).split('-');
+				todayYear = todayDate[0];
+				todayMonth = todayDate[1];
+				if (iterYear == todayYear && iterMonth == todayMonth) {
+					foundGroupId = groupsInfo[i].groupid;
+				}
+			}
+		}
+		// console.log(foundGroupId)
+		return;
+	}
+
+	function fixDate(dateV) {
+		if (dateV == null) {
+			return;
+		} else {
+			let dateR = dateV.replace('T', '-').split('-');
+			return `${dateR[1]}-${dateR[2]}-${dateR[0]}`;
+		}
+		// console.log("consoling fixDAte", dateV)
+		// let dateR = dateV.replace('T', '-').split('-');
+		// return `${dateR[1]}-${dateR[2]}`;
+		// return ('sena');
+	}
+
+	function fixTime(timeV) {
+		if (timeV == null) {
+			return;
+		} else {
+			let timeR = timeV.split(':');
+
+			return `${timeR[0]}:${timeR[1]}`;
+		}
+	}
+
+	function editFunc(event) {
+		if (savedHTML == '') {
+			Reactive = true;
+			let element = document.getElementById(`${event.detail.eGroupIdV}`);
+
+			savedHTML = element.innerHTML;
+			name = document.getElementById('groupName').innerHTML;
+			dateP = document.getElementById('date').innerHTML;
+			startTimeP = document.getElementById('startTime').innerHTML;
+			endTimeP = document.getElementById('endTime').innerHTML;
+			location = document.getElementById('location').innerHTML;
+			element.innerHTML = '';
+			let bruh = document.getElementById(`${event.detail.eGroupIdV}inputs`);
+			// console.log('bruh if this works', bruh);
+			bruh.style.visibility = 'visible';
+			Reactive = false;
+		} else {
+			Reactive = false;
+			return;
+		}
+	}
+
+	function xFunc(event) {
+		Reactive = false;
+		let element = document.getElementById(`${event.detail.eGroupIdV}`);
+		element.innerHTML = savedHTML;
+		let bruh = document.getElementById(`${event.detail.eGroupIdV}inputs`);
+		bruh.style.visibility = 'hidden';
+		savedHTML = '';
+		Reactive = true;
+	}
+
+	function cFunc(event) {
+		if (locationA == undefined) {
+			locationA = location;
+		}
+
+		if (groupName == undefined) {
+			groupName = name;
+		}
+
+		if (date == undefined) {
+			date = dateP;
+		}
+
+		if (endTime == undefined) {
+			endTime = endTimeP;
+		}
+
+		if (startTime == undefined) {
+			startTime = startTimeP;
+		}
+
+		Reactive = false;
+		savedHTML = '';
+		submit(event.detail.eGroupIdV);
+		let element = document.getElementById(`${event.detail.eGroupIdV}`);
+
+
+
+
+
+
+	// .location {
+	// 	color: black;
+	// 	font-family: 'Raleway', sans-serif;
+	// 	font-weight: 400;
+	// 	font-size: 20px;
+	// }
+		element.innerHTML = `
+		<h3 class="groupName" id="groupName" style= "color: #293b5f;font-family: 'Raleway', sans-serif;font-weight: 500; font-size: 25px;">${upperCase(groupName)}</h3>
+
+		<div class="date" style = "color: black;
+		font-family: 'Raleway', sans-serif;
+		font-weight: 400;
+		font-size: 23px;">
+			<p id="date">${fixDate(date)}</p>
+		</div>
+
+		<div class="time" style ="display: flex;flex-direction: row;align-content: space-between;gap: 30px; color: black;font-family: 'Raleway', sans-serif;font-weight: 400;font-size: 22px;">
+			<p><span id="startTime" >${fixTime(startTime)}</span>-<span id="endTime">${fixTime(endTime)}</span></p>
+		</div>
+
+		<div class="location" style = "		color: black;
+		font-family: 'Raleway', sans-serif;
+		font-weight: 400;
+		font-size: 20px;">
+			<p id="location">${locationA}</p>
+		</div>`;
+		element.style.visibility = 'visible';
+		// console.log(EName)
+		// console.log(EDate)
+		// console.log(ESTime)
+		// console.log(EETime)
+		// console.log(ELocation)
+
+		let bruh = document.getElementById(`${event.detail.eGroupIdV}inputs`);
+		bruh.style.visibility = 'hidden';
+
+		Reactive = true;
+
+		// alert(locationA)
+		// alert(endTime)
+
+		// alert(typeof locationA)
+	}
+
+	const submit = async (id) => {
+		// console.log(id);
+		try {
+			const submit = await fetch(`https://strengthn.herokuapp.com/user/group/${id}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					token: JSON.stringify($jwt)
+				},
+				body: JSON.stringify({
+					loc: locationA,
+					startTime,
+					endTime,
+					date,
+					groupName
+				})
+			});
+			const predata = await submit;
+			const data = await submit.json();
+
+			EName = data[0].groupname;
+			EDate = data[0].dati;
+			ESTime = data[0].starttime;
+			EETime = data[0].endtime;
+			ELocation = data[0].loc;
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	function upperCase(name) {
 		let casedName = name.charAt(0).toUpperCase() + name.slice(1);
@@ -83,75 +253,86 @@
 {/if} -->
 
 {#if groups == undefined}
-	<h1 class="noMeet">You have no meetings scheduled</h1>
+	<h1>You have no meetings scheduled</h1>
 {:else}
 	<!-- <h2 style="color:aqua">Meetings</h2> -->
 	<div class="topSection">
 		<div class="meetGroupSection">
 			<h3 class="topText">Meet your Group</h3>
+			<div class= "lastMinute">
+				<h3 class="lastMinName">Noel Fernandez</h3>
+				<h3 class="lastMinName">Brooke Gray</h3>
+				<h3 class="lastMinName">Nick Arya</h3>
+				<h3 class="lastMinName">Selin Flores</h3>
+				<h3 class="lastMinName">Marcos Miles</h3>
+				<h3 class="lastMinName">Rashid Ahmed</h3>
+			</div>
+			<!-- {#if groupsInfo != undefined}
+				{#each groupsInfo as { groupid, members }, i}
+					{#if groupsInfo[i].groupid == foundGroupId}
+						{#each groupsInfo[i].members as {}, i}
+							<p>{groupsInfo[i].members[i]}</p>
+						{/each}
+					{/if}
+				{/each}
+			{/if} -->
 		</div>
 		<div class="yourStrengthSection">
 			<h3 class="topText">Your Strength</h3>
-			<div class="number"><p><span style="font-size: 42px">#</span> Connections</p></div>
-			<div class="percentage"><p><span style="font-size: 42px">#%</span> Group Met</p></div>
+			<div class="number"><p><span style="font-size: 42px">20</span> Connections</p></div>
+			<div class="percentage"><p><span style="font-size: 42px">10%</span> Group Met</p></div>
+		</div>
+		<div>
+			<img alt="network" src="/network.png" />
 		</div>
 	</div>
 	<div class="cardHead">
 		<h3 class="upcoming">Upcoming Meetings</h3>
 		<div class="cardBody">
-			{#each groups as { starttime, endtime, groupname, loc, dati, groupid }}
+			{#each userInfo.groups as { starttime, endtime, groupname, loc, dati, groupid }}
 				<!-- <div class="rectangle" /> -->
 				{#if starttime != null}
 					<!-- <div class="outterCardBody"> -->
 
 					<div class="box">
-						<Edit eGroupId={groupid} on:edit={editFunc} on:x={xFunc} on:c={cFunc} />
+						<Edit
+							eGroupId={groupid}
+							allowEdit={Reactive}
+							on:edit={editFunc}
+							on:x={xFunc}
+							on:c={cFunc}
+						/>
 						<div class="replace" id={groupid}>
 							<h3 class="groupName" id="groupName">{upperCase(groupname)}</h3>
 
 							<div class="date">
-								<p id="date">date</p>
+								<p id="date">{fixDate(dati)}</p>
 							</div>
 
 							<div class="time">
-								<p><span id="startTime">{starttime}</span>-<span id="endTime">{endtime}</span></p>
+								<p>
+									<span id="startTime">{fixTime(starttime)}</span>-<span id="endTime"
+										>{fixTime(endtime)}</span
+									>
+								</p>
 							</div>
 
 							<div class="location">
 								<p id="location">{loc}</p>
 							</div>
 						</div>
-						<div>
-							<input
-								class:inputs={!showInputs}
-								class:changeVis={showInputs}
-								placeholder={upperCase(groupname)}
-								bind:value={newName}
-							/>
-							<input
-								class:inputs={!showInputs}
-								class:changeVis={showInputs}
-								placeholder={date}
-								bind:value={newDate}
-							/>
-							<input
-								class:inputs={!showInputs}
-								class:changeVis={showInputs}
-								placeholder={starttime}
-								bind:value={newStartTime}
-							/>
-							<input
-								class:inputs={!showInputs}
-								class:changeVis={showInputs}
-								placeholder={endtime}
-								bind:value={newEndTime}
-							/>
-							<input
-								class:inputs={!showInputs}
-								class:changeVis={showInputs}
-								placeholder={loc}
-								bind:value={newLocation}
-							/>
+						<div id={`${groupid}inputs`} style="visibility: hidden;">
+							<input class="inputs" placeholder={upperCase(groupname)} bind:value={groupName} />
+							<input class="inputs" placeholder={fixDate(dati)} bind:value={date} />
+							<input class="inputs" placeholder={fixTime(starttime)} bind:value={startTime} />
+							<input class="inputs" placeholder={fixTime(endtime)} bind:value={endTime} />
+							<input class="inputs" placeholder={loc} bind:value={locationA} />
+
+							<!-- <input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={upperCase(groupname)}  bind:value={newName}>
+							<input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={date}  bind:value={newDate}>
+							<input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={starttime} bind:value={newStartTime}> 
+							<input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={endtime} bind:value={newEndTime}>
+							<input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={loc} bind:value={newLocation}> -->
 						</div>
 					</div>
 
@@ -166,21 +347,32 @@
 	* {
 		margin: 0;
 	}
-	.noMeet {
-		text-align: center;
-	}
-	.changeVis {
-		visibility: visible;
+
+	.lastMinName{
+		margin-bottom: 3%;
 	}
 
-	.inputs {
-		visibility: hidden;
+	.lastMinute{
+		/* padding: 50px; */
+		padding-top: 14%;
+		text-align: center;
+		font-family: Roboto;
+		font-weight: 500;
+	}
+
+	img {
+		width: 480px;
+		height: 333px;
+		margin-left: 8%;
+		margin-top: 6%;
+		margin-bottom: 0%;
+		cursor: pointer;
 	}
 
 	.topSection {
 		display: flex;
 		margin-left: 19%;
-		margin-top: 2%;
+		margin-top: 3%;
 	}
 	.topText {
 		font-family: 'Raleway', sans-serif;
@@ -193,7 +385,7 @@
 		display: flex;
 		flex-direction: row;
 		margin-left: 19%;
-		margin-top: 4.5%;
+		margin-top: 2.3%;
 		padding: 20px;
 		width: 78%;
 		height: 320px;
@@ -201,12 +393,9 @@
 		border-radius: 20px;
 	}
 
-	.meetGroupSection {
-		/* background-color: brown; */
-	}
 	.yourStrengthSection {
 		/* background-color: blue; */
-		margin-left: 15%;
+		margin-left: 5%;
 	}
 
 	.yourStrengthSection p {
@@ -258,8 +447,10 @@
 		/* display: inline; */
 		/* border-color: blue; */
 		/* margin-top: 0%; */
-		margin-left: 3%;
+		margin-left: 2.5%;
 		display: flex;
+		overflow-x: scroll;
+		overflow-y: hidden;
 	}
 
 	.box {

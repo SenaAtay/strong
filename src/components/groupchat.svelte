@@ -1,7 +1,7 @@
 <script>
 	export let groupnameI;
 	export let messageI;
-	export let groupidI
+	export let groupidI;
 	import { goto } from '$app/navigation';
 	import { createEventDispatcher } from 'svelte';
 
@@ -10,7 +10,6 @@
 		dispatch('groupchat', {
 			groupidD: groupidI,
 			groupnameD: groupnameI
-
 		});
 	}
 </script>
@@ -19,9 +18,9 @@
 <div on:click={dispatchGroupchat} class="groupChat">
 	<h5>{groupnameI}</h5>
 	{#if messageI == null}
-	<p></p>
+		<p />
 	{:else}
-	<h6>{messageI}</h6>
+		<h6>{messageI}</h6>
 	{/if}
 </div>
 
