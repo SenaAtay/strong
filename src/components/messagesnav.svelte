@@ -8,6 +8,8 @@
 	import Groupchat from './groupchat.svelte';
 	let groups;
 
+	
+
 	const dispatch = createEventDispatcher();
 	function dispatchHamburger() {
 		dispatch('hamburger');

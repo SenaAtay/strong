@@ -24,8 +24,8 @@
 	function replace(event) {
 		groupidS.set(event.detail.groupidD.toString());
 		groupname = event.detail.groupnameD.toString();
-		console.log('event.detail', event.detail);
-		console.log('groupname', groupname);
+		
+		
 	}
 
 	const realTime = async () => {
@@ -121,6 +121,10 @@
 	};
 
 	setInterval(realTime, 100);
+
+	console.log(groupname)
+	console.log($groupidS)
+	console.log($messages)
 </script>
 
 <body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>

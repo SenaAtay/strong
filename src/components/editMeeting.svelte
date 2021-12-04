@@ -1,11 +1,16 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
     export let eGroupId;
+	export let allowEdit;
+	
+
+	
 
 	const dispatchOne = createEventDispatcher();
 	function dispatchEdit() {
 		dispatchOne('edit', {
-            eGroupIdV:eGroupId
+            eGroupIdV:eGroupId,
+			allowEditV: allowEdit
         }
         );
 	}
@@ -13,49 +18,80 @@
 	const dispatchTwo = createEventDispatcher();
 	function dispatchX() {
 		dispatchTwo('x' , {
-            eGroupIdV:eGroupId
+            eGroupIdV:eGroupId,
+			allowEditV: allowEdit
         });
 	}
 
     const dispatchThree = createEventDispatcher();
 	function dispatchC() {
-		dispatchThree('c');
+		dispatchThree('c', {
+			eGroupIdV:eGroupId});
 	}
 
 	let editing = false;
 
 	function edit() {
-		editing = true;
-		console.log('edite basiyorsun');
-		let element = document.getElementById('edit');
-		element.innerHTML = '';
+		console.log("allow edit", allowEdit)
+		if (allowEdit == true){
+			console.log('edite basiyorsun');
+		let editElement = document.getElementById(`${eGroupId}edit`);
+		// editElement.style.visiblity = "hidden";
+		editElement.innerHTML = '';
+		editElement.style.visibility = 'hidden';
+		let xElement = document.getElementById(`${eGroupId}x`);
+		xElement.style.visibility = "visible"
+		let cElement = document.getElementById(`${eGroupId}c`);
+		cElement.style.visibility = "visible"
+		console.log(`${eGroupId}edit`);
 		dispatchEdit();
+		allowEdit = false;
+
+		} else {
+			return
+		}
+		// console.log("EVENTUE", event.detail.eGroupId);
+		// editing = true;
+		
 	}
 
 	function cancel() {
-		editing = false;
-		let element = document.getElementById('edit');
-		element.innerHTML = `  <div class="dot" class:hide={editing}>.</div>
+		// editing = false;
+		let editElement = document.getElementById(`${eGroupId}edit`);
+		editElement.innerHTML = `  <div class="dot" class:hide={editing}>.</div>
                                 <div class="dot" class:hide={editing}>.</div>
                                 <div class="dot" class:hide={editing}>.</div>`;
+		editElement.style.visibility = "visible";
+		let xElement = document.getElementById(`${eGroupId}x`);
+		xElement.style.visibility = "hidden"
+		let cElement = document.getElementById(`${eGroupId}c`);
+		cElement.style.visibility = "hidden"
 		dispatchX();
 	}
 
 	function submit() {
-		// alert('submitted');
+		let editElement = document.getElementById(`${eGroupId}edit`);
+		editElement.innerHTML = `  <div class="dot" class:hide={editing}>.</div>
+                                <div class="dot" class:hide={editing}>.</div>
+                                <div class="dot" class:hide={editing}>.</div>`;
+		editElement.style.visibility = "visible";
+		let xElement = document.getElementById(`${eGroupId}x`);
+		xElement.style.visibility = "hidden"
+		let cElement = document.getElementById(`${eGroupId}c`);
+		cElement.style.visibility = "hidden"
 		dispatchC();
 	}
 </script>
 
 <div class="container" id="container">
-	<div class="edit" id="edit" on:click={edit}>
+	<div class="edit" id={`${eGroupId}edit`} style= "visibility: visibile;" on:click={edit}>
 		<div class="dot">.</div>
 		<div class="dot">.</div>
 		<div class="dot">.</div>
 	</div>
 	<div class="editing">
-		<div class="editFunc" class:reveal={editing} on:click|preventDefault={cancel}>X</div>
-		<div class="editFunc" class:reveal={editing} on:click|preventDefault={submit}>C</div>
+		<div class="editFunc" style= "visibility: hidden;"  id={`${eGroupId}x`} on:click|preventDefault={cancel}>X</div>
+		<div class="editFunc" style= "visibility: hidden;"  id={`${eGroupId}c`} on:click|preventDefault={submit}>C</div>
 	</div>
 </div>
 
@@ -76,13 +112,13 @@
 		color: #dcdcdc;
 	}
 
-	.editFunc {
+	/* .editFunc {
 		visibility: hidden;
-	}
+	} */
 
-	.reveal {
+	/* .reveal {
 		visibility: visible;
-	}
+	} */
 
 	.editing {
 		display: flex;
