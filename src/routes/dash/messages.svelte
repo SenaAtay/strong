@@ -24,8 +24,6 @@
 	function replace(event) {
 		groupidS.set(event.detail.groupidD.toString());
 		groupname = event.detail.groupnameD.toString();
-		
-		
 	}
 
 	const realTime = async () => {
@@ -68,11 +66,11 @@
 	};
 
 	function check() {
-		console.log(typeof message);
+		// console.log(typeof message);
 		if (message.trim().length === 0) {
 			return;
 		} else {
-			console.log('camehere');
+			// console.log('camehere');
 			submit();
 		}
 	}
@@ -122,9 +120,9 @@
 
 	setInterval(realTime, 100);
 
-	console.log(groupname)
-	console.log($groupidS)
-	console.log($messages)
+	// console.log(groupname)
+	// console.log($groupidS)
+	// console.log($messages)
 </script>
 
 <body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>

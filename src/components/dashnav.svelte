@@ -11,9 +11,8 @@
 	let userInfo;
 	const unsubscribe = dash.subscribe((value) => {
 		userInfo = value;
-		
 	});
-	
+
 	$: groups = userInfo.groups;
 	$: messages = userInfo.messages;
 	$: org = userInfo.org;

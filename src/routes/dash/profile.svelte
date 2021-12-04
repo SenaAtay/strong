@@ -18,7 +18,7 @@
 	$: org = userInfo.org;
 	$: user = userInfo.user;
 
-	console.log(user);
+	// console.log(user);
 </script>
 
 <svelte:head>

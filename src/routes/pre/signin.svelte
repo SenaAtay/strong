@@ -8,29 +8,29 @@
 	let revealOne = false;
 	let revealTwo = false;
 
-	function check(){
+	function check() {
 		revealOne = false;
 		revealTwo = false;
-		let errorOne = document.getElementById("one")
-		let errorTwo = document.getElementById("two")
-		let emailCheck = document.getElementById("emailCheck").value.trim()
-		let passwordCheck = document.getElementById("passwordCheck").value.trim()
+		let errorOne = document.getElementById('one');
+		let errorTwo = document.getElementById('two');
+		let emailCheck = document.getElementById('emailCheck').value.trim();
+		let passwordCheck = document.getElementById('passwordCheck').value.trim();
 
-		if (emailCheck.length === 0 && passwordCheck.length === 0){
-			errorOne.innerHTML = "Email is required"
-			errorTwo.innerHTML = "Password is required"
+		if (emailCheck.length === 0 && passwordCheck.length === 0) {
+			errorOne.innerHTML = 'Email is required';
+			errorTwo.innerHTML = 'Password is required';
 			revealOne = true;
-			revealTwo = true; 
-		}  else if (passwordCheck.length === 0){
-			console.log("password check")
-			errorTwo.innerHTML = "Password is required"
-			revealTwo = true; 
-		} else if (emailCheck.length === 0){
-			console.log("email check")
-			errorOne.innerHTML = "Email is required"
+			revealTwo = true;
+		} else if (passwordCheck.length === 0) {
+			// console.log('password check');
+			errorTwo.innerHTML = 'Password is required';
+			revealTwo = true;
+		} else if (emailCheck.length === 0) {
+			// console.log('email check');
+			errorOne.innerHTML = 'Email is required';
 			revealOne = true;
-		}else {
-			submitForm()
+		} else {
+			submitForm();
 		}
 	}
 
@@ -46,12 +46,11 @@
 					password
 				})
 			});
-			
-			
+
 			const predata = await submit;
-			console.log("predata", predata);
+			// console.log('predata', predata);
 			const data = await submit.json();
-			console.log("data", data);
+			// console.log('data', data);
 			jwt.set(data);
 
 			if (predata.ok && jwt != null) {
@@ -59,25 +58,22 @@
 			}
 
 			revealOne = false;
-			if (predata.ok === false && data.msg == "Email does not exist"){
-				let errorOne = document.getElementById("one");
+			if (predata.ok === false && data.msg == 'Email does not exist') {
+				let errorOne = document.getElementById('one');
 				errorOne.innerHTML = data.msg;
 				revealOne = true;
 			}
 
 			revealTwo = false;
-			if (predata.ok === false && data.msg == "Password is not correct"){
-				let errorTwo = document.getElementById("two");
+			if (predata.ok === false && data.msg == 'Password is not correct') {
+				let errorTwo = document.getElementById('two');
 				errorTwo.innerHTML = data.msg;
 				revealTwo = true;
 			}
 
-			
-
-			console.log("i'm here")
+			// console.log("i'm here");
 		} catch (err) {
-			
-			console.log("hi", err);
+			console.log(err);
 		}
 	};
 </script>
@@ -91,13 +87,19 @@
 	<form on:submit|preventDefault={check}>
 		<div class="container">
 			<!-- <form on:submit|preventDefault = {submitForm}> -->
-			<div >
-				<input type="email" name="email" placeholder="Email" id = "emailCheck" bind:value={email} />
-				<small class = "one" id = "one" class:visibility={revealOne}>bidk</small>
+			<div>
+				<input type="email" name="email" placeholder="Email" id="emailCheck" bind:value={email} />
+				<small class="one" id="one" class:visibility={revealOne}>bidk</small>
 			</div>
 			<div>
-				<input type="password" name="password" placeholder="Password" id = "passwordCheck" bind:value={password} />
-				<small class = "two" id = "two" class:visibility={revealTwo} >Error</small>
+				<input
+					type="password"
+					name="password"
+					placeholder="Password"
+					id="passwordCheck"
+					bind:value={password}
+				/>
+				<small class="two" id="two" class:visibility={revealTwo}>Error</small>
 			</div>
 			<input type="submit" value="Sign In" class="signin" />
 			<a href="/pre/createaccount">
@@ -166,11 +168,11 @@
 		border-radius: 9px;
 	}
 
-	small.one.visibility{
+	small.one.visibility {
 		visibility: visible;
 	}
 
-	small.two.visibility{
+	small.two.visibility {
 		visibility: visible;
 	}
 
@@ -192,28 +194,28 @@
 		border-color: lightgrey;
 	}
 
-	.signin:hover{
+	.signin:hover {
 		border-color: lightgrey;
 	}
 
-	small.one{
+	small.one {
 		position: absolute;
 		display: block;
 		margin-bottom: 20px;
 		top: 398px;
 		left: 532px;
 		visibility: hidden;
-		color: #8B0000;
+		color: #8b0000;
 	}
 
-	small.two{
+	small.two {
 		position: absolute;
 		display: block;
 		margin-bottom: 20px;
 		top: 512px;
 		left: 532px;
 		visibility: hidden;
-		color: #8B0000;
+		color: #8b0000;
 	}
 
 	/* a,

@@ -21,13 +21,13 @@
 				})
 			});
 			const json = await submit.json();
-			console.log(json);
-			console.log(
-				JSON.stringify({
-					organization,
-					groups
-				})
-			);
+			// console.log(json);
+			// console.log(
+			// 	JSON.stringify({
+			// 		organization,
+			// 		groups
+			// 	})
+			// );
 			return json;
 		} catch (err) {
 			console.log(err);

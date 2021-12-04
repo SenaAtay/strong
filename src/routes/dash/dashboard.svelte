@@ -4,7 +4,7 @@
 	import { groupsStore, loadGroupsStore } from '../../stores/groups';
 	import { onMount } from 'svelte';
 	import Edit from '../../components/editMeeting.svelte';
-	import { jwt } from '../../stores/jwt'
+	import { jwt } from '../../stores/jwt';
 
 	// let showInputs = false;
 	let savedHTML = '';
@@ -32,7 +32,9 @@
 	// console.log(calismiycak);
 
 	onMount(async () => {
+		console.log('before', loadDash());
 		await loadDash();
+		console.log('after', loadDash());
 		await loadGroupsStore();
 		findGroupId(groupsInfo);
 	});
@@ -51,12 +53,14 @@
 		groupsInfo = value;
 	});
 
-	console.log("groupsInfooooo", groupsInfo);
+	console.log('groupsInfooooo', groupsInfo);
+	console.log('userinfooooooo', userInfo);
 
 	$: groups = userInfo.groups;
 	$: messages = userInfo.messages;
 	$: org = userInfo.org;
 	$: user = userInfo.user;
+	console.log("groups", groups)
 
 	function findGroupId(groupsInfo) {
 		for (let i in groupsInfo) {
@@ -76,12 +80,12 @@
 		return;
 	}
 
-	function fixDate(dateV){
-		if (dateV == null){
+	function fixDate(dateV) {
+		if (dateV == null) {
 			return;
 		} else {
-		let dateR = dateV.replace('T', '-').split('-');
-		return `${dateR[1]}-${dateR[2]}-${dateR[0]}`;
+			let dateR = dateV.replace('T', '-').split('-');
+			return `${dateR[1]}-${dateR[2]}-${dateR[0]}`;
 		}
 		// console.log("consoling fixDAte", dateV)
 		// let dateR = dateV.replace('T', '-').split('-');
@@ -89,14 +93,14 @@
 		// return ('sena');
 	}
 
-	function fixTime(timeV){
-		if (timeV == null){
+	function fixTime(timeV) {
+		if (timeV == null) {
 			return;
 		} else {
-		let timeR = timeV.split(":");
+			let timeR = timeV.split(':');
 
-		return `${timeR[0]}:${timeR[1]}`;
-	}
+			return `${timeR[0]}:${timeR[1]}`;
+		}
 	}
 
 	function editFunc(event) {
@@ -112,7 +116,7 @@
 			location = document.getElementById('location').innerHTML;
 			element.innerHTML = '';
 			let bruh = document.getElementById(`${event.detail.eGroupIdV}inputs`);
-			console.log('bruh if this works', bruh);
+			// console.log('bruh if this works', bruh);
 			bruh.style.visibility = 'visible';
 			Reactive = false;
 		} else {
@@ -132,45 +136,63 @@
 	}
 
 	function cFunc(event) {
-		if (locationA == undefined){
+		if (locationA == undefined) {
 			locationA = location;
-		} 
+		}
 
-		if (groupName == undefined){
+		if (groupName == undefined) {
 			groupName = name;
 		}
 
-		if (date == undefined){
+		if (date == undefined) {
 			date = dateP;
 		}
 
-		if (endTime == undefined){
+		if (endTime == undefined) {
 			endTime = endTimeP;
 		}
 
-		if (startTime == undefined){
+		if (startTime == undefined) {
 			startTime = startTimeP;
 		}
 
 		Reactive = false;
 		savedHTML = '';
-		submit(event.detail.eGroupIdV)
+		submit(event.detail.eGroupIdV);
 		let element = document.getElementById(`${event.detail.eGroupIdV}`);
-		element.innerHTML = `
-		<h3 class="groupName" id="groupName">${upperCase(groupName)}</h3>
 
-		<div class="date">
+
+
+
+
+
+	// .location {
+	// 	color: black;
+	// 	font-family: 'Raleway', sans-serif;
+	// 	font-weight: 400;
+	// 	font-size: 20px;
+	// }
+		element.innerHTML = `
+		<h3 class="groupName" id="groupName" style= "color: #293b5f;font-family: 'Raleway', sans-serif;font-weight: 500; font-size: 25px;">${upperCase(groupName)}</h3>
+
+		<div class="date" style = "color: black;
+		font-family: 'Raleway', sans-serif;
+		font-weight: 400;
+		font-size: 23px;">
 			<p id="date">${fixDate(date)}</p>
 		</div>
 
-		<div class="time">
-			<p><span id="startTime">${fixTime(startTime)}</span>-<span id="endTime">${fixTime(endTime)}</span></p>
+		<div class="time" style ="display: flex;flex-direction: row;align-content: space-between;gap: 30px; color: black;font-family: 'Raleway', sans-serif;font-weight: 400;font-size: 22px;">
+			<p><span id="startTime" >${fixTime(startTime)}</span>-<span id="endTime">${fixTime(endTime)}</span></p>
 		</div>
 
-		<div class="location">
+		<div class="location" style = "		color: black;
+		font-family: 'Raleway', sans-serif;
+		font-weight: 400;
+		font-size: 20px;">
 			<p id="location">${locationA}</p>
 		</div>`;
-		element.style.visibility= 'visible';
+		element.style.visibility = 'visible';
 		// console.log(EName)
 		// console.log(EDate)
 		// console.log(ESTime)
@@ -179,18 +201,17 @@
 
 		let bruh = document.getElementById(`${event.detail.eGroupIdV}inputs`);
 		bruh.style.visibility = 'hidden';
-		
+
 		Reactive = true;
-		
+
 		// alert(locationA)
 		// alert(endTime)
 
 		// alert(typeof locationA)
-	
 	}
 
 	const submit = async (id) => {
-		console.log(id)
+		// console.log(id);
 		try {
 			const submit = await fetch(`https://strengthn.herokuapp.com/user/group/${id}`, {
 				method: 'POST',
@@ -208,7 +229,7 @@
 			});
 			const predata = await submit;
 			const data = await submit.json();
-			
+
 			EName = data[0].groupname;
 			EDate = data[0].dati;
 			ESTime = data[0].starttime;
@@ -238,18 +259,28 @@
 	<div class="topSection">
 		<div class="meetGroupSection">
 			<h3 class="topText">Meet your Group</h3>
-			<!-- {#each groupsInfo as { groupid, members }, i}
-				{#if groupsInfo[i].groupid == foundGroupId}
-					{#each groupsInfo[i].members as {}, i}
-						<p>{groupsInfo[i].members[i]}</p>
-					{/each}
-				{/if}
-			{/each} -->
+			<div class= "lastMinute">
+				<h3 class="lastMinName">Noel Fernandez</h3>
+				<h3 class="lastMinName">Brooke Gray</h3>
+				<h3 class="lastMinName">Nick Arya</h3>
+				<h3 class="lastMinName">Selin Flores</h3>
+				<h3 class="lastMinName">Marcos Miles</h3>
+				<h3 class="lastMinName">Rashid Ahmed</h3>
+			</div>
+			<!-- {#if groupsInfo != undefined}
+				{#each groupsInfo as { groupid, members }, i}
+					{#if groupsInfo[i].groupid == foundGroupId}
+						{#each groupsInfo[i].members as {}, i}
+							<p>{groupsInfo[i].members[i]}</p>
+						{/each}
+					{/if}
+				{/each}
+			{/if} -->
 		</div>
 		<div class="yourStrengthSection">
 			<h3 class="topText">Your Strength</h3>
-			<div class="number"><p><span style="font-size: 42px">#</span> Connections</p></div>
-			<div class="percentage"><p><span style="font-size: 42px">#%</span> Group Met</p></div>
+			<div class="number"><p><span style="font-size: 42px">20</span> Connections</p></div>
+			<div class="percentage"><p><span style="font-size: 42px">10%</span> Group Met</p></div>
 		</div>
 		<div>
 			<img alt="network" src="/network.png" />
@@ -279,7 +310,11 @@
 							</div>
 
 							<div class="time">
-								<p><span id="startTime">{fixTime(starttime)}</span>-<span id="endTime">{fixTime(endtime)}</span></p>
+								<p>
+									<span id="startTime">{fixTime(starttime)}</span>-<span id="endTime"
+										>{fixTime(endtime)}</span
+									>
+								</p>
 							</div>
 
 							<div class="location">
@@ -313,18 +348,31 @@
 		margin: 0;
 	}
 
+	.lastMinName{
+		margin-bottom: 3%;
+	}
+
+	.lastMinute{
+		/* padding: 50px; */
+		padding-top: 14%;
+		text-align: center;
+		font-family: Roboto;
+		font-weight: 500;
+	}
+
 	img {
-		width: 450px;
-		height: 303px;
-		margin-left: 4%;
-		margin-top: 10%;
+		width: 480px;
+		height: 333px;
+		margin-left: 8%;
+		margin-top: 6%;
+		margin-bottom: 0%;
 		cursor: pointer;
 	}
 
 	.topSection {
 		display: flex;
 		margin-left: 19%;
-		margin-top: 2%;
+		margin-top: 3%;
 	}
 	.topText {
 		font-family: 'Raleway', sans-serif;
@@ -337,7 +385,7 @@
 		display: flex;
 		flex-direction: row;
 		margin-left: 19%;
-		margin-top: 4.5%;
+		margin-top: 2.3%;
 		padding: 20px;
 		width: 78%;
 		height: 320px;
@@ -347,7 +395,7 @@
 
 	.yourStrengthSection {
 		/* background-color: blue; */
-		margin-left: 9%;
+		margin-left: 5%;
 	}
 
 	.yourStrengthSection p {
