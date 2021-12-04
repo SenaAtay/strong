@@ -50,7 +50,7 @@
 <style>
 	.rectangle {
 		position: absolute;
-		width: 250px;
+		width: 16%;
 		height: 100vh;
 		left: -8px;
 		top: 0px;
@@ -61,14 +61,14 @@
 	}
 
 	.logo {
-		width: 40px;
+		width: 20%;
 		margin: 15px 0px 0px 30px;
 		cursor: pointer;
 	}
 
 	.profilepic {
-		width: 160px;
-		height: 160px;
+		width: 70%;
+		height: 20%;
 		background-image: url('/profilepic.jpg');
 		background-size: cover;
 		margin-left: 20%;
@@ -86,7 +86,7 @@
 		color: #ffffff;
 		font-family: Roboto;
 		font-weight: 200;
-		font-size: 21px;
+		font-size: 1.5vw;
 		text-transform: capitalize;
 		margin-right: 3%;
 		margin-bottom: 0%;
@@ -113,7 +113,7 @@
 		top: 450px;
 		font-family: Roboto;
 		font-weight: 200;
-		font-size: 21px;
+		font-size: 1.5vw;
 		line-height: 29px;
 		color: #ffffff;
 	}
