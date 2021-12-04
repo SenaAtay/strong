@@ -2,7 +2,7 @@
 	import { fade, slide, scale } from 'svelte/transition';
 	import Nav from '/src/components/homenav.svelte';
 	let title = 'Strength^N';
-	let src = '/connection.jpg';
+	let src = '/connections2.jpg';
 </script>
 
 <svelte:head>
@@ -82,11 +82,11 @@
 	}
 
 	.img {
-		position: relative;
-		width: 620px;
-		height: 595px;
-		left: 742px;
-		top: 80px;
+		position: absolute;
+		width: 500px;
+		height: 604px;
+		left: 842px;
+		top: 170px;
 
 		background: linear-gradient(180.03deg, rgba(255, 255, 255, 0.7) 20.39%, rgba(0, 0, 0, 0) 99.97%),
 			url(DSC08951.jpg);
