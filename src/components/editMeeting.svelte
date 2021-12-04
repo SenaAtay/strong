@@ -85,8 +85,8 @@
 		<div class="dot">.</div>
 	</div>
 	<div class="editing">
-		<div
-			class="editFunc"
+		<div 
+			class="editFunc cancel"
 			style="visibility: hidden;"
 			id={`${eGroupId}x`}
 			on:click|preventDefault={cancel}
@@ -99,12 +99,18 @@
 			id={`${eGroupId}c`}
 			on:click|preventDefault={submit}
 		>
-			C
+			
+			&#x2713
 		</div>
 	</div>
 </div>
 
 <style>
+	.cancel {
+		font-size: 20px;
+		padding-top: 10%;
+	}
+	
 	.container {
 		display: flex;
 		margin-left: 90%;
