@@ -83,7 +83,7 @@
 {/if} -->
 
 {#if groups == undefined}
-	<h1>You have no meetings scheduled</h1>
+	<h1 class="noMeet">You have no meetings scheduled</h1>
 {:else}
 	<!-- <h2 style="color:aqua">Meetings</h2> -->
 	<div class="topSection">
@@ -166,7 +166,9 @@
 	* {
 		margin: 0;
 	}
-
+	.noMeet {
+		text-align: center;
+	}
 	.changeVis {
 		visibility: visible;
 	}
