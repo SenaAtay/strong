@@ -310,7 +310,7 @@
 							</div>
 
 							<div class="time">
-								<p>
+								<p class = "work">
 									<span id="startTime">{fixTime(starttime)}</span>-<span id="endTime"
 										>{fixTime(endtime)}</span
 									>
@@ -346,6 +346,14 @@
 <style>
 	* {
 		margin: 0;
+	}
+
+	.replace{
+		text-align: center;
+	}
+
+	.work{
+		margin-left: 6%;
 	}
 
 	.lastMinName{
@@ -490,6 +498,7 @@
 		flex-direction: row;
 		align-content: space-between;
 		gap: 30px;
+		margin-left: 10%;
 	}
 
 	.location {

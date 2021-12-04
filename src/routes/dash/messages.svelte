@@ -11,6 +11,7 @@
 	let dummy;
 	let groupname;
 	let navOpen = false;
+	let fixGroupName;
 
 	function scrollFunc() {
 		var element = document.getElementById('chatbox');
@@ -40,6 +41,7 @@
 
 			const groupmessagesA = await res.json();
 			meh = Object.values(groupmessagesA).reverse();
+			
 		} catch (err) {
 			try {
 				const res = await fetch(
@@ -55,6 +57,7 @@
 
 				const groupmessagesA = await res.json();
 				meh = Object.values(groupmessagesA).reverse();
+				
 			} catch (err) {
 				console.log(err);
 			}
@@ -111,11 +114,11 @@
 			}
 
 			message = '';
-			scrollFunc();
+			// scrollFunc();
 		}
 
 		message = '';
-		scrollFunc();
+		// scrollFunc();
 	};
 
 	setInterval(realTime, 100);

@@ -17,11 +17,11 @@
 <!-- <div on:click= {() => goto(`/dash/messages/${groupidI}`)} class="groupChat"> -->
 <div on:click={dispatchGroupchat} class="groupChat">
 	<h5>{groupnameI}</h5>
-	{#if messageI == null}
+	<!-- {#if messageI == null}
 		<p />
 	{:else}
 		<h6>{messageI}</h6>
-	{/if}
+	{/if} -->
 </div>
 
 <style>
