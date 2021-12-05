@@ -25,16 +25,34 @@
 
 			const predata = await submit;
 			const data = await submit.json();
+			console.log(data);
+			console.log(data.msg);
 			// console.log('consoling dat', data);
 			jwt.set(data);
 			// console.log(data.ok);
 			if (predata.ok) {
 				goto('../dash/dashboard');
 			}
+			if (data.msg == 'User already exists.') {
+				reveal();
+			}
 		} catch (err) {
 			console.log(err);
 		}
 	};
+
+	function reveal() {
+		var div = document.createElement('div');
+
+		div.style.color = 'Red';
+		div.innerHTML = 'User already exists.';
+
+		var el = document.getElementById('main').appendChild(div);
+
+		setTimeout(function () {
+			el.remove();
+		}, 3000);
+	}
 </script>
 
 <body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
@@ -49,11 +67,13 @@
 			<input type="lname" name="lastname" placeholder="Last Name" bind:value={lname} />
 			<input type="text" name="email" placeholder="Email" bind:value={email} />
 			<input type="password" name="password" placeholder="Password" bind:value={password} />
+
 			<!-- <input type="submit" class= "createaccountbtn" value = "Create Account"> -->
 			<div class="clearfix">
 				<button type="submit" class="createaccountbtn">Create Account</button>
 			</div>
 			<h3>or</h3>
+			<small class="one" id="main" />
 			<a href="/pre/signin">
 				<button class="signin">Sign In</button>
 			</a>
@@ -62,6 +82,9 @@
 </body>
 
 <style>
+	#id {
+		z-index: 10;
+	}
 	body {
 		font-family: Arial, Helvetica, sans-serif;
 		min-height: 100vh;
@@ -86,7 +109,7 @@
 		width: 266px;
 		height: 160px;
 		left: 532px;
-		top: 100px;
+		top: 70px;
 		font-family: Roboto;
 		font-style: normal;
 		font-weight: 500;
@@ -100,7 +123,7 @@
 		width: 456px;
 		height: 73px;
 		left: 532px;
-		top: 280px;
+		top: 260px;
 		border: 2px solid #d2d6db;
 		box-sizing: border-box;
 		border-radius: 9px;
@@ -110,7 +133,7 @@
 		width: 456px;
 		height: 73px;
 		left: 532px;
-		top: 360px;
+		top: 340px;
 		border: 2px solid #d2d6db;
 		box-sizing: border-box;
 		border-radius: 9px;
@@ -121,7 +144,7 @@
 		width: 456px;
 		height: 74px;
 		left: 532px;
-		top: 440px;
+		top: 420px;
 		border: 2px solid #dbd3d2;
 		box-sizing: border-box;
 		border-radius: 9px;
@@ -132,7 +155,7 @@
 		width: 456px;
 		height: 74px;
 		left: 532px;
-		top: 520px;
+		top: 500px;
 		border: 2px solid #d2d6db;
 		box-sizing: border-box;
 		border-radius: 9px;
@@ -198,7 +221,15 @@
 		top: 690px;
 		font-family: Roboto;
 	}
-
+	#main {
+		position: absolute;
+		font-family: Roboto;
+		width: 456px;
+		height: 73.55px;
+		left: 532px;
+		top: 580px;
+		text-align: center;
+	}
 	/* a,
 	a.logo {
 		text-decoration: none;
