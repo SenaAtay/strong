@@ -29,24 +29,24 @@
 	let editing = false;
 
 	function edit() {
-		// console.log("allow edit", allowEdit)
+		
 		if (allowEdit == true) {
-			// console.log('edite basiyorsun');
+			
 			let editElement = document.getElementById(`${eGroupId}edit`);
-			// editElement.style.visiblity = "hidden";
+	
 			editElement.innerHTML = '';
 			editElement.style.visibility = 'hidden';
 			let xElement = document.getElementById(`${eGroupId}x`);
 			xElement.style.visibility = 'visible';
 			let cElement = document.getElementById(`${eGroupId}c`);
 			cElement.style.visibility = 'visible';
-			// console.log(`${eGroupId}edit`);
+	
 			dispatchEdit();
 			allowEdit = false;
 		} else {
 			return;
 		}
-		// console.log("EVENTUE", event.detail.eGroupId);
+
 		// editing = true;
 	}
 
@@ -111,11 +111,11 @@
 		padding-top: 10%;
 	}
 
-	.cancel{
+	/* .cancel{
 		/* font-weight: 500; */
-		font-weight: 700;
+		/* font-weight: 700; */
 		/* font-weight: bold; */
-	}
+	/* }  */
 
 	/* .editFunc{
 		padding: 0%;
