@@ -202,7 +202,7 @@ import Dashboard from './dashboard.svelte';
 	}
 
 	.noName {
-		height: 50px;
+		height: 43px;
 	}
 
 	.title {

@@ -33,6 +33,8 @@
 	let startTimeA;
 	let endTimeA;
 	let locationAA;
+	let connectionSet = new Set()
+	$: size = connectionSet.size
 
 	onMount(async () => {
 		await loadDash();
@@ -87,6 +89,30 @@
 		}
 		
 	}
+
+	$: {
+		for (let i in newGroupsInfo) {
+			
+			if (newGroupsInfo[i].members != null) {
+				for (let j=0; j< (newGroupsInfo[i].members).length; j++ ){
+					
+					if (newGroupsInfo[i].members[j] != `${user[0].fname} ${user[0].lname}`){
+						
+						connectionSet.add(newGroupsInfo[i].members[j])
+						console.log(connectionSet.size)
+						size = connectionSet.size;
+						
+					}
+
+				}
+			
+			}
+		
+		}
+		
+	}
+
+	
 
 	function fixDate(dateV) {
 		if (dateV == null) {
@@ -314,6 +340,7 @@
 		return casedName;
 	}
 
+	
 
 </script>
 
@@ -328,7 +355,7 @@
 		
 		<div class="yourStrengthSection" >
 			<h3 class="topText">Your Strength</h3>
-			<div class="number"><p><span style="font-size: 42px"></span> Connections</p></div>
+			<div class="number"><p><span style="font-size: 42px">{size}</span> Connections</p></div>
 			<div class="percentage"><p><span style="font-size: 42px"></span> Group Met</p></div>
 		</div>
 		<div>
@@ -366,7 +393,7 @@
 		</div>
 		<div class="yourStrengthSection" >
 			<h3 class="topText">Your Strength</h3>
-			<div class="number"><p><span style="font-size: 42px">20</span> Connections</p></div>
+			<div class="number"><p><span style="font-size: 42px">{size}</span> Connections</p></div>
 			<div class="percentage"><p><span style="font-size: 42px">10%</span> Group Met</p></div>
 		</div>
 		<div>
