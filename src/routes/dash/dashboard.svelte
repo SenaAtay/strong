@@ -33,6 +33,8 @@
 	let startTimeA;
 	let endTimeA;
 	let locationAA;
+	let connectionSet = new Set()
+	$: size = connectionSet.size
 
 	onMount(async () => {
 		await loadDash();
@@ -63,17 +65,15 @@
 	$: groups = userInfo.groups;
 	$: user = userInfo.user;
 
-	// $: console.log("new", newGroupsInfo);
-	// $: console.log("new type", typeof newGroupsInfo);
-	// $: console.log("groups", groups);
+
 
 	$: {
 		for (let i in newGroupsInfo) {
-			// console.log("reactive newGroupsInfo[i].dati", newGroupsInfo[i].dati)
+			
 			if (newGroupsInfo[i].dati != null) {
-				// console.log('groupsInfo[i].dati', newGroupsInfo[i].dati);
+				
 				let iterDate = newGroupsInfo[i].dati.replace('T', '-').split('-');
-				// console.log("reactive iterDate", iterDate)
+				
 				let iterYear = iterDate[0];
 				let iterMonth = iterDate[1];
 				let todayDate = new Date().toISOString().slice(0, 10).split('-');
@@ -81,7 +81,7 @@
 				todayMonth = todayDate[1];
 				if (iterYear == todayYear && iterMonth == todayMonth) {
 					foundGroupId = newGroupsInfo[i].groupid;
-					// console.log('foundGroupId reactive ', foundGroupId);
+					
 					break;
 				}
 			}
@@ -90,14 +90,37 @@
 		
 	}
 
+	$: {
+		for (let i in newGroupsInfo) {
+			
+			if (newGroupsInfo[i].members != null) {
+				for (let j=0; j< (newGroupsInfo[i].members).length; j++ ){
+					
+					if (newGroupsInfo[i].members[j] != `${user[0].fname} ${user[0].lname}`){
+						
+						connectionSet.add(newGroupsInfo[i].members[j])
+						console.log(connectionSet.size)
+						size = connectionSet.size;
+						
+					}
+
+				}
+			
+			}
+		
+		}
+		
+	}
+
+	
+
 	function fixDate(dateV) {
 		if (dateV == null) {
 			return;
 		} else {
-			// console.log("fixDate V", dateV)
+		
 			let dateR = dateV.replace('T', '-').split('-');
 			
-			// console.log("fixDate full", `${dateR[1]}-${dateR[2]}-${dateR[0]}`)
 			return `${dateR[1]}-${dateR[2]}-${dateR[0]}`;
 		}
 	}
@@ -106,10 +129,9 @@
 		if (dateV == null) {
 			return;
 		} else {
-			// console.log("fixDateSubmit V", dateV)
+
 			let dateR = dateV.replace('T', '-').split('-');
-			// console.log("fixDateSubmit R", dateR)
-			// console.log("fixDateSubmit fuls", `${dateR[2]}-${dateR[0]}-${dateR[1]}`)
+
 			return `${dateR[2]}-${dateR[0]}-${dateR[1]}`;
 			
 		}
@@ -119,17 +141,16 @@
 		if (timeV == null) {
 			return;
 		} else {
-			// console.log("fixTime V", timeV)
+
 			let timeR = timeV.split(':');
-			// console.log("fixTime V", timeR)
-			// console.log("fixTIme Full", `${timeR[0]}:${timeR[1]}`)
+	
 			return `${timeR[0]}:${timeR[1]}`;
 		}
 	}
 
 	function fixMembers(theMembers){
 		let finalMembersHTML = "";
-		// console.log(theMembers)
+
 		for (let i = 0; i<theMembers.length; i++){
 			if (theMembers[i] == `${user[0].fname} ${user[0].lname}`){
 				theMembers.splice(i, 1);
@@ -153,7 +174,7 @@
 	}
 
 	function editFunc(event) {
-		// console.log("editFunc cagridli")
+
 		if (savedHTML == '') {
 			Reactive = true;
 			let element = document.getElementById(`${event.detail.eGroupIdV}`);
@@ -161,15 +182,15 @@
 			savedHTML = element.innerHTML;
 			name = document.getElementById('groupName').innerHTML;
 			dateP = document.getElementById('date').innerHTML;
-			// console.log("DateP", dateP)
+	
 			startTimeP = document.getElementById('startTime').innerHTML;
-			// console.log("startTimeP", startTimeP)
+		
 			endTimeP = document.getElementById('endTime').innerHTML;
-			// console.log("endTimeP", endTimeP)
+		
 			location = document.getElementById('location').innerHTML;
 			element.innerHTML = '';
 			let bruh = document.getElementById(`${event.detail.eGroupIdV}inputs`);
-			// console.log('bruh if this works', bruh);
+			
 			bruh.style.visibility = 'visible';
 			Reactive = false;
 		} else {
@@ -191,16 +212,11 @@
 	function cFunc(event) {
 
 		groupNameA = groupName;
-		// console.log("cfunc groupNameA ", groupNameA )
-		// console.log("cfunc groupName", groupName)
+
 		dateA = dateB;
-		// console.log("cfunc dateA", dateA)
-		// console.log("cfunc dateB", dateB)
+
 		startTimeA = startTime;
-		// console.log("cfunc startTimeA", startTimeA)
-		// console.log("cfunc startTime", startTime)
-		// console.log("cfunc endTimeA", endTimeA)
-		// console.log("cfunc endTimeA", endTime)
+
 		endTimeA = endTime;
 		locationAA = locationA;
 		
@@ -212,24 +228,21 @@
 			groupNameA = name;
 		}
 
-		// console.log("cfunc groupNameA Again ", groupNameA )
-
-		// console.log("datemis", dateB)
 		if (dateA == undefined || dateA == "") {
 			dateA = dateP;
 		}
-		// console.log("cfunc dateA Again", dateA)
+
 		
 
 		if (endTimeA == undefined || endTimeA == "") {
 			endTimeA = endTimeP;
 		}
-		// console.log("cfunc endTimeA Again", endTimeA)
+	
 
 		if (startTimeA == undefined || startTimeA == "") {
 			startTimeA = startTimeP;
 		}
-		// console.log("cfunc startTimeA Again", startTimeA)
+	
 
 		Reactive = false;
 		savedHTML = '';
@@ -282,12 +295,7 @@
 
 
 	const submit = async (id) => {
-		// console.log(id);
-		// console.log("submit locationAA", locationAA)
-		// console.log("submit startTimeA", startTimeA)
-		// console.log("submit endTimeA", endTimeA)
-		// console.log("submit fixDateSubmit(dateA)", fixDateSubmit(dateA))
-		// console.log("submit grouonameA", groupNameA)
+
 
 		try {
 			const submit = await fetch(`https://strengthn.herokuapp.com/user/group/${id}`, {
@@ -311,19 +319,17 @@
 			
 			const data = await submit.json();
 			
-			// console.log("data", data)
-			EName = data[0].groupname;
-			// console.log("submit EName", EName)
-			EDate = data[0].dati;
-			// console.log("submit EDate", EDate)
-			ESTime = data[0].starttime;
-			// console.log("submit ESTime", ESTime)
-			EETime = data[0].endtime;
-			// console.log("submit EETime", EETime)
-			ELocation = data[0].loc;
-			// console.log("submit ELocation", ELocation)
 
-			// console.log("groupsS", groups);
+			EName = data[0].groupname;
+	
+			EDate = data[0].dati;
+		
+			ESTime = data[0].starttime;
+	
+			EETime = data[0].endtime;
+	
+			ELocation = data[0].loc;
+
 		} catch (err) {
 			console.log(err);
 		}
@@ -334,6 +340,7 @@
 		return casedName;
 	}
 
+	
 
 </script>
 
@@ -348,7 +355,7 @@
 		
 		<div class="yourStrengthSection" >
 			<h3 class="topText">Your Strength</h3>
-			<div class="number"><p><span style="font-size: 42px"></span> Connections</p></div>
+			<div class="number"><p><span style="font-size: 42px">{size}</span> Connections</p></div>
 			<div class="percentage"><p><span style="font-size: 42px"></span> Group Met</p></div>
 		</div>
 		<div>
@@ -386,7 +393,7 @@
 		</div>
 		<div class="yourStrengthSection" >
 			<h3 class="topText">Your Strength</h3>
-			<div class="number"><p><span style="font-size: 42px">20</span> Connections</p></div>
+			<div class="number"><p><span style="font-size: 42px">{size}</span> Connections</p></div>
 			<div class="percentage"><p><span style="font-size: 42px">10%</span> Group Met</p></div>
 		</div>
 		<div>
@@ -414,19 +421,13 @@
 							<h3 class="groupName" id="groupName">{upperCase(groupname)}</h3>
 
 							<div class="date">
-								<!-- {console.log("replace dati", dati)}
-								{console.log("replace fixDate(dati)",fixDate(dati))} -->
+
 								<p id="date">{fixDate(dati)}</p>
 							</div>
 
 							<div class="time">
-								<!-- <p class="work"> -->
-									<!-- {console.log("replace starttime", starttime)}
-									{console.log("replace fixTime(starttime)",fixTime(starttime))}
-									{console.log("replace endtime", endtime)}
-									{console.log("replace fixTime(endtime)",fixTime(endtime))} -->
 									<span id="startTime">{fixTime(starttime)}</span>-<span id="endTime">{fixTime(endtime)}</span>
-								<!-- </p> -->
+						
 							</div>
 
 							<div class="location">

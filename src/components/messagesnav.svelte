@@ -27,7 +27,7 @@
 
 			const groupsfetched = await groupsfetch.json();
 			groups = groupsfetched;
-			// console.log("thegroups", groups)
+		
 		} catch (err) {
 			console.log(err);
 		}
@@ -41,11 +41,10 @@
 	onMount(async () => {
 		await loadMessages();
 		await loadGroups();
-		// console.log("themessages", $messages)
+	
 	});
 
-	console.log("$", $messages)
-	console.log("m", messages)
+
 </script>
 
 <div id="mySidenav" class="sidenav" class:open={navOpen}>

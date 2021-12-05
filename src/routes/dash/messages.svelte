@@ -7,6 +7,8 @@
 	import { jwt } from '../../stores/jwt';
 	import { onMount } from 'svelte';
 	import { groupidS } from '../../stores/groupid';
+import Admin from '../admin.svelte';
+import Dashboard from './dashboard.svelte';
 	$: meh = '';
 	let message;
 	let dummy;
@@ -32,7 +34,7 @@
 	const realTime = async () => {
 		await loadGroupsStore();
 		await loadMessages();
-		// console.log($groupsStore);
+		
 
 		try {
 			const res = await fetch(`https://strengthn.herokuapp.com/user/messages/${$groupidS}`, {
@@ -46,25 +48,6 @@
 			const groupmessagesA = await res.json();
 			meh = Object.values(groupmessagesA).reverse();
 
-			// if ($groupidS != meh[0].groupid) {
-			// console.log("s", $groupidS)
-			// console.log("m", meh[0].groupid)
-			// for (let group in $groupsStore) {
-			// 	if (meh[0].groupid == $groupsStore[group].groupid) {
-			// 		groupnameA = $groupsStore[group].groupname;
-			// 	}
-			// }
-			// }
-
-			// for (let group in $groupsStore) {
-			// 	if (meh[0].groupid == $groupsStore[group].groupid) {
-			// 		groupnameA = $groupsStore[group].groupname;
-			// 	}
-			// }
-
-			// yeter()
-
-			// console.log("printing meh again",  meh[0].groupid)
 		} catch (err) {
 			try {
 				const res = await fetch(
@@ -80,12 +63,7 @@
 
 				const groupmessagesA = await res.json();
 				meh = Object.values(groupmessagesA).reverse();
-				// 	for (let group in $groupsStore) {
-				// 	if (meh[0].groupid == $groupsStore[group].groupid) {
-				// 		groupnameA = $groupsStore[group].groupname;
-				// 	}
-				// }
-				// console.log("printing meh", meh)
+
 			} catch (err) {
 				console.log(err);
 			}
@@ -97,17 +75,17 @@
 	};
 
 	function check() {
-		// console.log(typeof message);
+		
 		if (message.trim().length === 0) {
 			return;
 		} else {
-			// console.log('camehere');
+			
 			submit();
 		}
 	}
 
 	const submit = async () => {
-		// console.log('this was clicked');
+	
 		try {
 			const submit = await fetch(`https://strengthn.herokuapp.com/user/messages/${$groupidS}`, {
 				method: 'POST',
@@ -122,8 +100,7 @@
 			const predata = await submit;
 			const data = await submit.json();
 
-			// console.log("groupstore", $groupsStore)
-			// console.log("messages", $messages)
+
 		} catch (err) {
 			try {
 				const submit = await fetch(
@@ -142,8 +119,7 @@
 				const predata = await submit;
 				const data = await submit.json();
 
-				// 	console.log("groupstore", $groupsStore)
-				// console.log("messages", $messages)
+	
 			} catch (err) {
 				console.log(err);
 			}
@@ -158,23 +134,22 @@
 
 	setInterval(realTime, 100);
 
-	// console.log(groupname)
-	// console.log($groupidS)
-	// console.log($messages)
-	// console.log("groupstore", $groupsStore);
+
 	$: reactiveGroupsStore = $groupsStore;
-	// $: console.log("R groupstore", reactiveGroupsStore);
-	// $: console.log("typeof R groupstore", typeof reactiveGroupsStore);
-	// $: console.log("typeof R groupstore", reactiveGroupsStore.length);
-	// $: console.log("groupstore", $groupsStore);
+	
+
+	// $: console.log(reactiveGroupsStore)
+	// console.log($groupidS)
+	// $: console.log(groupnameA)
 </script>
 
 <body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
 	<div class="test">
 		<Messagenav on:hamburger={squish} on:groupchat={replace} />
-		<!-- {console.log("gs", $groupidS)} -->
-		{#if $groupidS == undefined || $groupidS == '0' || groupnameA == undefined}
+		
+		{#if $groupidS == undefined || $groupidS == 'not0' || $groupidS == null|| groupnameA == undefined || groupnameA == null || groupnameA == 'undefined' || groupnameA == "..."}
 			<div class="noName" />
+			
 		{:else if reactiveGroupsStore != undefined || reactiveGroupsStore != null || reactiveGroupsStore != []}
 			{#each reactiveGroupsStore as { groupid }, i}
 				{#if groupid == $groupidS}
@@ -227,7 +202,7 @@
 	}
 
 	.noName {
-		height: 50px;
+		height: 70px;
 	}
 
 	.title {
