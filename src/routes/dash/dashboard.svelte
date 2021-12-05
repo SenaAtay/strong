@@ -220,36 +220,44 @@
 		let element = document.getElementById(`${event.detail.eGroupIdV}`);
 
 		element.innerHTML = `
-		<h3 class="groupName" id="groupName" style= "color: #293b5f;font-family: 'Raleway', sans-serif;font-weight: 500; font-size: 25px;">${upperCase(
+		<h3 class="groupName" id="groupName" style= "color: #293b5f;font-family: 'Raleway', sans-serif;font-weight: 500; font-size: 25px; margin-bottom:2%;">${upperCase(
 			groupName
 		)}</h3>
 
-		<div class="date" style = "color: black;
-		font-family: 'Raleway', sans-serif;
-		font-weight: 400;
-		font-size: 23px;">
-			<p id="date">${fixDate(date)}</p>
+		<div class="date" style = "color: black;font-family: 'Raleway', sans-serif;font-weight: 400;font-size: 23px; margin-bottom:2%;">
+			<p style="margin-bottom:0%;" id="date">${fixDate(date)}</p>
 		</div>
 
-		<div class="time" style ="display: flex;flex-direction: row;align-content: space-between;gap: 30px; color: black;font-family: 'Raleway', sans-serif;font-weight: 400;font-size: 22px;">
-			<p><span id="startTime" >${fixTime(startTime)}</span>-<span id="endTime">${fixTime(
-			endTime
-		)}</span></p>
+
+		<div class="time" 
+		style ="color:black; display: flex;	justify-content: space-around; font-family: 'Raleway', sans-serif;font-weight: 400;font-size: 22px;padding-left: 23%;
+		padding-right:23%; margin-bottom:2%; text-align: center;">
+			<p style="margin-bottom:2%;"><span id="startTime" >${fixTime(startTime)}</span>-<span id="endTime">${fixTime(endTime)}</span></p>
 		</div>
 
-		<div class="location" style = "		color: black;
-		font-family: 'Raleway', sans-serif;
-		font-weight: 400;
-		font-size: 20px;">
-			<p id="location">${locationA}</p>
-		</div>`;
+		<div class="location" style = " color: black;font-family: 'Raleway', sans-serif;font-weight: 400;font-size: 20px;margin-bottom:2%;"><p id="location">${locationA}</p></div>`;
 		element.style.visibility = 'visible';
 
 		let bruh = document.getElementById(`${event.detail.eGroupIdV}inputs`);
 		bruh.style.visibility = 'hidden';
 
 		Reactive = true;
+		clearInput()
 	}
+
+
+	function clearInput(){
+		locationA = "";
+		groupName = "";
+		date = "";
+		endTime = "";
+		startTime = "";
+
+		return;
+
+	}
+
+
 
 	const submit = async (id) => {
 		// console.log(id);
@@ -293,14 +301,6 @@
 	<div class="topSection">
 		<div class="meetGroupSection" >
 			<h3 class="topText">Meet your Group</h3>
-			<!-- <div class= "lastMinute">
-				<h3 class="lastMinName">Noel Fernandez</h3>
-				<h3 class="lastMinName">Brooke Gray</h3>
-				<h3 class="lastMinName">Nick Arya</h3>
-				<h3 class="lastMinName">Selin Flores</h3>
-				<h3 class="lastMinName">Marcos Miles</h3>
-				<h3 class="lastMinName">Rashid Ahmed</h3>
-			</div> -->
 			<div class= "lastMinute" > 
 			{#if newGroupsInfo != undefined || newGroupsInfo != null}
 				{#each newGroupsInfo as { dati, endtime, groupid, groupname, loc, members, orgid, starttime }, i}
@@ -348,18 +348,16 @@
 							</div>
 
 							<div class="time">
-								<p class="work">
-									<span id="startTime">{fixTime(starttime)}</span>-<span id="endTime"
-										>{fixTime(endtime)}</span
-									>
-								</p>
+								<!-- <p class="work"> -->
+									<span id="startTime">{fixTime(starttime)}</span>-<span id="endTime">{fixTime(endtime)}</span>
+								<!-- </p> -->
 							</div>
 
 							<div class="location">
 								<p id="location">{loc}</p>
 							</div>
 						</div>
-						<div id={`${groupid}inputs`} style="visibility: hidden;">
+						<div id={`${groupid}inputs`} class = "inputsdiv" style="visibility: hidden;">
 							<input class="inputs" placeholder={upperCase(groupname)} bind:value={groupName} />
 							<input class="inputs" placeholder={fixDate(dati)} bind:value={date} />
 							<input class="inputs" placeholder={fixTime(starttime)} bind:value={startTime} />
@@ -380,17 +378,30 @@
 		margin: 0;
 	}
 
-	.replace {
-		text-align: center;
-	}
-
-	.work {
-		margin-left: 6%;
-	}
-
-	.lastMinName {
+	.inputs{
 		margin-bottom: 3%;
 	}
+
+	.inputsdiv{
+		padding-top: 0%;
+		padding-bottom: 20%;
+		margin-bottom:10%;
+	}
+
+	.replace {
+		text-align: center;
+		padding-top: 4%;
+	}
+
+	/* .work {
+		
+		display:flex;
+		justify-content: space-around;
+	} */
+
+	/* .lastMinName {
+		margin-bottom: 3%;
+	} */
 
 	.lastMinute {
 		/* padding: 50px; */
@@ -499,9 +510,11 @@
 		height: 250px;
 		background: #ffffff;
 		padding-top: 3%;
-		padding-right: 5%;
-		padding-left: 5%;
-		padding-bottom: 5%;
+		/* padding-right: 5%; */
+		/* padding-left: 5%;
+		padding-bottom: 5%;  */
+		display: flex;
+		flex-direction: column;
 		margin-top: 1%;
 		margin-left: 4%;
 		text-align: center;
@@ -514,6 +527,7 @@
 		font-family: 'Raleway', sans-serif;
 		font-weight: 500;
 		font-size: 25px;
+		margin-bottom: 2%;
 	}
 
 	.date {
@@ -521,17 +535,24 @@
 		font-family: 'Raleway', sans-serif;
 		font-weight: 400;
 		font-size: 23px;
+		margin-bottom: 2%;
 	}
 	.time {
 		color: black;
 		display: flex;
+		justify-content: space-around;
 		font-family: 'Raleway', sans-serif;
 		font-weight: 400;
 		font-size: 22px;
-		flex-direction: row;
-		align-content: space-between;
-		gap: 30px;
-		margin-left: 10%;
+		padding-left: 23%;
+		padding-right:23%;
+		text-align: center;
+		margin-bottom: 2%;
+
+				/* flex-direction: row;
+		align-content: space-between; */
+		/* gap: 30px; */
+		/* margin-left: 10%; */
 	}
 
 	.location {
@@ -539,6 +560,7 @@
 		font-family: 'Raleway', sans-serif;
 		font-weight: 400;
 		font-size: 20px;
+		margin-bottom: 2%;
 	}
 </style>
 
