@@ -28,6 +28,11 @@
 	let newGroupsInfo;
 	let groupsInfo;
 	let omg;
+	let groupNameA
+	let dateA = date;
+		let startTimeA;
+		let endTimeA;
+		let locationAA;
 
 	onMount(async () => {
 		await loadDash();
@@ -194,24 +199,33 @@
 	}
 
 	function cFunc(event) {
-		if (locationA == undefined) {
-			locationA = location;
+
+		groupNameA = groupName;
+		dateA = date;
+		startTimeA = startTime;
+		endTimeA = endTime;
+		locationAA = locationA;
+		
+		if (locationAA == undefined) {
+			locationAA = location;
 		}
 
-		if (groupName == undefined) {
-			groupName = name;
+		if (groupNameA == undefined) {
+			groupNameA = name;
 		}
 
-		if (date == undefined) {
-			date = dateP;
+		console.log("datemis", date)
+		if (dateA == undefined) {
+			dateA = dateP;
+		}
+		console.log("datemissss", date)
+
+		if (endTimeA == undefined) {
+			endTimeA = endTimeP;
 		}
 
-		if (endTime == undefined) {
-			endTime = endTimeP;
-		}
-
-		if (startTime == undefined) {
-			startTime = startTimeP;
+		if (startTimeA == undefined) {
+			startTimeA = startTimeP;
 		}
 
 		Reactive = false;
@@ -219,39 +233,43 @@
 		submit(event.detail.eGroupIdV);
 		let element = document.getElementById(`${event.detail.eGroupIdV}`);
 
+		
+
+
+
 		element.innerHTML = `
 		<h3 class="groupName" id="groupName" style= "color: #293b5f;font-family: 'Raleway', sans-serif;font-weight: 500; font-size: 25px; margin-bottom:2%;">${upperCase(
-			groupName
+			groupNameA
 		)}</h3>
 
 		<div class="date" style = "color: black;font-family: 'Raleway', sans-serif;font-weight: 400;font-size: 23px; margin-bottom:2%;">
-			<p style="margin-bottom:0%;" id="date">${fixDate(date)}</p>
+			<p style="margin-bottom:0%;" id="date">${fixDate(dateA)}</p>
 		</div>
 
 
 		<div class="time" 
 		style ="color:black; display: flex;	justify-content: space-around; font-family: 'Raleway', sans-serif;font-weight: 400;font-size: 22px;padding-left: 23%;
 		padding-right:23%; margin-bottom:2%; text-align: center;">
-			<p style="margin-bottom:2%;"><span id="startTime" >${fixTime(startTime)}</span>-<span id="endTime">${fixTime(endTime)}</span></p>
+			<p style="margin-bottom:2%;"><span id="startTime" >${fixTime(startTimeA)}</span>-<span id="endTime">${fixTime(endTimeA)}</span></p>
 		</div>
 
-		<div class="location" style = " color: black;font-family: 'Raleway', sans-serif;font-weight: 400;font-size: 20px;margin-bottom:2%;"><p id="location">${locationA}</p></div>`;
+		<div class="location" style = " color: black;font-family: 'Raleway', sans-serif;font-weight: 400;font-size: 20px;margin-bottom:2%;"><p id="location">${locationAA}</p></div>`;
 		element.style.visibility = 'visible';
 
 		let bruh = document.getElementById(`${event.detail.eGroupIdV}inputs`);
 		bruh.style.visibility = 'hidden';
 
 		Reactive = true;
-		clearInput()
+		// clearInput()
 	}
 
 
 	function clearInput(){
-		locationA = "";
-		groupName = "";
-		date = "";
-		endTime = "";
-		startTime = "";
+		locationAA = "";
+		groupNameA = "";
+		dateA = "";
+		endTimeA = "";
+		startTimeA = "";
 
 		return;
 
@@ -515,7 +533,7 @@
 		padding-bottom: 5%;  */
 		display: flex;
 		flex-direction: column;
-		margin-top: 1%;
+		margin-top: 5%;
 		margin-left: 4%;
 		text-align: center;
 		border: 1px solid #dbe6fd;
