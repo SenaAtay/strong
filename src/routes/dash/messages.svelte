@@ -13,6 +13,7 @@
 	$: groupnameA = '...';
 	let navOpen = false;
 	let fixGroupName;
+	
 
 	function scrollFunc() {
 		var element = document.getElementById('chatbox');
@@ -109,7 +110,7 @@
 	}
 
 	const submit = async () => {
-		console.log('this was clicked');
+		// console.log('this was clicked');
 		try {
 			const submit = await fetch(`https://strengthn.herokuapp.com/user/messages/${$groupidS}`, {
 				method: 'POST',
@@ -124,8 +125,8 @@
 			const predata = await submit;
 			const data = await submit.json();
 
-			console.log("groupstore", $groupsStore)
-			console.log("messages", $messages)
+			// console.log("groupstore", $groupsStore)
+			// console.log("messages", $messages)
 
 		} catch (err) {
 			try {
@@ -145,8 +146,8 @@
 				const predata = await submit;
 				const data = await submit.json();
 
-				console.log("groupstore", $groupsStore)
-			console.log("messages", $messages)
+			// 	console.log("groupstore", $groupsStore)
+			// console.log("messages", $messages)
 			
 			} catch (err) {
 				console.log(err);
@@ -165,24 +166,35 @@
 	// console.log(groupname)
 	// console.log($groupidS)
 	// console.log($messages)
-	console.log("groupstore", $groupsStore);
+	// console.log("groupstore", $groupsStore);
+	$: reactiveGroupsStore = $groupsStore;
+	// $: console.log("R groupstore", reactiveGroupsStore);
+	// $: console.log("typeof R groupstore", typeof reactiveGroupsStore);
+	// $: console.log("typeof R groupstore", reactiveGroupsStore.length);
+	// $: console.log("groupstore", $groupsStore);
+
 </script>
 
 <body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
 	<div class="test">
 		<Messagenav on:hamburger={squish} on:groupchat={replace} />
-
+		<!-- {console.log("gs", $groupidS)} -->
 		{#if $groupidS == undefined || $groupidS == '0' || groupnameA == undefined}
-			<p />
+			
+			<div class="noName"></div>
+			
 		{:else}
-		{#each $groupsStore as { groupid }, i}
+		{#if reactiveGroupsStore != undefined || reactiveGroupsStore != null || reactiveGroupsStore != []}
+		<h1>Sena</h1>
+		{#each reactiveGroupsStore as { groupid }, i}
 		{#if groupid == $groupidS}
-		<!-- <h1 class="title">{groupsStore[i].groupname}</h1> -->
 		
-		<h1 class="title">{$groupsStore[i].groupname}</h1>
+		
+		<h1 class="title">{reactiveGroupsStore[i].groupname}</h1>
 		{/if}
 			
 		{/each}
+		{/if}
 		{/if}
 		<!-- <h1 class="title">Group {$groupidS}</h1> -->
 		<div class="chatbox" id="chatbox" class:adjust={navOpen}>
@@ -226,6 +238,10 @@
 <style>
 	* {
 		box-sizing: border-box;
+	}
+
+	.noName{
+		height: 50px;
 	}
 
 	.title {

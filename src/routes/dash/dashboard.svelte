@@ -63,8 +63,9 @@
 	$: groups = userInfo.groups;
 	$: user = userInfo.user;
 
-	$: console.log("new", newGroupsInfo);
-	$: console.log("groups", groups);
+	// $: console.log("new", newGroupsInfo);
+	// $: console.log("new type", typeof newGroupsInfo);
+	// $: console.log("groups", groups);
 
 	$: {
 		for (let i in newGroupsInfo) {
@@ -105,10 +106,10 @@
 		if (dateV == null) {
 			return;
 		} else {
-			console.log("fixDateSubmit V", dateV)
+			// console.log("fixDateSubmit V", dateV)
 			let dateR = dateV.replace('T', '-').split('-');
-			console.log("fixDateSubmit R", dateR)
-			console.log("fixDateSubmit fuls", `${dateR[2]}-${dateR[0]}-${dateR[1]}`)
+			// console.log("fixDateSubmit R", dateR)
+			// console.log("fixDateSubmit fuls", `${dateR[2]}-${dateR[0]}-${dateR[1]}`)
 			return `${dateR[2]}-${dateR[0]}-${dateR[1]}`;
 			
 		}
@@ -128,7 +129,7 @@
 
 	function fixMembers(theMembers){
 		let finalMembersHTML = "";
-		console.log(theMembers)
+		// console.log(theMembers)
 		for (let i = 0; i<theMembers.length; i++){
 			if (theMembers[i] == `${user[0].fname} ${user[0].lname}`){
 				theMembers.splice(i, 1);
@@ -322,7 +323,7 @@
 			ELocation = data[0].loc;
 			// console.log("submit ELocation", ELocation)
 
-			console.log("groupsS", groups);
+			// console.log("groupsS", groups);
 		} catch (err) {
 			console.log(err);
 		}

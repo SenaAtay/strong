@@ -27,6 +27,7 @@
 		console.log(schedules);
 
 		groups = userInfo.groups;
+		// 
 		for (const group of groups) {
 			const { members } = group;
 			let groupText = '';

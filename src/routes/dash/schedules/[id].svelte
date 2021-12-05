@@ -6,7 +6,7 @@
 	let currentStep;
 	let finished;
 	let indexMonth;
-	let dates = [[]];
+	let datesA = [[]];
 	let weeks;
 	let voteColors = [];
 	let indexToMonth = {
@@ -25,26 +25,42 @@
 	};
 	let weekStr;
 
+	// function scheduleActionA(){
+	// 	console.log("here")
+	// 	scheduleAction();
+
+	// }
+
 	const scheduleAction = async () => {
+		// console.log("heretoo")
 		let pathname = window.location.pathname;
+		// console.log("pathname", pathname)
 		let arr = pathname.split('/');
+		// console.log("arr", arr)
 		let id = parseInt(arr[arr.length - 1]);
+		// console.log("id", id)
+		// console.log("weeks", weeks)
+		// console.log("dates", datesA)
+		// console.log($jwt)
 		try {
 			const result = await fetch(`https://strengthn.herokuapp.com/user/schedules/${id}`, {
 				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'token': JSON.stringify($jwt)
+				},
 				body: JSON.stringify({
 					weeks,
 					dates: [[]]
 				}),
-				headers: {
-					'Content-Type': 'application/json',
-					token: JSON.stringify($jwt)
-				}
-			});
-			const res = await result.json();
-			console.log(res);
 
-			goto('/dash/schedules');
+			});
+			// console.log("result", result)
+			
+			const res = await result.json();
+			// console.log("res", res);
+
+			// goto('/dash/schedules');
 		} catch (err) {
 			console.log(err);
 		}
@@ -118,7 +134,9 @@
 		finished = schedule.finished;
 		indexMonth = schedule.indexmonth;
 		weeks = schedule.weeks;
-		dates = schedule.dates;
+		// console.log("datesBefore", datesA)
+		datesA = schedule.dates;
+		// console.log("datesAfter", datesA)
 		createColors(schedule.nummembers);
 
 		weekStr = weeksInMonth(2021, indexMonth);
@@ -162,9 +180,7 @@
 					{/each}
 				</div>
 				<button
-					on:click|preventDefault={() => {
-						scheduleAction();
-					}}>Lock</button
+					on:click|preventDefault={scheduleAction}>Lock</button
 				>
 			</div>
 			<div class="week-voter">
@@ -189,7 +205,10 @@
 				</div>
 			</div>
 		</div>
-	{:else if currentStep === 'vw'}{:else if currentStep === 'pd'}{:else if currentStep === 'vd'}{:else}
+	{:else if currentStep === 'vw'}
+	{:else if currentStep === 'pd'}
+	{:else if currentStep === 'vd'}
+	{:else}
 		<h2>This group meeting has already been scheduled</h2>
 	{/if}
 </section>
