@@ -91,7 +91,7 @@
 			id={`${eGroupId}x`}
 			on:click|preventDefault={cancel}
 		>
-			X
+		X
 		</div>
 		<div
 			class="editFunc"
@@ -110,11 +110,22 @@
 		font-size: 20px;
 		padding-top: 10%;
 	}
-	
+
+	/* .editFunc{
+		padding: 0%;
+		margin: 0%;
+	}
+	 */
 	.container {
 		display: flex;
-		margin-left: 90%;
-		width: 15px;
+		/* flex-wrap: wrap; */
+		/* justify-content: flex-end;
+		justify-content: ;
+		wrap */
+		margin-left: 80%;
+		padding-bottom: 0%;
+		padding-top: 0%;
+		width: 7px;
 		padding: 0px;
 		font-size: 25px;
 		cursor: pointer;
@@ -125,6 +136,8 @@
 	.edit {
 		display: flex;
 		color: #dcdcdc;
+		padding: 0%;
+		margin: 0%;
 	}
 
 	/* .editFunc {
