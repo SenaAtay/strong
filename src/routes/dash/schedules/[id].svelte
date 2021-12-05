@@ -120,7 +120,9 @@
 		finished = schedule.finished;
 		indexMonth = schedule.indexmonth;
 		weeks = schedule.weeks;
-		dates = schedule.dates;
+		// console.log("datesBefore", datesA)
+		datesA = schedule.dates;
+		// console.log("datesAfter", datesA)
 		createColors(schedule.nummembers);
 
 		weekStr = weeksInMonth(2021, indexMonth);

@@ -43,6 +43,9 @@
 		await loadGroups();
 		// console.log("themessages", $messages)
 	});
+
+	console.log("$", $messages)
+	console.log("m", messages)
 </script>
 
 <div id="mySidenav" class="sidenav" class:open={navOpen}>

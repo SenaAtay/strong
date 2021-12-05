@@ -25,6 +25,7 @@
 		schedules = userInfo.schedules;
 
 		groups = userInfo.groups;
+		// 
 		for (const group of groups) {
 			const { members } = group;
 			let groupText = '';
