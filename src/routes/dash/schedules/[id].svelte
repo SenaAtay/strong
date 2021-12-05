@@ -29,12 +29,15 @@
 		let pathname = window.location.pathname;
 		let arr = pathname.split('/');
 		let id = parseInt(arr[arr.length - 1]);
+		if (dates == undefined) {
+			dates = null;
+		}
 		try {
 			const result = await fetch(`https://strengthn.herokuapp.com/user/schedules/${id}`, {
 				method: 'POST',
 				body: JSON.stringify({
 					weeks,
-					dates: [[]]
+					dates
 				}),
 				headers: {
 					'Content-Type': 'application/json',
@@ -43,6 +46,7 @@
 			});
 
 			const res = await result.json();
+			console.log(res);
 
 			goto('/dash/schedules');
 		} catch (err) {
@@ -118,9 +122,7 @@
 		finished = schedule.finished;
 		indexMonth = schedule.indexmonth;
 		weeks = schedule.weeks;
-		// console.log("datesBefore", datesA)
 		dates = schedule.dates;
-		// console.log("datesAfter", datesA)
 		createColors(schedule.nummembers);
 
 		weekStr = weeksInMonth(schedule.yer, indexMonth);
