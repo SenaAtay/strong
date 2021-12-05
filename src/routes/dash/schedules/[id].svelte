@@ -43,8 +43,6 @@
 			});
 
 			const res = await result.json();
-			console.log('here');
-			console.log(res);
 
 			goto('/dash/schedules');
 		} catch (err) {
@@ -121,11 +119,11 @@
 		indexMonth = schedule.indexmonth;
 		weeks = schedule.weeks;
 		// console.log("datesBefore", datesA)
-		datesA = schedule.dates;
+		dates = schedule.dates;
 		// console.log("datesAfter", datesA)
 		createColors(schedule.nummembers);
 
-		weekStr = weeksInMonth(2021, indexMonth);
+		weekStr = weeksInMonth(schedule.yer, indexMonth);
 
 		for (let i = 0; i < weekStr.length; i++) {
 			let interval = weekStr[i];
