@@ -165,6 +165,7 @@
 	// console.log(groupname)
 	// console.log($groupidS)
 	// console.log($messages)
+	console.log("groupstore", $groupsStore);
 </script>
 
 <body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
@@ -230,7 +231,7 @@
 	.title {
 		font-family: 'Raleway', sans-serif;
 		font-weight: 700;
-		width: 25vw;
+		width: 50vw;
 		padding: 5px;
 		margin: 9px;
 		margin-left: 18.5%;

@@ -1,12 +1,10 @@
 <script>
 	import { dash, loadDash } from '../../stores/dash';
-	// import { loadDash } from '../../stores/dash';
 	import { groupsStore, loadGroupsStore } from '../../stores/groups';
 	import { onMount } from 'svelte';
 	import Edit from '../../components/editMeeting.svelte';
 	import { jwt } from '../../stores/jwt';
 
-	// let showInputs = false;
 	let savedHTML = '';
 	let name;
 	let dateP;
@@ -27,57 +25,85 @@
 	let ESTime;
 	let EETime;
 	let ELocation;
-
-	// let calismiycak = document.getElementById(`${event.detail.eGroupIdV}inputs`)
-	// console.log(calismiycak);
+	let newGroupsInfo;
+	let groupsInfo;
+	let omg;
 
 	onMount(async () => {
-		console.log('before', loadDash());
 		await loadDash();
-		console.log('after', loadDash());
 		await loadGroupsStore();
-		findGroupId(groupsInfo);
+		// findGroupId(groupsInfo);
+
+		groupsStore.subscribe((value) => {
+			groupsInfo = value;
+		});
+
 	});
+
 	let userInfo;
-
-	// const unsubscribe = dash.subscribe((value) => {
-	// 	userInfo = value;
-	// });
-
 	dash.subscribe((value) => {
 		userInfo = value;
 	});
 
-	let groupsInfo;
-	groupsStore.subscribe((value) => {
-		groupsInfo = value;
-	});
 
-	console.log('groupsInfooooo', groupsInfo);
-	console.log('userinfooooooo', userInfo);
 
+	// findGroupId(groupsInfo);
+
+
+
+	$: newGroupsInfo = groupsInfo;
+	// console.log("newgroupsinfo", newGroupsInfo)
+	$: console.log(' newgroupsinfo', newGroupsInfo);
+	// findGroupId(newGroupsInfo);
 	$: groups = userInfo.groups;
-	$: messages = userInfo.messages;
-	$: org = userInfo.org;
 	$: user = userInfo.user;
-	console.log("groups", groups)
+	// $: messages = userInfo.messages;
+	// $: org = userInfo.org;
+	// $: user = userInfo.user;
 
-	function findGroupId(groupsInfo) {
-		for (let i in groupsInfo) {
-			if (groupsInfo[i].dati != null) {
-				let iterDate = groupsInfo[i].dati.replace('T', '-').split('-');
+
+	// function findGroupId(groupsInfoI) {
+	// 	console.log("what", groupsInfoI)
+	// 	// let i;
+	// 	for (let i in groupsInfoI) {
+	// 		console.log("hi")
+	// 		if (groupsInfoI[i].dati != null) {
+	// 			console.log('groupsInfo[i].dati', groupsInfo[i].dati);
+	// 			let iterDate = groupsInfoI[i].dati.replace('T', '-').split('-');
+	// 			let iterYear = iterDate[0];
+	// 			let iterMonth = iterDate[1];
+	// 			let todayDate = new Date().toISOString().slice(0, 10).split('-');
+	// 			todayYear = todayDate[0];
+	// 			todayMonth = todayDate[1];
+	// 			if (iterYear == todayYear && iterMonth == todayMonth) {
+	// 				foundGroupId = groupsInfo[Ii].groupid;
+	// 				console.log('foundGroupId', foundGroupId);
+	// 			}
+	// 		}
+		
+	// 	}
+	// 	return;
+	// }
+
+	$: {
+		for (let i in newGroupsInfo) {
+			// console.log("hi")
+			if (newGroupsInfo[i].dati != null) {
+				// console.log('groupsInfo[i].dati', newGroupsInfo[i].dati);
+				let iterDate = newGroupsInfo[i].dati.replace('T', '-').split('-');
 				let iterYear = iterDate[0];
 				let iterMonth = iterDate[1];
 				let todayDate = new Date().toISOString().slice(0, 10).split('-');
 				todayYear = todayDate[0];
 				todayMonth = todayDate[1];
 				if (iterYear == todayYear && iterMonth == todayMonth) {
-					foundGroupId = groupsInfo[i].groupid;
+					foundGroupId = newGroupsInfo[i].groupid;
+					console.log('foundGroupId', foundGroupId);
 				}
 			}
+		
 		}
-		// console.log(foundGroupId)
-		return;
+		
 	}
 
 	function fixDate(dateV) {
@@ -87,10 +113,6 @@
 			let dateR = dateV.replace('T', '-').split('-');
 			return `${dateR[1]}-${dateR[2]}-${dateR[0]}`;
 		}
-		// console.log("consoling fixDAte", dateV)
-		// let dateR = dateV.replace('T', '-').split('-');
-		// return `${dateR[1]}-${dateR[2]}`;
-		// return ('sena');
 	}
 
 	function fixTime(timeV) {
@@ -101,6 +123,42 @@
 
 			return `${timeR[0]}:${timeR[1]}`;
 		}
+	}
+
+	function fixMembers(theMembers){
+		let finalMembersHTML = "";
+		console.log(theMembers)
+		for (let i = 0; i<theMembers.length; i++){
+			if (theMembers[i] == `${user[0].fname} ${user[0].lname}`){
+				theMembers.splice(i, 1);
+				
+				for (let member in theMembers){
+					let membersHTML = `
+				<h3 style="margin-bottom: 3%;font-family: Roboto;font-weight: 500;">${theMembers[member]}</h3>
+				`;
+				finalMembersHTML += membersHTML
+
+				}
+				// console.log("new", theMembers)
+				// let el = document.getElementById("lm").children;
+				// el.removeChild(el.childNodes[0]); 
+
+				// el.prepend(membersHTML) 
+
+				// console.log("el", el)
+
+				// console.log(document.getElementById("lastMinuteT"))
+				// console.log(document.getElementById(" yourStrengthSection"))
+				// return theNewMembers;
+			}
+
+		}
+		return finalMembersHTML
+		// theMembersTwo = theMembers.replace(`${user[0].fname} ${user[0].lname},`, "").split(',')
+		// console.log(theMembersTwo)
+
+
+
 	}
 
 	function editFunc(event) {
@@ -161,19 +219,10 @@
 		submit(event.detail.eGroupIdV);
 		let element = document.getElementById(`${event.detail.eGroupIdV}`);
 
-
-
-
-
-
-	// .location {
-	// 	color: black;
-	// 	font-family: 'Raleway', sans-serif;
-	// 	font-weight: 400;
-	// 	font-size: 20px;
-	// }
 		element.innerHTML = `
-		<h3 class="groupName" id="groupName" style= "color: #293b5f;font-family: 'Raleway', sans-serif;font-weight: 500; font-size: 25px;">${upperCase(groupName)}</h3>
+		<h3 class="groupName" id="groupName" style= "color: #293b5f;font-family: 'Raleway', sans-serif;font-weight: 500; font-size: 25px;">${upperCase(
+			groupName
+		)}</h3>
 
 		<div class="date" style = "color: black;
 		font-family: 'Raleway', sans-serif;
@@ -183,7 +232,9 @@
 		</div>
 
 		<div class="time" style ="display: flex;flex-direction: row;align-content: space-between;gap: 30px; color: black;font-family: 'Raleway', sans-serif;font-weight: 400;font-size: 22px;">
-			<p><span id="startTime" >${fixTime(startTime)}</span>-<span id="endTime">${fixTime(endTime)}</span></p>
+			<p><span id="startTime" >${fixTime(startTime)}</span>-<span id="endTime">${fixTime(
+			endTime
+		)}</span></p>
 		</div>
 
 		<div class="location" style = "		color: black;
@@ -193,21 +244,11 @@
 			<p id="location">${locationA}</p>
 		</div>`;
 		element.style.visibility = 'visible';
-		// console.log(EName)
-		// console.log(EDate)
-		// console.log(ESTime)
-		// console.log(EETime)
-		// console.log(ELocation)
 
 		let bruh = document.getElementById(`${event.detail.eGroupIdV}inputs`);
 		bruh.style.visibility = 'hidden';
 
 		Reactive = true;
-
-		// alert(locationA)
-		// alert(endTime)
-
-		// alert(typeof locationA)
 	}
 
 	const submit = async (id) => {
@@ -246,38 +287,37 @@
 	}
 </script>
 
-<!-- {#if user == undefined}
-	<p>loading</p>
-{:else}
-	<h3 class="intro">Hi, {user[0].fname} {user[0].lname}</h3>
-{/if} -->
-
 {#if groups == undefined}
 	<h1>You have no meetings scheduled</h1>
 {:else}
-	<!-- <h2 style="color:aqua">Meetings</h2> -->
 	<div class="topSection">
-		<div class="meetGroupSection">
+		<div class="meetGroupSection" >
 			<h3 class="topText">Meet your Group</h3>
-			<div class= "lastMinute">
+			<!-- <div class= "lastMinute">
 				<h3 class="lastMinName">Noel Fernandez</h3>
 				<h3 class="lastMinName">Brooke Gray</h3>
 				<h3 class="lastMinName">Nick Arya</h3>
 				<h3 class="lastMinName">Selin Flores</h3>
 				<h3 class="lastMinName">Marcos Miles</h3>
 				<h3 class="lastMinName">Rashid Ahmed</h3>
-			</div>
-			<!-- {#if groupsInfo != undefined}
-				{#each groupsInfo as { groupid, members }, i}
-					{#if groupsInfo[i].groupid == foundGroupId}
-						{#each groupsInfo[i].members as {}, i}
-							<p>{groupsInfo[i].members[i]}</p>
-						{/each}
+			</div> -->
+			<div class= "lastMinute" > 
+			{#if newGroupsInfo != undefined || newGroupsInfo != null}
+				{#each newGroupsInfo as { dati, endtime, groupid, groupname, loc, members, orgid, starttime }, i}
+					{#if newGroupsInfo[i].groupid == foundGroupId}
+					<!-- {newGroupsInfo[i].members} -->
+					<div class= "hiSena">
+					{@html fixMembers(newGroupsInfo[i].members)}
+				</div>
+
+				<!-- <p style="margin-bottom: 3%;font-family: Roboto;font-weight: 500;">{member}</p> -->
+
 					{/if}
 				{/each}
-			{/if} -->
+			{/if}
 		</div>
-		<div class="yourStrengthSection">
+		</div>
+		<div class="yourStrengthSection" >
 			<h3 class="topText">Your Strength</h3>
 			<div class="number"><p><span style="font-size: 42px">20</span> Connections</p></div>
 			<div class="percentage"><p><span style="font-size: 42px">10%</span> Group Met</p></div>
@@ -290,9 +330,7 @@
 		<h3 class="upcoming">Upcoming Meetings</h3>
 		<div class="cardBody">
 			{#each userInfo.groups as { starttime, endtime, groupname, loc, dati, groupid }}
-				<!-- <div class="rectangle" /> -->
 				{#if starttime != null}
-					<!-- <div class="outterCardBody"> -->
 
 					<div class="box">
 						<Edit
@@ -310,7 +348,7 @@
 							</div>
 
 							<div class="time">
-								<p class = "work">
+								<p class="work">
 									<span id="startTime">{fixTime(starttime)}</span>-<span id="endTime"
 										>{fixTime(endtime)}</span
 									>
@@ -328,15 +366,9 @@
 							<input class="inputs" placeholder={fixTime(endtime)} bind:value={endTime} />
 							<input class="inputs" placeholder={loc} bind:value={locationA} />
 
-							<!-- <input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={upperCase(groupname)}  bind:value={newName}>
-							<input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={date}  bind:value={newDate}>
-							<input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={starttime} bind:value={newStartTime}> 
-							<input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={endtime} bind:value={newEndTime}>
-							<input class:inputs={!showInputs} class:changeVis={showInputs} placeholder={loc} bind:value={newLocation}> -->
+						
 						</div>
 					</div>
-
-					<!-- </div> -->
 				{/if}
 			{/each}
 		</div>
@@ -348,22 +380,23 @@
 		margin: 0;
 	}
 
-	.replace{
+	.replace {
 		text-align: center;
 	}
 
-	.work{
+	.work {
 		margin-left: 6%;
 	}
 
-	.lastMinName{
+	.lastMinName {
 		margin-bottom: 3%;
 	}
 
-	.lastMinute{
+	.lastMinute {
 		/* padding: 50px; */
 		padding-top: 14%;
 		text-align: center;
+		
 		font-family: Roboto;
 		font-weight: 500;
 	}
@@ -508,3 +541,13 @@
 		font-size: 20px;
 	}
 </style>
+
+
+	<!-- const unsubscribe = dash.subscribe((value) => {
+		userInfo = value;
+	});
+
+	let groupsInfo;
+	groupsStore.subscribe((value) => {
+		groupsInfo = value;
+	}); -->
