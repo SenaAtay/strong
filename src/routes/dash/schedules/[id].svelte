@@ -6,7 +6,7 @@
 	let currentStep;
 	let finished;
 	let indexMonth;
-	let datesA = [[]];
+	let dates = [[]];
 	let weeks;
 	let voteColors = [];
 	let indexToMonth = {
@@ -25,42 +25,28 @@
 	};
 	let weekStr;
 
-	// function scheduleActionA(){
-	// 	console.log("here")
-	// 	scheduleAction();
-
-	// }
-
 	const scheduleAction = async () => {
-		// console.log("heretoo")
 		let pathname = window.location.pathname;
-		// console.log("pathname", pathname)
 		let arr = pathname.split('/');
-		// console.log("arr", arr)
 		let id = parseInt(arr[arr.length - 1]);
-		// console.log("id", id)
-		// console.log("weeks", weeks)
-		// console.log("dates", datesA)
-		// console.log($jwt)
 		try {
 			const result = await fetch(`https://strengthn.herokuapp.com/user/schedules/${id}`, {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'token': JSON.stringify($jwt)
-				},
 				body: JSON.stringify({
 					weeks,
 					dates: [[]]
 				}),
-
+				headers: {
+					'Content-Type': 'application/json',
+					token: JSON.stringify($jwt)
+				}
 			});
-			// console.log("result", result)
-			
-			const res = await result.json();
-			// console.log("res", res);
 
-			// goto('/dash/schedules');
+			const res = await result.json();
+			console.log('here');
+			console.log(res);
+
+			goto('/dash/schedules');
 		} catch (err) {
 			console.log(err);
 		}
@@ -179,9 +165,7 @@
 						</div>
 					{/each}
 				</div>
-				<button
-					on:click|preventDefault={scheduleAction}>Lock</button
-				>
+				<button on:click|preventDefault={scheduleAction}>Lock</button>
 			</div>
 			<div class="week-voter">
 				<h3>Vote</h3>
@@ -205,10 +189,7 @@
 				</div>
 			</div>
 		</div>
-	{:else if currentStep === 'vw'}
-	{:else if currentStep === 'pd'}
-	{:else if currentStep === 'vd'}
-	{:else}
+	{:else if currentStep === 'vw'}{:else if currentStep === 'pd'}{:else if currentStep === 'vd'}{:else}
 		<h2>This group meeting has already been scheduled</h2>
 	{/if}
 </section>
