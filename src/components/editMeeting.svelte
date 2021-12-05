@@ -111,6 +111,12 @@
 		padding-top: 10%;
 	}
 
+	.cancel{
+		/* font-weight: 500; */
+		font-weight: 700;
+		/* font-weight: bold; */
+	}
+
 	/* .editFunc{
 		padding: 0%;
 		margin: 0%;
