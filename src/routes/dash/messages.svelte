@@ -149,13 +149,13 @@ import Dashboard from './dashboard.svelte';
 		
 		{#if $groupidS == undefined || $groupidS == 'not0' || $groupidS == null|| groupnameA == undefined || groupnameA == null || groupnameA == 'undefined' || groupnameA == "..."}
 			<div class="noName" />
-			<h2>Hi</h2>
+			
 		{:else if reactiveGroupsStore != undefined || reactiveGroupsStore != null || reactiveGroupsStore != []}
-			<!-- {#each reactiveGroupsStore as { groupid }, i}
+			{#each reactiveGroupsStore as { groupid }, i}
 				{#if groupid == $groupidS}
 					<h1 class="title">{reactiveGroupsStore[i].groupname}</h1>
 				{/if}
-			{/each} -->
+			{/each}
 		{/if}
 		<!-- <h1 class="title">Group {$groupidS}</h1> -->
 		<div class="chatbox" id="chatbox" class:adjust={navOpen}>
