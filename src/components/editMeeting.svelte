@@ -111,7 +111,7 @@
 		padding-top: 10%;
 	}
 
-	.editFunc.cancel{
+	.cancel{
 		/* font-weight: 500; */
 		font-weight: 700;
 		/* font-weight: bold; */
