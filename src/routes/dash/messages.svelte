@@ -13,7 +13,6 @@
 	$: groupnameA = '...';
 	let navOpen = false;
 	let fixGroupName;
-	
 
 	function scrollFunc() {
 		var element = document.getElementById('chatbox');
@@ -27,7 +26,7 @@
 	function replace(event) {
 		groupidS.set(event.detail.groupidD.toString());
 		groupnameA = event.detail.groupnameD.toString();
-		realTime()
+		realTime();
 	}
 
 	const realTime = async () => {
@@ -48,13 +47,13 @@
 			meh = Object.values(groupmessagesA).reverse();
 
 			// if ($groupidS != meh[0].groupid) {
-				// console.log("s", $groupidS)
-				// console.log("m", meh[0].groupid)
-				// for (let group in $groupsStore) {
-				// 	if (meh[0].groupid == $groupsStore[group].groupid) {
-				// 		groupnameA = $groupsStore[group].groupname;
-				// 	}
-				// }
+			// console.log("s", $groupidS)
+			// console.log("m", meh[0].groupid)
+			// for (let group in $groupsStore) {
+			// 	if (meh[0].groupid == $groupsStore[group].groupid) {
+			// 		groupnameA = $groupsStore[group].groupname;
+			// 	}
+			// }
 			// }
 
 			// for (let group in $groupsStore) {
@@ -97,8 +96,6 @@
 		return;
 	};
 
-	
-
 	function check() {
 		// console.log(typeof message);
 		if (message.trim().length === 0) {
@@ -127,7 +124,6 @@
 
 			// console.log("groupstore", $groupsStore)
 			// console.log("messages", $messages)
-
 		} catch (err) {
 			try {
 				const submit = await fetch(
@@ -146,9 +142,8 @@
 				const predata = await submit;
 				const data = await submit.json();
 
-			// 	console.log("groupstore", $groupsStore)
-			// console.log("messages", $messages)
-			
+				// 	console.log("groupstore", $groupsStore)
+				// console.log("messages", $messages)
 			} catch (err) {
 				console.log(err);
 			}
@@ -172,7 +167,6 @@
 	// $: console.log("typeof R groupstore", typeof reactiveGroupsStore);
 	// $: console.log("typeof R groupstore", reactiveGroupsStore.length);
 	// $: console.log("groupstore", $groupsStore);
-
 </script>
 
 <body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
@@ -180,21 +174,13 @@
 		<Messagenav on:hamburger={squish} on:groupchat={replace} />
 		<!-- {console.log("gs", $groupidS)} -->
 		{#if $groupidS == undefined || $groupidS == '0' || groupnameA == undefined}
-			
-			<div class="noName"></div>
-			
-		{:else}
-		{#if reactiveGroupsStore != undefined || reactiveGroupsStore != null || reactiveGroupsStore != []}
-		<h1>Sena</h1>
-		{#each reactiveGroupsStore as { groupid }, i}
-		{#if groupid == $groupidS}
-		
-		
-		<h1 class="title">{reactiveGroupsStore[i].groupname}</h1>
-		{/if}
-			
-		{/each}
-		{/if}
+			<div class="noName" />
+		{:else if reactiveGroupsStore != undefined || reactiveGroupsStore != null || reactiveGroupsStore != []}
+			{#each reactiveGroupsStore as { groupid }, i}
+				{#if groupid == $groupidS}
+					<h1 class="title">{reactiveGroupsStore[i].groupname}</h1>
+				{/if}
+			{/each}
 		{/if}
 		<!-- <h1 class="title">Group {$groupidS}</h1> -->
 		<div class="chatbox" id="chatbox" class:adjust={navOpen}>
@@ -240,7 +226,7 @@
 		box-sizing: border-box;
 	}
 
-	.noName{
+	.noName {
 		height: 50px;
 	}
 
