@@ -21,10 +21,8 @@
 	onMount(async () => {
 		const unsubscribe = dash.subscribe((value) => {
 			userInfo = value;
-			console.log(value);
 		});
 		schedules = userInfo.schedules;
-		console.log(schedules);
 
 		groups = userInfo.groups;
 		for (const group of groups) {

@@ -41,7 +41,9 @@
 					token: JSON.stringify($jwt)
 				}
 			});
+
 			const res = await result.json();
+			console.log('here');
 			console.log(res);
 
 			goto('/dash/schedules');
@@ -161,11 +163,7 @@
 						</div>
 					{/each}
 				</div>
-				<button
-					on:click|preventDefault={() => {
-						scheduleAction();
-					}}>Lock</button
-				>
+				<button on:click|preventDefault={scheduleAction}>Lock</button>
 			</div>
 			<div class="week-voter">
 				<h3>Vote</h3>
