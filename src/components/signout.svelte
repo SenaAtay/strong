@@ -1,4 +1,5 @@
 <script>
+	import { fade, slide, scale, fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import { jwt } from '/src/stores/jwt.js';
 
@@ -8,7 +9,9 @@
 	}
 </script>
 
+<body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
 <button on:click|preventDefault={signOut}>Sign Out</button>
+</body>
 
 <style>
 	button {

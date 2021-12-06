@@ -16,7 +16,7 @@
 
 <p1 class="para">
 	Helping bring your organization together one connection at a time. We simplify the process of
-	meeting new friends to a few simple clicks. Sign up or log in to get started connected with your
+	meeting new friends to a few simple clicks. Sign up or log in to get started connecting with your
 	peers!</p1
 >
 

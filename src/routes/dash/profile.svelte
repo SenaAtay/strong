@@ -24,6 +24,8 @@
 <svelte:head>
 	<title>Profile</title>
 </svelte:head>
+
+<body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
 {#if user != undefined}
 	<h1 class="intro">Profile</h1>
 	<p>Type in box to start editing values and click confirm</p>
@@ -39,6 +41,7 @@
 {:else}
 	Loading
 {/if}
+</body>
 
 <style>
 	.container {

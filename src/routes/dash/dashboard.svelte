@@ -1,4 +1,5 @@
 <script>
+		import { fade, slide, scale, fly } from 'svelte/transition';
 	import { dash, loadDash } from '../../stores/dash';
 	import { groupsStore, loadGroupsStore } from '../../stores/groups';
 	import { onMount } from 'svelte';
@@ -375,7 +376,7 @@
 	
 
 </script>
-
+<body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
 {#if groups == undefined}
 	<!-- <h1>You have no meetings scheduled</h1> -->
 
@@ -481,6 +482,7 @@
 		</div>
 	</div>
 {/if}
+</body>
 
 <style>
 	* {
