@@ -113,7 +113,7 @@
 				<input class="inputText" type="password" placeholder="Password" bind:value={password} />
 			</div>
 			<div class="inputDiv">
-				<input class="Year" type="number" placeholder="Year" bind:value={year} />
+				<input class="Year" type="number" placeholder="Year" bind:value={year} required />
 				<!-- <input class="inputText last" placeholder="" bind:value={groups} /> -->
 			</div>
 
@@ -137,7 +137,7 @@
 			</select>
 
 			<div class="inputDiv">
-				<textarea class="inputText last" placeholder="" bind:value={groups} />
+				<textarea class="inputText last" placeholder="" bind:value={groups} required />
 				<!-- <input class="inputText last" placeholder="" bind:value={groups} /> -->
 			</div>
 			<div class="one" id="main">Groups Successfully Made</div>
@@ -174,7 +174,9 @@
 		visibility: hidden;
 		color: green;
 		position: relative;
-		top: -30px;
+		top: -10px;
+		left: 240px;
+
 		height: 10px;
 	}
 
