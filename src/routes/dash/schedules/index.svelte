@@ -121,10 +121,10 @@
 		padding: 10px;
 	}
 	.yellow {
-		background-color: yellow;
+		background-color: #ffb951;
 	}
 	.green {
-		background-color: green;
+		background-color: #5eab99;
 	}
 	.schedule-members {
 		color: grey;
