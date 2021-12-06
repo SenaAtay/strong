@@ -43,15 +43,15 @@
 		}
 	};
 	function reveal() {
-		var div = document.createElement('div');
+		var div = document.getElementById('main');
+		div.style.visibility = 'visible';
+		// var div = document.createElement('div');
+		// div.style.color = 'Green';
+		// div.innerHTML = 'Groups Successfully Made';
 
-		div.style.color = 'Green';
-		div.innerHTML = 'Groups Successfully Made';
-
-		var el = document.getElementById('main').appendChild(div);
-
+		// var el = document.getElementById('main').appendChild(div);
 		setTimeout(function () {
-			el.remove();
+			div.style.visibility = 'hidden';
 		}, 1500);
 	}
 	const GroupsFunc = (data) => {
@@ -132,9 +132,9 @@
 				<textarea class="inputText last" placeholder="" bind:value={groups} />
 				<!-- <input class="inputText last" placeholder="" bind:value={groups} /> -->
 			</div>
-			<div id="main" />
+			<div class="one" id="main">Groups Successfully Made</div>
 			<!-- <button on:click|preventDefault={check}>Send</button> -->
-			<button class="createGroups" on:click|preventDefault={GroupsFunc(groups)}
+			<button id="submit" class="createGroups" on:click|preventDefault={GroupsFunc(groups)}
 				>Create Groups</button
 			>
 
@@ -149,6 +149,24 @@
 	@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 	* {
 		font-family: 'Raleway';
+	}
+
+	html {
+		overflow: hidden;
+		height: 100%;
+	}
+
+	body {
+		height: 100%;
+		overflow: auto;
+	}
+
+	#main {
+		z-index: 10;
+		visibility: hidden;
+		color: green;
+		position: relative;
+		top: -30px;
 	}
 
 	.top {
@@ -173,6 +191,8 @@
 	}
 
 	.createGroups {
+		position: relative;
+		top: -30px;
 		background-color: black;
 		color: #fff;
 		border-radius: 10px;

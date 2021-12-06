@@ -42,16 +42,17 @@
 	};
 
 	function reveal() {
-		var div = document.createElement('div');
+		//var div = document.createElement('div');
+		var div = document.getElementById('main');
+		div.style.visibility = 'visible';
+		// div.style.color = 'Red';
+		// div.innerHTML = 'User already exists.';
 
-		div.style.color = 'Red';
-		div.innerHTML = 'User already exists.';
+		// var el = document.getElementById('main').appendChild(div);
 
-		var el = document.getElementById('main').appendChild(div);
-
-		setTimeout(function () {
-			el.remove();
-		}, 3000);
+		// setTimeout(function () {
+		// 	el.remove();
+		// }, 3000);
 	}
 </script>
 
@@ -73,7 +74,7 @@
 				<button type="submit" class="createaccountbtn">Create Account</button>
 			</div>
 			<h3>or</h3>
-			<small class="one" id="main" />
+			<small class="one" id="main">User already exists.</small>>
 			<a href="/pre/signin">
 				<button class="signin">Sign In</button>
 			</a>
@@ -82,19 +83,15 @@
 </body>
 
 <style>
-	#id {
+	#main {
 		z-index: 10;
+		visibility: hidden;
+		color: red;
 	}
+	html,
 	body {
-		font-family: Arial, Helvetica, sans-serif;
-		min-height: 100vh;
+		overscroll-behavior-y: none;
 	}
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-
 	img {
 		width: 40px;
 		margin: 20px 0px 0px 30px;
