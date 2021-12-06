@@ -391,7 +391,7 @@
 			<div class="percentage"><p><span style="font-size: 42px">{percentage}</span> Group Met</p></div>
 		</div>
 		<div class = "imageDiv">
-			<img alt="network" src="/network.png" on:click|preventDefault = {connectionsList}/>
+			<img alt="network" src="/network.png" />
 		</div>
 	</div>
 	<div class="cardHead">
