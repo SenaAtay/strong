@@ -23,13 +23,11 @@
 			userInfo = value;
 		});
 
-	});
+		schedules = userInfo.schedules;
 
-	$: schedules = userInfo.schedules;
-	$: console.log("sh", schedules)
 
 groups = userInfo.groups;
-// 
+
 for (const group of groups) {
 	const { members } = group;
 	let groupText = '';
@@ -51,6 +49,12 @@ for (const schedule of schedules) {
 	}
 	actionNeeded.push(action);
 }
+
+	});
+
+
+// 
+
 
 	
 	const weeksInMonth = (year, month) => {

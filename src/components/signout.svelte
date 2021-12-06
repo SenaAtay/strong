@@ -4,8 +4,11 @@
 	import { jwt } from '/src/stores/jwt.js';
 
 	function signOut() {
-		goto('/');
+		
+	
 		jwt.set(null);
+		goto('/');
+	
 	}
 </script>
 
