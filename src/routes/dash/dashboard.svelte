@@ -540,8 +540,8 @@
 	.topText {
 		font-family: 'Raleway', sans-serif;
 		color: #283a5c;
-		font-weight: 100px;
-		font-size: 35px;
+		font-weight: 100;
+		font-size: 42px;
 		margin-bottom: 2%;
 	}
 	.cardHead {

@@ -20,6 +20,7 @@
 	$: user = userInfo.user;
 </script>
 
+
 <nav>
 	<div class="rectangle">
 		<!-- /connections.jpg -->

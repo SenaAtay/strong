@@ -89,7 +89,7 @@
         width: 700px;
         position: absolute;
         left: 250px;
-		margin-top: 2%;
+		margin-top: 1%;
 		margin-left: 2%;
 		width: 70vw;
 		
