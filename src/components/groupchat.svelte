@@ -16,7 +16,7 @@
 
 <!-- <div on:click= {() => goto(`/dash/messages/${groupidI}`)} class="groupChat"> -->
 <div on:click={dispatchGroupchat} class="groupChat">
-	<h4>{groupnameI}</h4>
+	<h4>{groupnameI.substring(0,20)}</h4>
 	<!-- {#if messageI == null}
 		<p />
 	{:else}

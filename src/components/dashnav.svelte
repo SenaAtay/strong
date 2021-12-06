@@ -79,6 +79,9 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		/* width: 100px; */
+		/* width: 80%;
+		padding-left: 50%; */
 	}
 
 	h1 {
