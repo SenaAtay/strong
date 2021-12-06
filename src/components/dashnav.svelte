@@ -26,11 +26,15 @@
 		<!-- /connections.jpg -->
 
 		<a href="/dash/dashboard"><img class="logo" alt="logo" src="/whitelogo.png" /></a>
+		
 		<!-- <img class="profilepic" alt="profilepic" src="/profilepic.jpg" /> -->
-		<div class="profilepic" />
+		<!-- <div class="profilepic" /> -->
+		
 		{#if user == undefined}
 			<p />
-		{:else}
+		{:else} 
+		
+		<div class = "prof" >{(user[0].fname).charAt(0)} {(user[0].lname).charAt(0)}</div>
 			<div class="nameNLogo">
 				<h1>{user[0].fname} {user[0].lname}</h1>
 				<a href="/dash/profile"><img class="gear" alt="profileGear" src="/gear.png" /></a>
@@ -48,6 +52,36 @@
 </nav>
 
 <style>
+
+	.prof{
+		width: 70%;
+		height: 20%;
+  border-radius: 50%;
+  /* background: #2e3951; */
+  background: #fff;
+  font-size: 45px;
+  /* color: #fff; */
+  color: #2e3951;
+  /* color: #fff; */
+  text-align: center;
+  line-height: 150px;
+  margin-left: 17%;
+		margin-bottom: 13%;
+	}
+/* 
+	.profilepic {
+	
+		background-image: url('/profilepic.jpg');
+		background-size: cover;
+		
+		border-radius: 50%;
+	} */
+
+	.logo {
+		width: 20%;
+		margin: 15px 0px 0px 30px;
+		cursor: pointer;
+	}
 	.rectangle {
 		position: absolute;
 		width: 16%;
@@ -60,21 +94,9 @@
 		z-index: 100;
 	}
 
-	.logo {
-		width: 20%;
-		margin: 15px 0px 0px 30px;
-		cursor: pointer;
-	}
 
-	.profilepic {
-		width: 70%;
-		height: 20%;
-		background-image: url('/profilepic.jpg');
-		background-size: cover;
-		margin-left: 20%;
-		margin-bottom: 13%;
-		border-radius: 50%;
-	}
+
+
 
 	.nameNLogo {
 		display: flex;
