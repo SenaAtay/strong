@@ -22,33 +22,37 @@
 		const unsubscribe = dash.subscribe((value) => {
 			userInfo = value;
 		});
-		schedules = userInfo.schedules;
 
-		groups = userInfo.groups;
-		// 
-		for (const group of groups) {
-			const { members } = group;
-			let groupText = '';
-			for (const member of members) {
-				groupText += member + ', ';
-			}
-			groupText = groupText.substring(0, groupText.length - 1);
-			groupMem.push(groupText);
-		}
-		for (const schedule of schedules) {
-			const { finished } = schedule;
-			let action = true;
-			for (let i = 0; i < finished.length; i++) {
-				const id = finished[i];
-				if (id === $userID) {
-					action = false;
-					break;
-				}
-			}
-			actionNeeded.push(action);
-		}
 	});
 
+	$: schedules = userInfo.schedules;
+	$: console.log("sh", schedules)
+
+groups = userInfo.groups;
+// 
+for (const group of groups) {
+	const { members } = group;
+	let groupText = '';
+	for (const member of members) {
+		groupText += member + ', ';
+	}
+	groupText = groupText.substring(0, groupText.length - 1);
+	groupMem.push(groupText);
+}
+for (const schedule of schedules) {
+	const { finished } = schedule;
+	let action = true;
+	for (let i = 0; i < finished.length; i++) {
+		const id = finished[i];
+		if (id === $userID) {
+			action = false;
+			break;
+		}
+	}
+	actionNeeded.push(action);
+}
+
+	
 	const weeksInMonth = (year, month) => {
 		let date = new Date(year, month);
 
