@@ -159,14 +159,14 @@
 		font-family: 'Raleway';
 	}
 
-	html {
-		overflow: hidden;
+	/* html {
+		overflow-y: hidden;
 		height: 100%;
-	}
+	} */
 
 	body {
-		height: 100%;
-		overflow: auto;
+		height: 100vh;
+		overflow-y: hidden;
 	}
 
 	#main {
@@ -184,6 +184,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		margin-bottom: 0%;
 	}
 	img {
 		width: 40px;
@@ -215,14 +216,14 @@
 		border-color: lightgrey;
 	}
 	form {
-		margin-top: 50px;
+		margin-top: .5%;
 	}
 	.formelem {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: space-evenly;
-		margin-top: 1%;
+		margin-top: 0%;
 		margin-left: 9%;
 	}
 	.adminText {

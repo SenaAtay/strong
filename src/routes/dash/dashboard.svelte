@@ -96,7 +96,7 @@
 	$: {
 
 		if (reactiveUserInfo.connections != undefined || Object.keys(reactiveUserInfo).length != 0  ){
-			total = reactiveUserInfo.connections.length;
+			total = reactiveUserInfo.connections.length -1;
 			}
 		}
 
