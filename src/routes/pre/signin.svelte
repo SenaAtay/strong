@@ -56,6 +56,7 @@
 			if (predata.ok && jwt != null) {
 				goto('../dash/dashboard');
 			}
+			
 
 			revealOne = false;
 			if (predata.ok === false && data.msg == 'Email does not exist') {

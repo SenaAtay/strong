@@ -1,4 +1,5 @@
 <script>
+		import { fade, slide, scale, fly } from 'svelte/transition';
 	import { dash, loadDash } from '../../stores/dash';
 	import { groupsStore, loadGroupsStore } from '../../stores/groups';
 	import { onMount } from 'svelte';
@@ -35,6 +36,7 @@
 	let locationAA;
 	let connectionSet = new Set()
 	$: size = connectionSet.size
+	
 
 	onMount(async () => {
 		await loadDash();
@@ -59,8 +61,9 @@
 
 
 
-
-
+	$: reactiveUserInfo = userInfo;
+	$: percentage = Math.round((size/total)*100);
+	$: total = userInfo.connections;
 	$: newGroupsInfo = groupsInfo;
 	$: groups = userInfo.groups;
 	$: user = userInfo.user;
@@ -91,6 +94,25 @@
 	}
 
 	$: {
+
+		if (reactiveUserInfo.connections != undefined || Object.keys(reactiveUserInfo).length != 0  ){
+			total = reactiveUserInfo.connections.length;
+			}
+		}
+
+		
+		
+	
+
+	$: {
+		// console.log(percentage);
+		if (percentage == NaN || percentage == 'NaN' || total == 0){
+			// console.log("here")
+			percentage = 0;
+		}
+	}
+
+	$: {
 		for (let i in newGroupsInfo) {
 			
 			if (newGroupsInfo[i].members != null) {
@@ -99,8 +121,9 @@
 					if (newGroupsInfo[i].members[j] != `${user[0].fname} ${user[0].lname}`){
 						
 						connectionSet.add(newGroupsInfo[i].members[j])
-						console.log(connectionSet.size)
+						// console.log(connectionSet.size)
 						size = connectionSet.size;
+						percentage = Math.round((size/total)*100);
 						
 					}
 
@@ -136,6 +159,16 @@
 			
 		}
 	}
+
+	// function connectionsList(){
+
+	// }
+
+
+	// $: function connectionsList(){
+	// 	console.log
+		
+	// }
 
 	function fixTime(timeV) {
 		if (timeV == null) {
@@ -343,7 +376,7 @@
 	
 
 </script>
-
+<body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
 {#if groups == undefined}
 	<!-- <h1>You have no meetings scheduled</h1> -->
 
@@ -356,9 +389,9 @@
 		<div class="yourStrengthSection" >
 			<h3 class="topText">Your Strength</h3>
 			<div class="number"><p><span style="font-size: 42px">{size}</span> Connections</p></div>
-			<div class="percentage"><p><span style="font-size: 42px"></span> Group Met</p></div>
+			<div class="percentage"><p><span style="font-size: 42px">{percentage}</span> Group Met</p></div>
 		</div>
-		<div>
+		<div class = "imageDiv">
 			<img alt="network" src="/network.png" />
 		</div>
 	</div>
@@ -394,7 +427,7 @@
 		<div class="yourStrengthSection" >
 			<h3 class="topText">Your Strength</h3>
 			<div class="number"><p><span style="font-size: 42px">{size}</span> Connections</p></div>
-			<div class="percentage"><p><span style="font-size: 42px">10%</span> Group Met</p></div>
+			<div class="percentage"><p><span style="font-size: 42px">{percentage}%</span> Group Met</p></div>
 		</div>
 		<div>
 			<img alt="network" src="/network.png" />
@@ -449,6 +482,7 @@
 		</div>
 	</div>
 {/if}
+</body>
 
 <style>
 	* {
@@ -506,8 +540,8 @@
 	.topText {
 		font-family: 'Raleway', sans-serif;
 		color: #283a5c;
-		font-weight: 100px;
-		font-size: 35px;
+		font-weight: 100;
+		font-size: 42px;
 		margin-bottom: 2%;
 	}
 	.cardHead {

@@ -7,14 +7,51 @@
 	import { jwt } from '../../stores/jwt';
 	import { onMount } from 'svelte';
 	import { groupidS } from '../../stores/groupid';
-import Admin from '../admin.svelte';
-import Dashboard from './dashboard.svelte';
+
 	$: meh = '';
 	let message;
 	let dummy;
 	$: groupnameA = '...';
 	let navOpen = false;
 	let fixGroupName;
+	let groupsF;
+
+	onMount(async () => {
+		await loadGroups();
+	
+	});
+
+	export const loadGroups = async () => {
+		try {
+			const groupsfetch = await fetch('https://strengthn.herokuapp.com/user/groups', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					token: JSON.stringify($jwt)
+				}
+			});
+
+			const groupsfetched = await groupsfetch.json();
+			groupsF = groupsfetched;
+			
+			if (groupsF != 0){
+			for (let g in groupsF){
+			
+				if ($groupidS == groupsF[g].groupid){
+					
+					groupnameA = groupsF[g].groupname;
+				}
+			}
+		}
+
+		
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	
+
 
 	function scrollFunc() {
 		var element = document.getElementById('chatbox');
@@ -47,6 +84,7 @@ import Dashboard from './dashboard.svelte';
 
 			const groupmessagesA = await res.json();
 			meh = Object.values(groupmessagesA).reverse();
+			
 
 		} catch (err) {
 			try {
@@ -63,6 +101,7 @@ import Dashboard from './dashboard.svelte';
 
 				const groupmessagesA = await res.json();
 				meh = Object.values(groupmessagesA).reverse();
+				
 
 			} catch (err) {
 				console.log(err);
@@ -147,16 +186,23 @@ import Dashboard from './dashboard.svelte';
 	<div class="test">
 		<Messagenav on:hamburger={squish} on:groupchat={replace} />
 		
+		<!-- {console.log("s", $groupidS)}
+		{console.log("n", groupnameA)} -->
 		{#if $groupidS == undefined || $groupidS == 'not0' || $groupidS == null|| groupnameA == undefined || groupnameA == null || groupnameA == 'undefined' || groupnameA == "..."}
-			<div class="noName" />
+
+		<div class="noName" />
 			
 		{:else if reactiveGroupsStore != undefined || reactiveGroupsStore != null || reactiveGroupsStore != []}
+		<!-- {#if groupnameA == "..."}
+		<div class="noName" />
+		{:else} -->
 			{#each reactiveGroupsStore as { groupid }, i}
 				{#if groupid == $groupidS}
 					<h1 class="title">{reactiveGroupsStore[i].groupname}</h1>
 				{/if}
 			{/each}
 		{/if}
+		<!-- {/if} -->
 		<!-- <h1 class="title">Group {$groupidS}</h1> -->
 		<div class="chatbox" id="chatbox" class:adjust={navOpen}>
 			{#if meh[0] == 'User does not have access to this group'}

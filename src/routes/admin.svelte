@@ -54,6 +54,14 @@
 			div.style.visibility = 'hidden';
 		}, 1500);
 	}
+
+	function validateForm() {
+		if (document.forms['Form'].question.value === '') {
+			alert('empty');
+			return false;
+		}
+		return true;
+	}
 	const GroupsFunc = (data) => {
 		document.getElementById('myForm').reset();
 		let groups = [];
@@ -89,7 +97,7 @@
 		</a>
 	</div>
 
-	<form id="myForm">
+	<form id="myForm" name="Form" onsubmit="return validateForm()" action="">
 		<div class="formelem">
 			<h1 class="adminText">Administrator</h1>
 			<h1 class="otherText">Create new groups</h1>
@@ -105,7 +113,7 @@
 				<input class="inputText" type="password" placeholder="Password" bind:value={password} />
 			</div>
 			<div class="inputDiv">
-				<input class="Year" type="number" placeholder="Year" bind:value={year} />
+				<input class="Year" type="number" placeholder="Year" bind:value={year} required />
 				<!-- <input class="inputText last" placeholder="" bind:value={groups} /> -->
 			</div>
 
@@ -129,7 +137,7 @@
 			</select>
 
 			<div class="inputDiv">
-				<textarea class="inputText last" placeholder="" bind:value={groups} />
+				<textarea class="inputText last" placeholder="" bind:value={groups} required />
 				<!-- <input class="inputText last" placeholder="" bind:value={groups} /> -->
 			</div>
 			<div class="one" id="main">Groups Successfully Made</div>
@@ -166,7 +174,10 @@
 		visibility: hidden;
 		color: green;
 		position: relative;
-		top: -30px;
+		top: -10px;
+		left: 240px;
+
+		height: 10px;
 	}
 
 	.top {

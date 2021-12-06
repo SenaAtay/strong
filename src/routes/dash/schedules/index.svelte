@@ -32,7 +32,7 @@
 			for (const member of members) {
 				groupText += member + ', ';
 			}
-			groupText = groupText.substring(0, groupText.length - 1);
+			groupText = groupText.substring(0, groupText.length - 2);
 			groupMem.push(groupText);
 		}
 		for (const schedule of schedules) {
@@ -63,15 +63,19 @@
 	{:else}
 		<section>
 			<div>
-				<h2>Start scheduling</h2>
+				<h1 style="font-family: 'Raleway', sans-serif; font-weight: 700;">Start scheduling</h1>
 				<div class="schedules-container">
 					{#each schedules as { currentstep, groupid }, i}
 						{#if currentstep != 'f'}
 							<div class="schedule-box" on:click={alertFunc(`/dash/schedules/${groupid}`)}>
 								<div class={actionNeeded[i] ? 'yellow indicator' : 'green indicator'} />
 								<div class="schedule-info-text">
-									<h3>{actionNeeded[i] ? stepToName[currentstep] : 'Waiting for other members'}</h3>
-									<p class="schedule-members">{groupMem[i]}</p>
+									<h3 style="font-family: 'Raleway', sans-serif;">
+										{actionNeeded[i] ? stepToName[currentstep] : 'Waiting for other members'}
+									</h3>
+									<p style="font-family: 'Raleway', sans-serif;" class="schedule-members">
+										{groupMem[i]}
+									</p>
 								</div>
 							</div>
 						{/if}
@@ -91,10 +95,15 @@
 		width: 700px;
 		position: absolute;
 		left: 250px;
+		margin-top: 1%;
+		margin-left: 2%;
+		width: 70vw;
 	}
 	.schedules-container {
 		display: flex;
 		flex-direction: column;
+		overflow-y: scroll;
+		height: 90vh;
 	}
 
 	.schedule-box {
