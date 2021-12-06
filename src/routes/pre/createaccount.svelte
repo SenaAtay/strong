@@ -36,6 +36,7 @@
 			if (data.msg == 'User already exists.') {
 				reveal();
 			}
+
 			validateForm();
 		} catch (err) {
 			console.log(err);
@@ -46,32 +47,52 @@
 		//var div = document.createElement('div');
 		var div = document.getElementById('main');
 		div.style.visibility = 'visible';
-	}
-
-	function validateForm() {
-		if (document.forms['Frm'].firstname.value === '') {
-			var div = document.getElementById('main2');
-			div.style.visibility = 'visible';
-		}
-
-		if (document.forms['Frm'].lastname.value === '') {
-			var div = document.getElementById('main3');
-			div.style.visibility = 'visible';
-		}
-
-		if (document.forms['Frm'].email.value === '') {
-			var div = document.getElementById('main4');
-			div.style.visibility = 'visible';
-		}
-
-		if (document.forms['Frm'].password.value === '') {
-			var div = document.getElementById('main5');
-			div.style.visibility = 'visible';
-		}
 
 		setTimeout(function () {
 			div.style.visibility = 'hidden';
 		}, 1500);
+	}
+
+	function validateForm() {
+		// get all the inputs within the submitted form
+		if ((document.forms['Frm'].firstname.required = false)) {
+		}
+		// for (var i = 0; i < inputs.length; i++) {
+		// only validate the inputs that have the required attribute
+
+		if (inputs === '') {
+			alert('hi');
+			// found an empty field that is required
+			alert('Please fill all required fields');
+			return false;
+		}
+		//}
+		return true;
+
+		// if (document.forms['Frm'].firstname.value === '') {
+		// 	var div = document.getElementById('main2');
+		// 	div.style.visibility = 'visible';
+		// }
+
+		// 	if (document.forms['Frm'].lastname.value === '') {
+		// 		var div = document.getElementById('main3');
+		// 		div.style.visibility = 'visible';
+		// 		return false;
+		// 	}
+
+		// 	if (document.forms['Frm'].email.value === '') {
+		// 		var div = document.getElementById('main4');
+		// 		div.style.visibility = 'visible';
+		// 	}
+
+		// 	if (document.forms['Frm'].password.value === '') {
+		// 		var div = document.getElementById('main5');
+		// 		div.style.visibility = 'visible';
+		// 	}
+
+		// 	setTimeout(function () {
+		// 		div.style.visibility = 'hidden';
+		// 	}, 1500);
 	}
 </script>
 
@@ -81,12 +102,44 @@
 	</a>
 	<h1 class="intro">Let's Get Started</h1>
 
-	<form on:submit|preventDefault={submitForm} onsubmit="return validateForm()" name="Frm">
+	<form id="form" on:submit|preventDefault={submitForm}>
 		<div class="container">
-			<input type="fname" name="firstname" placeholder="First Name" bind:value={fname} />
-			<input type="lname" name="lastname" placeholder="Last Name" bind:value={lname} />
-			<input type="text" name="email" placeholder="Email" bind:value={email} />
-			<input type="password" name="password" placeholder="Password" bind:value={password} />
+			<input
+				type="fname"
+				name="firstname"
+				placeholder="First Name"
+				bind:value={fname}
+				required
+				oninvalid="this.setCustomValidity('Enter First Name Here')"
+				oninput="this.setCustomValidity('')"
+			/>
+			<input
+				type="lname"
+				name="lastname"
+				placeholder="Last Name"
+				bind:value={lname}
+				required
+				oninvalid="this.setCustomValidity('Enter Last Name Here')"
+				oninput="this.setCustomValidity('')"
+			/>
+			<input
+				type="text"
+				name="email"
+				placeholder="Email"
+				bind:value={email}
+				required
+				oninvalid="this.setCustomValidity('Enter Email Name Here')"
+				oninput="this.setCustomValidity('')"
+			/>
+			<input
+				type="password"
+				name="password"
+				placeholder="Password"
+				bind:value={password}
+				required
+				oninvalid="this.setCustomValidity('Enter Password Name Here')"
+				oninput="this.setCustomValidity('')"
+			/>
 
 			<!-- <input type="submit" class= "createaccountbtn" value = "Create Account"> -->
 			<div class="clearfix">
@@ -94,6 +147,7 @@
 			</div>
 			<h3>or</h3>
 			<div class="mainfunc">
+				<small class="one" id="main"> User Already exists</small>
 				<small class="one" id="main2">First Name is Required</small>
 				<small class="one" id="main3">Last Name is Required</small>
 				<small class="one" id="main4">Email Name is Required</small>
