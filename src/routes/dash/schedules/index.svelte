@@ -25,7 +25,7 @@
 		schedules = userInfo.schedules;
 
 		groups = userInfo.groups;
-		// 
+		//
 		for (const group of groups) {
 			const { members } = group;
 			let groupText = '';
@@ -49,48 +49,9 @@
 		}
 	});
 
-	const weeksInMonth = (year, month) => {
-		let date = new Date(year, month);
-
-		let days = [];
-		while (date.getMonth() === month) {
-			const startDate = date.toString();
-			let endDate;
-			if (date.getDay() != 1) {
-				while (date.getMonth() === month && date.getDay() != 1) {
-					endDate = date.toString();
-					date.setDate(date.getDate() + 1);
-				}
-				days.push(startDate + '-' + endDate);
-				continue;
-			}
-			let numDays = 6;
-			while (numDays >= 0 && date.getMonth() === month) {
-				endDate = date.toString();
-				numDays--;
-				date.setDate(date.getDate() + 1);
-			}
-			days.push(startDate + '-' + endDate);
-		}
-		return days;
-	};
-
-	const numDays = (weeks, index) => {
-		const week = weeks[index];
-		const arr = week.split('-');
-		const start = new Date(arr[0]);
-		const end = new Date(arr[1]);
-		const diffTime = Math.abs(start - end);
-		const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-		return diffDays;
-	};
-
 	const alertFunc = (path) => {
 		goto(path);
 	};
-
-	let weeks = weeksInMonth(2021, 11);
 </script>
 
 <svelte:head>
@@ -105,13 +66,15 @@
 				<h2>Start scheduling</h2>
 				<div class="schedules-container">
 					{#each schedules as { currentstep, groupid }, i}
-						<div class="schedule-box" on:click={alertFunc(`/dash/schedules/${groupid}`)}>
-							<div class={actionNeeded[i] ? 'yellow indicator' : 'green indicator'} />
-							<div class="schedule-info-text">
-								<h3>{actionNeeded[i] ? stepToName[currentstep] : 'Waiting for other members'}</h3>
-								<p class="schedule-members">{groupMem[i]}</p>
+						{#if currentstep != 'f'}
+							<div class="schedule-box" on:click={alertFunc(`/dash/schedules/${groupid}`)}>
+								<div class={actionNeeded[i] ? 'yellow indicator' : 'green indicator'} />
+								<div class="schedule-info-text">
+									<h3>{actionNeeded[i] ? stepToName[currentstep] : 'Waiting for other members'}</h3>
+									<p class="schedule-members">{groupMem[i]}</p>
+								</div>
 							</div>
-						</div>
+						{/if}
 					{/each}
 				</div>
 			</div>
