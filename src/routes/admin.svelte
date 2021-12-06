@@ -54,6 +54,14 @@
 			div.style.visibility = 'hidden';
 		}, 1500);
 	}
+
+	function validateForm() {
+		if (document.forms['Form'].question.value === '') {
+			alert('empty');
+			return false;
+		}
+		return true;
+	}
 	const GroupsFunc = (data) => {
 		document.getElementById('myForm').reset();
 		let groups = [];
@@ -89,7 +97,7 @@
 		</a>
 	</div>
 
-	<form id="myForm">
+	<form id="myForm" name="Form" onsubmit="return validateForm()" action="">
 		<div class="formelem">
 			<h1 class="adminText">Administrator</h1>
 			<h1 class="otherText">Create new groups</h1>
@@ -167,6 +175,7 @@
 		color: green;
 		position: relative;
 		top: -30px;
+		height: 10px;
 	}
 
 	.top {

@@ -36,6 +36,7 @@
 			if (data.msg == 'User already exists.') {
 				reveal();
 			}
+			validateForm();
 		} catch (err) {
 			console.log(err);
 		}
@@ -45,14 +46,32 @@
 		//var div = document.createElement('div');
 		var div = document.getElementById('main');
 		div.style.visibility = 'visible';
-		// div.style.color = 'Red';
-		// div.innerHTML = 'User already exists.';
+	}
 
-		// var el = document.getElementById('main').appendChild(div);
+	function validateForm() {
+		if (document.forms['Frm'].firstname.value === '') {
+			var div = document.getElementById('main2');
+			div.style.visibility = 'visible';
+		}
 
-		// setTimeout(function () {
-		// 	el.remove();
-		// }, 3000);
+		if (document.forms['Frm'].lastname.value === '') {
+			var div = document.getElementById('main3');
+			div.style.visibility = 'visible';
+		}
+
+		if (document.forms['Frm'].email.value === '') {
+			var div = document.getElementById('main4');
+			div.style.visibility = 'visible';
+		}
+
+		if (document.forms['Frm'].password.value === '') {
+			var div = document.getElementById('main5');
+			div.style.visibility = 'visible';
+		}
+
+		setTimeout(function () {
+			div.style.visibility = 'hidden';
+		}, 1500);
 	}
 </script>
 
@@ -62,7 +81,7 @@
 	</a>
 	<h1 class="intro">Let's Get Started</h1>
 
-	<form on:submit|preventDefault={submitForm}>
+	<form on:submit|preventDefault={submitForm} onsubmit="return validateForm()" name="Frm">
 		<div class="container">
 			<input type="fname" name="firstname" placeholder="First Name" bind:value={fname} />
 			<input type="lname" name="lastname" placeholder="Last Name" bind:value={lname} />
@@ -74,7 +93,12 @@
 				<button type="submit" class="createaccountbtn">Create Account</button>
 			</div>
 			<h3>or</h3>
-			<small class="one" id="main">User already exists.</small>>
+			<div class="mainfunc">
+				<small class="one" id="main2">First Name is Required</small>
+				<small class="one" id="main3">Last Name is Required</small>
+				<small class="one" id="main4">Email Name is Required</small>
+				<small class="one" id="main5">Password Name is Required</small>
+			</div>
 			<a href="/pre/signin">
 				<button class="signin">Sign In</button>
 			</a>
@@ -83,11 +107,46 @@
 </body>
 
 <style>
-	#main {
+	.mainfunc {
 		z-index: 10;
 		visibility: hidden;
 		color: red;
+
+		position: absolute;
+		font-family: Roboto;
+		width: 456px;
+		height: 10px;
+		left: 532px;
+		top: 580px;
+		text-align: center;
 	}
+	#main5 {
+		z-index: 10;
+		visibility: hidden;
+		color: red;
+
+		position: absolute;
+		font-family: Roboto;
+		width: 456px;
+		height: 10px;
+		left: 10px;
+		top: 10px;
+		text-align: center;
+	}
+
+	/* #main2 {
+		z-index: 10;
+		visibility: hidden;
+		color: red;
+
+		position: absolute;
+		font-family: Roboto;
+		width: 456px;
+		height: 10px;
+		left: 532px;
+		top: 580px;
+		text-align: center;
+	} */
 	html,
 	body {
 		overscroll-behavior-y: none;
@@ -218,15 +277,7 @@
 		top: 690px;
 		font-family: Roboto;
 	}
-	#main {
-		position: absolute;
-		font-family: Roboto;
-		width: 456px;
-		height: 73.55px;
-		left: 532px;
-		top: 580px;
-		text-align: center;
-	}
+
 	/* a,
 	a.logo {
 		text-decoration: none;
