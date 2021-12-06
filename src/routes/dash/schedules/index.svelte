@@ -109,8 +109,9 @@ for (const schedule of schedules) {
 		<h2>You have no meetings to schedule</h2>
 	{:else}
 		<section>
-			<div>
-				<h2>Start scheduling</h2>
+			<h2>Start scheduling</h2>
+			<div class= "start">
+				
 				<div class="schedules-container">
 					{#each schedules as { currentstep, groupid }, i}
 						<div class="schedule-box" on:click={alertFunc(`/dash/schedules/${groupid}`)}>
@@ -132,14 +133,25 @@ for (const schedule of schedules) {
 		margin: 0;
 		padding: 0;
 	}
+
+	.start{
+		overflow-y: scroll;
+		height: 90vh;
+		width: 90vw;
+		
+	}
 	section {
 		width: 700px;
 		position: absolute;
 		left: 250px;
+		margin-top: 2%;
+		margin-left: 2%;
+		
 	}
 	.schedules-container {
 		display: flex;
 		flex-direction: column;
+		
 	}
 
 	.schedule-box {
