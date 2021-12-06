@@ -489,6 +489,10 @@
 		margin: 0;
 	}
 
+	body{
+		overflow-x: hidden;
+	}
+
 	.inputs{
 		margin-bottom: 3%;
 	}
@@ -526,7 +530,7 @@
 	img {
 		width: 480px;
 		height: 333px;
-		margin-left: 8%;
+		margin-left: 6%;
 		margin-top: 6%;
 		margin-bottom: 0%;
 		cursor: pointer;
@@ -534,7 +538,7 @@
 
 	.topSection {
 		display: flex;
-		margin-left: 19%;
+		margin-left: 18%;
 		margin-top: 3%;
 	}
 	.topText {
@@ -547,7 +551,7 @@
 	.cardHead {
 		display: flex;
 		flex-direction: row;
-		margin-left: 19%;
+		margin-left: 18%;
 		margin-top: 2.3%;
 		padding: 20px;
 		width: 78%;
@@ -626,7 +630,7 @@
 		padding-bottom: 5%;  */
 		display: flex;
 		flex-direction: column;
-		margin-top: 5%;
+		margin-top: 2.5%;
 		margin-left: 4%;
 		text-align: center;
 		border: 1px solid #dbe6fd;
