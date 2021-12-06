@@ -2,12 +2,15 @@
 	import { onMount } from 'svelte';
 	import { jwt } from '../../../stores/jwt';
 	import { goto } from '$app/navigation';
+	import { dataset_dev } from 'svelte/internal';
 	let schedule;
 	let currentStep;
 	let finished;
+	let indexWeek;
 	let indexMonth;
 	let dates = [[]];
 	let weeks;
+	let year;
 	let voteColors = [];
 	let indexToMonth = {
 		0: 'January',
@@ -22,6 +25,15 @@
 		9: 'October',
 		10: 'November',
 		11: 'December'
+	};
+	let indexToDays = {
+		0: 'Sun',
+		1: 'Mon',
+		2: 'Tue',
+		3: 'Wed',
+		4: 'Thu',
+		5: 'Fri',
+		6: 'Sat'
 	};
 	let weekStr;
 
@@ -56,10 +68,11 @@
 
 	const createColors = (numMembers) => {
 		let color = 'background-color: rgba(71, 89, 126, ';
-		for (let i = 0; i < numMembers; i++) {
-			const percentage = (i + 1) / numMembers;
+		for (let i = 1; i <= numMembers; i++) {
+			const percentage = i / numMembers;
 			voteColors.push(color + percentage + ');');
 		}
+		console.log(voteColors);
 	};
 
 	const weeksInMonth = (year, month) => {
@@ -87,6 +100,29 @@
 		}
 		return days;
 	};
+	function addDays(date, days) {
+		let result = new Date(date);
+		result.setDate(result.getDate() + days);
+		return result;
+	}
+
+	const dateDay = (shift) => {
+		const intervals = weeksInMonth(year, indexMonth);
+		const specificWeek = intervals[indexWeek];
+		const weekInterval = specificWeek.split('?');
+		const startDate = new Date(weekInterval[0]);
+		const currDate = addDays(startDate, shift);
+		const nameOfMonth = indexToDays[currDate.getDay()];
+		return nameOfMonth;
+	};
+	const dateDate = (shift) => {
+		const intervals = weeksInMonth(year, indexMonth);
+		const specificWeek = intervals[indexWeek];
+		const weekInterval = specificWeek.split('?');
+		const startDate = new Date(weekInterval[0]);
+		const currDate = addDays(startDate, shift);
+		return currDate.getDate();
+	};
 
 	const pickWeek = (index) => {
 		let week = document.querySelector(`[data-index='${index}']`);
@@ -104,6 +140,40 @@
 		}
 
 		week.setAttribute('data-active', active);
+	};
+	const pickDay = (event) => {
+		console.log(event.srcElement);
+		let element = event.srcElement;
+		let voted = element.getAttribute('data-voted');
+		let i = element.getAttribute('data-day');
+		let j = element.getAttribute('data-hour');
+		if (voted == 'false') {
+			element.setAttribute('data-voted', 'true');
+			element.style.backgroundColor = '#47597e';
+			dates[i][j] += 1;
+		} else {
+			element.setAttribute('data-voted', 'false');
+			dates[i][j] -= 1;
+			element.style.backgroundColor = '';
+		}
+
+		/*
+		let week = document.querySelector(`[data-index='${index}']`);
+		let active = week.getAttribute('data-active');
+		if (active === 'false') {
+			weeks[index] += 1;
+			active = 'true';
+			week.style.color = 'white';
+			week.style.backgroundColor = '#47597e';
+		} else {
+			weeks[index] -= 1;
+			week.style.color = '#47597e';
+			week.style.backgroundColor = 'white';
+			active = 'false';
+		}
+
+		week.setAttribute('data-active', active);
+		*/
 	};
 	onMount(async () => {
 		let pathname = window.location.pathname;
@@ -123,9 +193,12 @@
 		indexMonth = schedule.indexmonth;
 		weeks = schedule.weeks;
 		dates = schedule.dates;
+		console.log(schedule);
 		createColors(schedule.nummembers);
+		year = schedule.yer;
+		indexWeek = schedule.indexweek;
 
-		weekStr = weeksInMonth(schedule.yer, indexMonth);
+		weekStr = weeksInMonth(year, indexMonth);
 
 		for (let i = 0; i < weekStr.length; i++) {
 			let interval = weekStr[i];
@@ -189,12 +262,56 @@
 				</div>
 			</div>
 		</div>
-	{:else if currentStep === 'vw'}{:else if currentStep === 'pd'}{:else if currentStep === 'vd'}{:else}
+	{:else if currentStep === 'pd'}
+		<h3>Pick date</h3>
+		<div class="dates">
+			<div class="date-picker">
+				<h3 class="month">{indexToMonth[indexMonth]}</h3>
+				<div class="container-days">
+					{#each dates as day, i}
+						<div class="day">
+							<p>{`${dateDay(i)} ${dateDate(i)}`}</p>
+							<div class="hours">
+								{#each day as hour, j}
+									<div
+										class="hour"
+										data-someone={hour > 0 ? 'someone' : ''}
+										data-voted="false"
+										data-day={i}
+										data-hour={j}
+										on:click|preventDefault={(event) => {
+											pickDay(event);
+										}}
+									/>
+								{/each}
+							</div>
+						</div>
+					{/each}
+				</div>
+				<button on:click|preventDefault={scheduleAction}>Lock</button>
+			</div>
+		</div>
+	{:else}
 		<h2>This group meeting has already been scheduled</h2>
 	{/if}
 </section>
 
 <style>
+	.container-days {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 15px;
+	}
+	.hour {
+		padding: 5px 45px;
+		border: 1px solid #47597e;
+	}
+	.hours {
+		display: flex;
+		gap: 5px;
+		flex-direction: column;
+	}
 	* {
 		margin: 0;
 		padding: 0;
@@ -266,6 +383,14 @@
 		background-color: #47597e;
 		color: white;
 	}
+
+	[data-voted='true'] {
+		background-color: #47597e;
+	}
+	[data-someone='someone'] {
+		background-color: #47597e7e;
+	}
+
 	.vwWeek {
 		color: white;
 		display: flex;
