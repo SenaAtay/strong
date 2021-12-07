@@ -36,7 +36,7 @@
 
 	const submitForm = async () => {
 		try {
-			const submit = await fetch('https://strengthn.herokuapp.com/auth/login/', {
+			const submit = await fetch('https://stengthn.herokuapp.com/auth/login/', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
