@@ -624,6 +624,7 @@
 		display: flex;
 		overflow-x: scroll;
 		overflow-y: hidden;
+		
 	}
 
 	.box {
@@ -631,6 +632,8 @@
 		height: 250px;
 		background: #ffffff;
 		padding-top: 3%;
+		padding-left: 2%;
+		padding-right: 2%;
 		/* padding-right: 5%; */
 		/* padding-left: 5%;
 		padding-bottom: 5%;  */

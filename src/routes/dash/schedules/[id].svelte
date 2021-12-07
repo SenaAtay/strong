@@ -27,13 +27,13 @@
 		11: 'December'
 	};
 	let indexToDays = {
-		0: 'Sun',
-		1: 'Mon',
-		2: 'Tue',
-		3: 'Wed',
-		4: 'Thu',
-		5: 'Fri',
-		6: 'Sat'
+		0: 'SUN',
+		1: 'MON',
+		2: 'TUE',
+		3: 'WED',
+		4: 'THU',
+		5: 'FRI',
+		6: 'SAT'
 	};
 	let weekStr;
 
@@ -264,14 +264,14 @@
 			</div>
 		</div>
 	{:else if currentStep === 'pd'}
-		<h3>Pick date</h3>
+		<!-- <h3>Pick date</h3> -->
 		<div class="dates">
 			<div class="date-picker">
-				<h3 class="month">{indexToMonth[indexMonth]}</h3>
+				<h1 style = "font-family: 'Raleway', sans-serif;font-weight: 700;" class="month">{indexToMonth[indexMonth]}</h1>
 				<div class="container-days">
 					{#each dates as day, i}
 						<div class="day">
-							<p>{`${dateDay(i)} ${dateDate(i)}`}</p>
+							<p style = "text-align: center; margin-bottom:10%;font-family: 'Raleway', sans-serif;">{`${dateDay(i)} ${dateDate(i)}`}</p>
 							<div class="hours">
 								{#each day as hour, j}
 									<div
@@ -312,10 +312,11 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		gap: 15px;
+		gap: 20px;
+		margin-bottom: 5%;
 	}
 	.hour {
-		padding: 5px 45px;
+		padding: 8px 45px;
 		border: 1px solid #47597e;
 	}
 	.hours {
@@ -329,12 +330,16 @@
 	}
 	section {
 		position: absolute;
-		left: 500px;
+		left: 475px;
 	}
 	.month {
 		text-align: center;
 		font-weight: 400;
 		margin-bottom: 20px;
+	}
+
+	.dates{
+		margin-top: 5%
 	}
 	.widget {
 		display: flex;
@@ -347,6 +352,8 @@
 		width: 700px;
 		
 	}
+
+
 	.weeks {
 		display: flex;
 		flex-direction: column;
