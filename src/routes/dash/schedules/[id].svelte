@@ -83,7 +83,7 @@
 			const startDate = date.toString();
 			let endDate;
 			if (date.getDay() != 1) {
-				while (date.getMonth() === month && date.getDay() != 1) {
+				while (date.getMonth() == month && date.getDay() != 1) {
 					endDate = date.toString();
 					date.setDate(date.getDate() + 1);
 				}
@@ -100,18 +100,18 @@
 		}
 		return days;
 	};
-	function addDays(date, days) {
-		let result = new Date(date);
-		result.setDate(result.getDate() + days);
-		return result;
-	}
+	Date.prototype.addDays = function (days) {
+		const date = new Date(this.valueOf());
+		date.setDate(date.getDate() + days);
+		return date;
+	};
 
 	const dateDay = (shift) => {
 		const intervals = weeksInMonth(year, indexMonth);
 		const specificWeek = intervals[indexWeek];
 		const weekInterval = specificWeek.split('?');
 		const startDate = new Date(weekInterval[0]);
-		const currDate = addDays(startDate, shift);
+		let currDate = startDate.addDays(shift);
 		const nameOfMonth = indexToDays[currDate.getDay()];
 		return nameOfMonth;
 	};
@@ -120,7 +120,7 @@
 		const specificWeek = intervals[indexWeek];
 		const weekInterval = specificWeek.split('?');
 		const startDate = new Date(weekInterval[0]);
-		const currDate = addDays(startDate, shift);
+		let currDate = startDate.addDays(shift);
 		return currDate.getDate();
 	};
 
