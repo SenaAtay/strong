@@ -68,6 +68,8 @@
 	$: groups = userInfo.groups;
 	$: user = userInfo.user;
 
+	$: console.log(reactiveUserInfo)
+
 
 
 	$: {
@@ -96,7 +98,9 @@
 	$: {
 
 		if (reactiveUserInfo.connections != undefined || Object.keys(reactiveUserInfo).length != 0  ){
+			// console.log("whos this ", reactiveUserInfo.connections)
 			total = reactiveUserInfo.connections.length -1;
+			// console.log("total", total)
 			}
 		}
 
@@ -112,17 +116,19 @@
 		}
 	}
 
+	
 	$: {
 		for (let i in newGroupsInfo) {
 			
 			if (newGroupsInfo[i].members != null) {
 				for (let j=0; j< (newGroupsInfo[i].members).length; j++ ){
-					
+					// console.log(newGroupsInfo[i].members)
 					if (newGroupsInfo[i].members[j] != `${user[0].fname} ${user[0].lname}`){
 						
 						connectionSet.add(newGroupsInfo[i].members[j])
 						// console.log(connectionSet.size)
 						size = connectionSet.size;
+						// console.log(size)
 						percentage = Math.round((size/total)*100);
 						
 					}

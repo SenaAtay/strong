@@ -223,7 +223,8 @@
 	{#if currentStep === 'pw'}
 		<div class="widget">
 			<div class="week-picker">
-				<h3 class="month">{indexToMonth[indexMonth]}</h3>
+				<h1 style = "font-family: 'Raleway', sans-serif;font-weight: 700;" class="month">{indexToMonth[indexMonth]}</h1>
+				
 				<div class="weeks">
 					{#each weekStr as week, i}
 						<div
@@ -240,7 +241,7 @@
 				</div>
 				<button on:click|preventDefault={scheduleAction}>Lock</button>
 			</div>
-			<div class="week-voter">
+			<div class="week-voter" style="visibility: hidden">
 				<h3>Vote</h3>
 				<div class="vote-colors">
 					{#each voteColors as color, i}
@@ -297,6 +298,16 @@
 </section>
 
 <style>
+
+	button{
+		width: 35%;
+		border-radius: 10px;
+		background-color: white;
+		border-width: thin;
+		padding-bottom: .5%;
+		padding-top: .5%;
+		margin-left: 33%;
+	}
 	.container-days {
 		display: flex;
 		justify-content: center;
@@ -318,7 +329,7 @@
 	}
 	section {
 		position: absolute;
-		left: 250px;
+		left: 500px;
 	}
 	.month {
 		text-align: center;
@@ -340,6 +351,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 3px;
+		margin-bottom: 3%;
 	}
 	.week {
 		display: flex;
@@ -348,6 +360,7 @@
 		width: 100%;
 		padding: 40px 0;
 		border: 1px solid #47597e;
+		margin-bottom: .5%;
 	}
 	.week-choices {
 		display: flex;

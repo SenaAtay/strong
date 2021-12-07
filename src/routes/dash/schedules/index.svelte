@@ -59,7 +59,11 @@
 </svelte:head>
 <body in:fly={{ x: -5, duration: 500, delay: 500 }} out:fly={{ x: 5, duration: 500 }}>
 	{#if schedules.length === 0}
-		<h2>You have no meetings to schedule</h2>
+	<section>
+		<div>
+			<h1 style="font-family: 'Raleway', sans-serif; font-weight: 700;">Start scheduling</h1>
+			</div>
+			</section>
 	{:else}
 		<section>
 			<div>
