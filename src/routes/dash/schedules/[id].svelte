@@ -37,6 +37,8 @@
 	};
 	let weekStr;
 
+	const createWeeks = (year, month) => {};
+
 	const scheduleAction = async () => {
 		let pathname = window.location.pathname;
 		let arr = pathname.split('/');
@@ -197,8 +199,13 @@
 		createColors(schedule.nummembers);
 		year = schedule.yer;
 		indexWeek = schedule.indexweek;
-
 		weekStr = weeksInMonth(year, indexMonth);
+		if (finished.length === 0) {
+			weeks = [];
+			for (let i = 0; i < weekStr.length; i++) {
+				weeks.push(0);
+			}
+		}
 
 		for (let i = 0; i < weekStr.length; i++) {
 			let interval = weekStr[i];
@@ -223,8 +230,10 @@
 	{#if currentStep === 'pw'}
 		<div class="widget">
 			<div class="week-picker">
-				<h1 style = "font-family: 'Raleway', sans-serif;font-weight: 700;" class="month">{indexToMonth[indexMonth]}</h1>
-				
+				<h1 style="font-family: 'Raleway', sans-serif;font-weight: 700;" class="month">
+					{indexToMonth[indexMonth]}
+				</h1>
+
 				<div class="weeks">
 					{#each weekStr as week, i}
 						<div
@@ -267,11 +276,15 @@
 		<!-- <h3>Pick date</h3> -->
 		<div class="dates">
 			<div class="date-picker">
-				<h1 style = "font-family: 'Raleway', sans-serif;font-weight: 700;" class="month">{indexToMonth[indexMonth]}</h1>
+				<h1 style="font-family: 'Raleway', sans-serif;font-weight: 700;" class="month">
+					{indexToMonth[indexMonth]}
+				</h1>
 				<div class="container-days">
 					{#each dates as day, i}
 						<div class="day">
-							<p style = "text-align: center; margin-bottom:10%;font-family: 'Raleway', sans-serif;">{`${dateDay(i)} ${dateDate(i)}`}</p>
+							<p style="text-align: center; margin-bottom:10%;font-family: 'Raleway', sans-serif;">
+								{`${dateDay(i)} ${dateDate(i)}`}
+							</p>
 							<div class="hours">
 								{#each day as hour, j}
 									<div
@@ -298,14 +311,13 @@
 </section>
 
 <style>
-
-	button{
+	button {
 		width: 35%;
 		border-radius: 10px;
 		background-color: white;
 		border-width: thin;
-		padding-bottom: .5%;
-		padding-top: .5%;
+		padding-bottom: 0.5%;
+		padding-top: 0.5%;
 		margin-left: 33%;
 	}
 	.container-days {
@@ -338,8 +350,8 @@
 		margin-bottom: 20px;
 	}
 
-	.dates{
-		margin-top: 5%
+	.dates {
+		margin-top: 5%;
 	}
 	.widget {
 		display: flex;
@@ -350,9 +362,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 700px;
-		
 	}
-
 
 	.weeks {
 		display: flex;
@@ -367,7 +377,7 @@
 		width: 100%;
 		padding: 40px 0;
 		border: 1px solid #47597e;
-		margin-bottom: .5%;
+		margin-bottom: 0.5%;
 	}
 	.week-choices {
 		display: flex;
