@@ -9,7 +9,7 @@
 
 	const createGroups = async (groups) => {
 		try {
-			const submit = await fetch(`https://strengthn.herokuapp.com/admin/group`, {
+			const submit = await fetch(`https://stengthn.herokuapp.com/admin/group`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'

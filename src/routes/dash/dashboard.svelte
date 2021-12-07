@@ -331,7 +331,7 @@
 
 
 		try {
-			const submit = await fetch(`https://strengthn.herokuapp.com/user/group/${id}`, {
+			const submit = await fetch(`https://stengthn.herokuapp.com/user/group/${id}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

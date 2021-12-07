@@ -12,7 +12,7 @@
         const unsubscribe = jwt.subscribe(value => {
             njwt = value;
         })
-            const res = await fetch (`https://strengthn.herokuapp.com/user/messages/${id}`, {
+            const res = await fetch (`https://stengthn.herokuapp.com/user/messages/${id}`, {
             method: "GET",
             headers:{
                 'Content-Type': 'application/json',
@@ -31,7 +31,7 @@
         const unsubscribe = jwt.subscribe(value => {
             njwt = value;
         })
-            const res = await fetch (`https://strengthn.herokuapp.com/user/messages/${id}`, {
+            const res = await fetch (`https://stengthn.herokuapp.com/user/messages/${id}`, {
             method: "GET",
             headers:{
                 'Content-Type': 'application/json',
@@ -54,7 +54,7 @@
             njwt = value;
         })
         try {
-            const submit = await fetch(`https://strengthn.herokuapp.com/user/messages/${id}`, {
+            const submit = await fetch(`https://stengthn.herokuapp.com/user/messages/${id}`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',

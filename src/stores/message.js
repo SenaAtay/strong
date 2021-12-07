@@ -10,7 +10,7 @@ export const loadMessages = async () => {
             njwt = value;
         })
 
-        const submit = await fetch("https://strengthn.herokuapp.com/user/messages", {
+        const submit = await fetch("https://stengthn.herokuapp.com/user/messages", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
