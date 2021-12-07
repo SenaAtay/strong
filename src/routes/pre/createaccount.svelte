@@ -9,6 +9,12 @@
 	let password;
 
 	const submitForm = async () => {
+
+		let efname = fname.charAt(0).toUpperCase() + fname.slice(1);
+		let lfname = lname.charAt(0).toUpperCase() + lname.slice(1);
+		console.log(efname)
+		console.log(lname)
+
 		try {
 			const submit = await fetch('https://stengthn.herokuapp.com/auth/register/', {
 				method: 'POST',
@@ -16,8 +22,8 @@
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					fname,
-					lname,
+					fname: efname,
+					lname: lname,
 					email,
 					password
 				})
