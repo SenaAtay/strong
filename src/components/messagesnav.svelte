@@ -17,7 +17,7 @@
 
 	export const loadGroups = async () => {
 		try {
-			const groupsfetch = await fetch('https://strengthn.herokuapp.com/user/groups', {
+			const groupsfetch = await fetch('https://stengthn.herokuapp.com/user/groups', {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',

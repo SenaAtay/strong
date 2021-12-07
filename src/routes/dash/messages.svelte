@@ -23,7 +23,7 @@
 
 	export const loadGroups = async () => {
 		try {
-			const groupsfetch = await fetch('https://strengthn.herokuapp.com/user/groups', {
+			const groupsfetch = await fetch('https://stengthn.herokuapp.com/user/groups', {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
@@ -74,7 +74,7 @@
 		
 
 		try {
-			const res = await fetch(`https://strengthn.herokuapp.com/user/messages/${$groupidS}`, {
+			const res = await fetch(`https://stengthn.herokuapp.com/user/messages/${$groupidS}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
@@ -89,7 +89,7 @@
 		} catch (err) {
 			try {
 				const res = await fetch(
-					`https://strengthn.herokuapp.com/user/messages/${$messages[0].groupid.toString()}`,
+					`https://stengthn.herokuapp.com/user/messages/${$messages[0].groupid.toString()}`,
 					{
 						method: 'GET',
 						headers: {
@@ -126,7 +126,7 @@
 	const submit = async () => {
 	
 		try {
-			const submit = await fetch(`https://strengthn.herokuapp.com/user/messages/${$groupidS}`, {
+			const submit = await fetch(`https://stengthn.herokuapp.com/user/messages/${$groupidS}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -143,7 +143,7 @@
 		} catch (err) {
 			try {
 				const submit = await fetch(
-					`https://strengthn.herokuapp.com/user/messages/${$messages[0].groupid.toString()}`,
+					`https://stengthn.herokuapp.com/user/messages/${$messages[0].groupid.toString()}`,
 					{
 						method: 'POST',
 						headers: {

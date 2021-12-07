@@ -96,7 +96,7 @@
 	$: {
 
 		if (reactiveUserInfo.connections != undefined || Object.keys(reactiveUserInfo).length != 0  ){
-			total = reactiveUserInfo.connections.length;
+			total = reactiveUserInfo.connections.length -1;
 			}
 		}
 
@@ -331,7 +331,7 @@
 
 
 		try {
-			const submit = await fetch(`https://strengthn.herokuapp.com/user/group/${id}`, {
+			const submit = await fetch(`https://stengthn.herokuapp.com/user/group/${id}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

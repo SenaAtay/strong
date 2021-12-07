@@ -45,7 +45,7 @@
 			dates = null;
 		}
 		try {
-			const result = await fetch(`https://strengthn.herokuapp.com/user/schedules/${id}`, {
+			const result = await fetch(`https://stengthn.herokuapp.com/user/schedules/${id}`, {
 				method: 'POST',
 				body: JSON.stringify({
 					weeks,
@@ -179,7 +179,7 @@
 		let pathname = window.location.pathname;
 		let arr = pathname.split('/');
 		let id = parseInt(arr[arr.length - 1]);
-		const result = await fetch(`https://strengthn.herokuapp.com/user/schedules/${id}`, {
+		const result = await fetch(`https://stengthn.herokuapp.com/user/schedules/${id}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -328,11 +328,13 @@
 	.widget {
 		display: flex;
 		gap: 20px;
+		margin-top: 5%;
 	}
 	.week-picker {
 		display: flex;
 		flex-direction: column;
 		width: 700px;
+		
 	}
 	.weeks {
 		display: flex;

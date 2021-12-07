@@ -11,7 +11,7 @@ export const loadDash = async () => {
             njwt = value;
         })
 
-        const submit = await fetch("https://strengthn.herokuapp.com/user/home", {
+        const submit = await fetch("https://stengthn.herokuapp.com/user/home", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
