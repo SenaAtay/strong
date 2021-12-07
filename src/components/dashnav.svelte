@@ -7,7 +7,7 @@
 	onMount(async () => {
 		loadDash();
 	});
-
+ 
 	let userInfo;
 	const unsubscribe = dash.subscribe((value) => {
 		userInfo = value;
@@ -18,6 +18,12 @@
 	$: org = userInfo.org;
 	$: schedules = userInfo.schedules;
 	$: user = userInfo.user;
+
+	function upperCase(name) {
+		let upname= (name.charAt(0)).toUpperCase() 
+		return upname;
+	}
+
 </script>
 
 
@@ -34,7 +40,7 @@
 			<p />
 		{:else} 
 		
-		<div class = "prof" >{(user[0].fname).charAt(0)} {(user[0].lname).charAt(0)}</div>
+		<div class = "prof" >{upperCase(user[0].fname)} {upperCase(user[0].lname)}</div>
 			<div class="nameNLogo">
 				<h1>{user[0].fname} {user[0].lname}</h1>
 				<a href="/dash/profile"><img class="gear" alt="profileGear" src="/gear.png" /></a>

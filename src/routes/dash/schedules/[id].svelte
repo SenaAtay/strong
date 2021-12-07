@@ -36,6 +36,8 @@
 		6: 'SAT'
 	};
 	let weekStr;
+	let timeArr = ['12AM', '1AM','2AM', '3AM', '4AM', '5AM', '6AM', '7AM', '8AM', '9AM', '10AM', '11AM' ,'12PM',
+	'1PM', '2PM', '3PM', '4PM', '5PM', '6PM', '7PM', '8PM', '9PM', '10PM', '11PM', '12AM' ]
 
 	const scheduleAction = async () => {
 		let pathname = window.location.pathname;
@@ -273,6 +275,7 @@
 					{indexToMonth[indexMonth]}
 				</h1>
 				<div class="container-days">
+		
 					{#each dates as day, i}
 						<div class="day">
 							<p style="text-align: center; margin-bottom:10%;font-family: 'Raleway', sans-serif;">
@@ -289,7 +292,7 @@
 										on:click|preventDefault={(event) => {
 											pickDay(event);
 										}}
-									/>
+									> {timeArr[j]} </div>
 								{/each}
 							</div>
 						</div>
@@ -304,13 +307,15 @@
 </section>
 
 <style>
+
+	
 	button {
 		width: 35%;
 		border-radius: 10px;
 		background-color: white;
 		border-width: thin;
 		padding-bottom: 0.5%;
-		padding-top: 0.5%;
+		padding-top: 0%;
 		margin-left: 33%;
 	}
 	.container-days {
@@ -318,15 +323,16 @@
 		justify-content: center;
 		align-items: center;
 		gap: 20px;
-		margin-bottom: 5%;
+		margin-bottom: 2%;
 	}
 	.hour {
-		padding: 8px 45px;
+		padding: 4px 45px;
 		border: 1px solid #47597e;
+		font-size: 8px;;
 	}
 	.hours {
 		display: flex;
-		gap: 5px;
+		gap: 3px;
 		flex-direction: column;
 	}
 	* {
@@ -340,7 +346,7 @@
 	.month {
 		text-align: center;
 		font-weight: 400;
-		margin-bottom: 20px;
+		margin-bottom: 13px;
 	}
 
 	.dates {

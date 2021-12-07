@@ -8,6 +8,15 @@
 	let result;
 
 	const createGroups = async (groups) => {
+
+		console.log("org", organization)
+		console.log("org", typeof organization)
+		console.log("groups", groups)
+		console.log("org", typeof groups)
+		console.log("indexMonth", indexMonth)
+		console.log("org", typeof indexMonth)
+		console.log("year", year)
+		console.log("year", typeof year)
 		try {
 			const submit = await fetch(`https://stengthn.herokuapp.com/admin/group`, {
 				method: 'POST',
@@ -25,7 +34,8 @@
 
 			console.log(json);
 			console.log(json.msg);
-			if (json.msg == 'Successfully made groups') {
+			// json.ok &&
+			if ( json.msg == 'Successfully made groups') {
 				reveal();
 			}
 
