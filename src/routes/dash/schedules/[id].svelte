@@ -46,6 +46,8 @@
 		if (dates == undefined) {
 			dates = null;
 		}
+
+		console.log("weeks", weeks)
 		try {
 			const result = await fetch(`https://stengthn.herokuapp.com/user/schedules/${id}`, {
 				method: 'POST',
