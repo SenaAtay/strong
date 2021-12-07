@@ -37,8 +37,6 @@
 	};
 	let weekStr;
 
-	const createWeeks = (year, month) => {};
-
 	const scheduleAction = async () => {
 		let pathname = window.location.pathname;
 		let arr = pathname.split('/');
@@ -47,7 +45,6 @@
 			dates = null;
 		}
 
-		console.log("weeks", weeks)
 		try {
 			const result = await fetch(`https://stengthn.herokuapp.com/user/schedules/${id}`, {
 				method: 'POST',
@@ -64,7 +61,7 @@
 			const res = await result.json();
 			console.log(res);
 
-			goto('/dash/schedules');
+			goto('/dash/dashboard');
 		} catch (err) {
 			console.log(err);
 		}
