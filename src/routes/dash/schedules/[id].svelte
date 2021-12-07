@@ -200,12 +200,6 @@
 		year = schedule.yer;
 		indexWeek = schedule.indexweek;
 		weekStr = weeksInMonth(year, indexMonth);
-		if (finished.length === 0) {
-			weeks = [];
-			for (let i = 0; i < weekStr.length; i++) {
-				weeks.push(0);
-			}
-		}
 
 		for (let i = 0; i < weekStr.length; i++) {
 			let interval = weekStr[i];
